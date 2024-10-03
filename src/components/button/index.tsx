@@ -6,16 +6,27 @@ import Link from 'next/link'
 interface NavButton extends ButtonProps {
   Icon?: ComponentType<LucideProps>
   children?: string
-  href: string
+  href?: string
 }
 
 export function Button({ href, Icon, variant, children, ...props }: NavButton) {
+  if (href) {
+    return (
+      <ShadButton variant={variant} asChild {...props}>
+        <Link href={href} className={'gap-2'}>
+          {Icon && <Icon />}
+          {children && children}
+        </Link>
+      </ShadButton>
+    )
+  }
+
   return (
-    <ShadButton variant={variant} asChild {...props}>
-      <Link href={href} className={'gap-2'}>
+    <ShadButton variant={variant} {...props}>
+      <>
         {Icon && <Icon />}
         {children && children}
-      </Link>
+      </>
     </ShadButton>
   )
 }
