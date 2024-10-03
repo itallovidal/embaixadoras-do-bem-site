@@ -11,7 +11,7 @@ export function DesktopNavbar() {
         'border-b hidden sm:block bg-pink-dark navbar-detail relative '
       }
     >
-      <div className={'max-w-safe m-auto'}>
+      <div className={'max-w-safeDesktop m-auto'}>
         <div
           className={
             'flex h-16 items-center justify-between gap-6  relative z-10 overflow-hidden'
