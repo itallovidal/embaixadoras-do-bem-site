@@ -3,6 +3,20 @@
 @tailwind utilities;
 @layer base {
   :root {
+     /*   CUSTOM COLORS    */
+    --pink-dark:#FD66C3;
+    --pink-mid: #FD66C3;
+    --pink-light: #FD66C3;
+    --blue-dark: #009FFF;
+    --blue-mid: #66C6FF;
+    --blue-light: #CCECFF;
+    --gray-600: #333638;
+    --gray-500: #5C6265;
+    --gray-400: #B9BBBC;
+    --gray-300: #DDDEDF;
+    --gray-200: #EFF0F0;
+    --gray-100: #FAFAFA;
+    /* -------------------- */
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
