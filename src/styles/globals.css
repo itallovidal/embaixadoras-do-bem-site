@@ -3,12 +3,15 @@
 @tailwind utilities;
 @layer base {
   :root {
+    --safe-desktop: 70rem;
+    --safe-mobile: 90%;
+
      /*   CUSTOM COLORS    */
-    --pink-dark:#FD66C3;
-    --pink-mid: #FD66C3;
-    --pink-light: #FD66C3;
+    --pink-dark:#FF64C3;
+    --pink-mid: #FDB1E0;
+    --pink-light: #FDD7EE;
     --blue-dark: #009FFF;
-    --blue-mid: #66C6FF;
+    --blue-mid: #B2E2FF;
     --blue-light: #CCECFF;
     --gray-600: #333638;
     --gray-500: #5C6265;
@@ -77,4 +80,41 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.logo-detail:before{
+  position: absolute;
+  z-index: -1;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 120%;
+  height: 100%;
+  background-color: white;
+  border-bottom-right-radius: 50px;
+  border-top-right-radius: 50px;
+}
+
+.logo-detail:after{
+  position: absolute;
+  z-index: -2;
+  content: '';
+  top: 20px;
+  right: -80%;
+  width: 120%;
+  height: 100%;
+  background-color: var(--pink-mid);
+  border-bottom-right-radius: 50px;
+  border-top-right-radius: 50px;
+}
+
+.navbar-detail:before{
+  position: absolute;
+  z-index: 100;
+  content: '';
+  top: 0;
+  left: 0;
+  width: calc((100% - var(--safe-desktop)) / 2);
+  height: 100%;
+  background-color: white;
 }

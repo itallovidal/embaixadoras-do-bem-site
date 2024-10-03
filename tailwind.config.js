@@ -1,9 +1,18 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   darkMode: ['class'],
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
+      maxWidth: {
+        safeMobile: 'var(--safe-mobile)',
+        safeDesktop: 'var(--safe-desktop)',
+      },
+      fontSize: {
+        heading: '2rem',
+        subheading: '1.5rem',
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
