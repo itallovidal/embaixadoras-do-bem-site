@@ -1,16 +1,16 @@
 import Image from 'next/image'
-import Logo from '../../assets/Embaixadoras do bem - LOGO.svg'
+import Logo from '../../assets/embaixadoras-do-bem-logo.svg'
 import { Button } from '@/components/button'
-
-// <Button variant={'lightGhost'} href={'/'}>
-//   Blog
-// </Button>
 
 export function Footer() {
   return (
-    <footer className={'bg-pink-light w-full '}>
-      <div className="max-w-safe m-auto flex flex-row  py-10 items-start gap-10">
-        <div className={'flex flex-row gap-2 bg'}>
+    <footer className={'bg-pink-light w-full justify-items-center'}>
+      <div
+        className={
+          'max-w-safeMobile sm:max-w-safeDesktop m-auto flex flex-col py-10 items-start gap-10 sm:flex-row'
+        }
+      >
+        <div className={'flex flex-col gap-2 sm:flex-row'}>
           <Image src={Logo} alt={'Logo embaixadoras do bem'} />
 
           <div className={`flex flex-col gap-5 max-w-[50ch]`}>
