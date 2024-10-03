@@ -9,7 +9,7 @@ import {
 import { Home, Menu, X } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/button'
-import Logo from '@/assets/Embaixadoras-do-bem-logo.svg'
+import Logo from '@/assets/embaixadoras-do-bem-logo.svg'
 import Image from 'next/image'
 
 export function MobileNavbar() {
