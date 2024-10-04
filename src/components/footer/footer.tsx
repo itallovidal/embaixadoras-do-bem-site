@@ -7,10 +7,10 @@ export function Footer() {
     <footer className={'bg-pink-light w-full justify-items-center'}>
       <div
         className={
-          'max-w-safeMobile sm:max-w-safeDesktop m-auto flex flex-col py-10 items-start gap-10 sm:flex-row'
+          'max-w-safeMobile lg:max-w-safeDesktop m-auto flex flex-col py-10 items-start gap-10 md:flex-row'
         }
       >
-        <div className={'flex flex-col gap-2 sm:flex-row'}>
+        <div className={'flex flex-col gap-2 lg:flex-row'}>
           <Image src={Logo} alt={'Logo embaixadoras do bem'} />
 
           <div className={`flex flex-col gap-5 max-w-[50ch]`}>

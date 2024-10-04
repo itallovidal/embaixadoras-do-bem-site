@@ -8,7 +8,7 @@ import { Heading, Paragraph, Highlight } from '@/components/text'
 export function About() {
   return (
     <article className={'flex flex-col gap-12 my-10'}>
-      <section className={'flex justify-between gap-12'}>
+      <section className={'flex flex-col lg:flex-row justify-between gap-12'}>
         <div>
           <Heading> Sobre nós </Heading>
 
@@ -31,10 +31,13 @@ export function About() {
           width={600}
           src={AboutPic1}
           alt={'imagem das embaixadoras juntas'}
+          className={'self-center'}
         />
       </section>
 
-      <section className={'flex flex-row-reverse justify-between gap-12'}>
+      <section
+        className={'flex flex-col lg:flex-row-reverse justify-between gap-12'}
+      >
         <div>
           <Heading> Inspiração de vida</Heading>
           <Paragraph>
@@ -61,10 +64,11 @@ export function About() {
           alt={
             'imagem da Sra. Tânia Gomez recebendo o certificado de embaixadora da paz.'
           }
+          className={'self-center'}
         />
       </section>
 
-      <section className={'flex  justify-between gap-12'}>
+      <section className={'flex flex-col lg:flex-row  justify-between gap-12'}>
         <div>
           <Heading>Juntas somos mais fortes! </Heading>
           <Paragraph>
@@ -92,6 +96,7 @@ export function About() {
           width={600}
           src={AboutPic3}
           alt={'imagem das embaixadoras juntas'}
+          className={'self-center'}
         />
       </section>
     </article>

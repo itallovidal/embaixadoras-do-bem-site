@@ -11,7 +11,7 @@ interface HeaderProps {
 
 export function Header({ img, alt, title, description }: HeaderProps) {
   return (
-    <header className={'gap-4 relative '}>
+    <header className={'gap-4 relative'}>
       <Image
         src={img}
         alt={alt}
@@ -21,7 +21,7 @@ export function Header({ img, alt, title, description }: HeaderProps) {
 
       <div
         className={
-          'absolute top-0 text-white h-full left-[calc((100%-var(--safe-desktop))/2)] content-center'
+          'absolute top-0 text-white h-full left-[calc((100%-var(--safe-mobile))/2)] xl:left-[calc((100%-var(--safe-desktop))/2)] content-center'
         }
       >
         {title && (

@@ -4,19 +4,19 @@ import { Button } from '@/components/button'
 
 export function CallToAction() {
   return (
-    <article className=" gap-12 my-10">
+    <article className={'gap-12 my-10'}>
       <div>
         <Heading>Doe esperança,</Heading>
         <Heading>transforme vidas</Heading>
       </div>
 
-      <section className={'flex mt-12 items-start'}>
+      <section className={'flex flex-col md:flex-row gap-10 mt-12 items-start'}>
         <div className={'flex flex-col gap-4 justify-center items-center'}>
           <Banknote
             className={'bg-pink-dark p-2 size-12 rounded-full'}
             color={'white'}
           />
-          <Paragraph style={'font-bold'}>
+          <Paragraph style={'font-bold text-center'}>
             Sua contribuição faz toda a diferença
           </Paragraph>
           <Paragraph style={'text-center'}>

@@ -6,11 +6,7 @@ import Image from 'next/image'
 
 export function DesktopNavbar() {
   return (
-    <div
-      className={
-        'border-b hidden sm:block bg-pink-dark navbar-detail relative '
-      }
-    >
+    <div className={'hidden sm:block bg-pink-dark navbar-detail relative '}>
       <div className={'max-w-safeDesktop m-auto'}>
         <div
           className={

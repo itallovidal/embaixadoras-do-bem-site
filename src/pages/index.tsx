@@ -15,7 +15,7 @@ export default function Index() {
         }
       />
 
-      <div className={'max-w-safeDesktop m-auto'}>
+      <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto'}>
         <About />
         <CallToAction />
       </div>
