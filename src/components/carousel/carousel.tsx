@@ -6,7 +6,6 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from '@/components/ui/carousel'
-import { Card, CardContent } from '@/components/ui/card'
 import Image, { StaticImageData } from 'next/image'
 import aboutPic1 from '../../assets/about-pic-1.jpg'
 import aboutPic2 from '../../assets/about-pic-2.jpg'
