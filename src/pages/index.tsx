@@ -4,6 +4,7 @@ import { About } from '@/components/pages/home/about'
 import { CallToAction } from '@/components/pages/home/call-to-action'
 import { Projects } from '@/components/pages/home/projects'
 import { BlogPosts } from '@/components/pages/home/blog-posts'
+import { Carousel } from '@/components/carousel/carousel'
 
 export default function Index() {
   return (
@@ -22,6 +23,7 @@ export default function Index() {
         <CallToAction />
         <Projects />
         <BlogPosts />
+        <Carousel />
       </div>
     </div>
   )
