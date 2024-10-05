@@ -10,7 +10,7 @@ import Image from 'next/image'
 import Placeholder from '@/assets/blog-banner-placeholder.jpg'
 import { Button } from '@/components/button'
 
-export function BlogCards() {
+export function BlogCard() {
   return (
     <Card className={'w-[calc(theme(width.1/3)-theme(gap.2))] bg-gray-100'}>
       <CardHeader>
