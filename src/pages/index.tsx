@@ -3,6 +3,7 @@ import Banner from '../assets/banner-home-background.png'
 import { About } from '@/components/pages/home/about'
 import { CallToAction } from '@/components/pages/home/call-to-action'
 import { Projects } from '@/components/pages/home/projects'
+import { BlogPosts } from '@/components/pages/home/blog-posts'
 
 export default function Index() {
   return (
@@ -20,6 +21,7 @@ export default function Index() {
         <About />
         <CallToAction />
         <Projects />
+        <BlogPosts />
       </div>
     </div>
   )

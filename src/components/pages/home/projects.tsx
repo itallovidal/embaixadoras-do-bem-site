@@ -1,7 +1,6 @@
 import React from 'react'
 import { ProjectCard } from '@/components/project-card/project-card'
 import { Button } from '@/components/button'
-import { Header } from '@/components/header/header'
 import { Heading } from '@/components/text'
 
 export function Projects() {
