@@ -7,10 +7,15 @@ import { ArrowLeft } from 'lucide-react'
 
 export default function Index() {
   return (
-    <section>
-      <Header img={Banner} alt={'Apoiando a causa'} title={'Nossos projetos'} />
+    <article>
+      <Header
+        short={true}
+        img={Banner}
+        alt={'Apoiando a causa'}
+        title={'Nossos projetos'}
+      />
 
-      <article className={'max-w-safeMobile lg:max-w-safeDesktop m-auto'}>
+      <section className={'max-w-safeMobile lg:max-w-safeDesktop m-auto'}>
         <div className={'my-5 flex  justify-end'}>
           <Button Icon={ArrowLeft} variant={'ghost'}>
             Voltar
@@ -26,7 +31,7 @@ export default function Index() {
             <ProjectCard />
           ))}
         </div>
-      </article>
-    </section>
+      </section>
+    </article>
   )
 }

@@ -7,16 +7,23 @@ interface HeaderProps {
   alt: string
   title: string
   description?: string
+  short?: boolean
 }
 
-export function Header({ img, alt, title, description }: HeaderProps) {
+export function Header({
+  img,
+  alt,
+  title,
+  description,
+  short = false,
+}: HeaderProps) {
   return (
     <header className={'gap-4 relative'}>
       <Image
         src={img}
         alt={alt}
         width={undefined}
-        className={'w-full h-[600px] object-cover'}
+        className={`w-full ${short ? `h-[370px]` : `h-[600px]`} object-cover`}
       />
 
       <div

@@ -61,7 +61,9 @@ export function VolunteerForm() {
               <Input />
             </label>
           </form>
-          <Button variant={'outline'} className={'self-end'}>Me voluntariar!</Button>
+          <Button variant={'outline'} className={'self-end'}>
+            Me voluntariar!
+          </Button>
         </div>
       </section>
     </article>
