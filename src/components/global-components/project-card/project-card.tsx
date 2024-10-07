@@ -6,9 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import Placeholder from '../../assets/placeholder-project-banner.png'
+import Placeholder from '../../../assets/placeholder-project-banner.png'
 import Image from 'next/image'
-import { Button } from '@/components/button'
+import { Button } from '../button'
 
 export function ProjectCard() {
   return (

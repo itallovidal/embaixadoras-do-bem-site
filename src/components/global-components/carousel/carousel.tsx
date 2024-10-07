@@ -6,10 +6,10 @@ import {
   CarouselNext,
 } from '@/components/ui/carousel'
 import Image, { StaticImageData } from 'next/image'
-import aboutPic1 from '../../assets/about-pic-1.jpg'
-import aboutPic2 from '../../assets/about-pic-2.jpg'
-import aboutPic3 from '../../assets/about-pic-3.jpg'
-import projectPic from '../../assets/placeholder-project-banner.png'
+import aboutPic1 from '../../../assets/about-pic-1.jpg'
+import aboutPic2 from '../../../assets/about-pic-2.jpg'
+import aboutPic3 from '../../../assets/about-pic-3.jpg'
+import projectPic from '../../../assets/placeholder-project-banner.png'
 import { Heading } from '@/components/global-components/text/heading'
 import { Paragraph } from '@/components/global-components/text/paragraph'
 

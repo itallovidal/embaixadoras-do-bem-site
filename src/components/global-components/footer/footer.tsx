@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import Logo from '../../assets/embaixadoras-do-bem-logo.svg'
-import { Button } from '@/components/button'
+import Logo from '../../../assets/embaixadoras-do-bem-logo.svg'
+import { Button } from '../button'
 
 export function Footer() {
   return (

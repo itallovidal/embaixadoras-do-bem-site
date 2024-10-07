@@ -1,6 +1,6 @@
-import { Button } from '@/components/button'
+import { Button } from '../../global-components/button'
 import React from 'react'
-import { BlogCard } from '@/components/blog-card/blog-card'
+import { BlogCard } from '@/components/global-components/blog-card/blog-card'
 import { Heading } from '@/components/global-components/text/heading'
 
 export function BlogPosts() {

@@ -1,6 +1,6 @@
 import React from 'react'
-import Logo from '../../assets/embaixadoras-do-bem-logo.svg'
-import { Button } from '@/components/button'
+import Logo from '../../../assets/embaixadoras-do-bem-logo.svg'
+import { Button } from '../button'
 import { Separator } from '@/components/ui/separator'
 import Image from 'next/image'
 

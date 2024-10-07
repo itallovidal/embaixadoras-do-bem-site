@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/card'
 import Image from 'next/image'
 import Placeholder from '@/assets/blog-banner-placeholder.jpg'
-import { Button } from '@/components/button'
+import { Button } from '../button'
 
 export function BlogCard() {
   return (

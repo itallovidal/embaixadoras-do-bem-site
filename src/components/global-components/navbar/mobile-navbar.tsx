@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/drawer'
 import { Home, Menu, X } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
-import { Button } from '@/components/button'
+import { Button } from '../button'
 import Logo from '@/assets/embaixadoras-do-bem-logo.svg'
 import Image from 'next/image'
 

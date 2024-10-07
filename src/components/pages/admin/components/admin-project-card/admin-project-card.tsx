@@ -1,6 +1,6 @@
 import imagePlaceholder from '../../../../../assets/about-pic-1.jpg'
 import Image from 'next/image'
-import { Button } from '@/components/button'
+import { Button } from '../../../../global-components/button'
 import { Paragraph } from '@/components/global-components/text/paragraph'
 
 export function AdminProjectCard() {

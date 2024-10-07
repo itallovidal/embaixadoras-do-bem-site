@@ -1,5 +1,5 @@
 import { Banknote, Gift, HeartHandshake } from 'lucide-react'
-import { Button } from '@/components/button'
+import { Button } from '../../global-components/button'
 import { Heading } from '@/components/global-components/text/heading'
 import { Paragraph } from '@/components/global-components/text/paragraph'
 

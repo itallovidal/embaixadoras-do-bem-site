@@ -1,7 +1,7 @@
-import { Header } from '@/components/header/header'
+import { Header } from '@/components/global-components/header/header'
 import Banner from '../../assets/banner-projects-background.png'
-import { Button } from '@/components/button'
-import { ProjectCard } from '@/components/project-card/project-card'
+import { Button } from '../../components/global-components/button'
+import { ProjectCard } from '@/components/global-components/project-card/project-card'
 import React from 'react'
 import { ArrowLeft } from 'lucide-react'
 

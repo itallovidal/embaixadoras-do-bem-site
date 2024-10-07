@@ -1,9 +1,9 @@
-import { Header } from '@/components/header/header'
+import { Header } from '@/components/global-components/header/header'
 import Banner from '../../assets/banner-projects-background.png'
-import { Button } from '@/components/button'
+import { Button } from '../../components/global-components/button'
 import React from 'react'
 import { ArrowLeft } from 'lucide-react'
-import { BlogCard } from '@/components/blog-card/blog-card'
+import { BlogCard } from '@/components/global-components/blog-card/blog-card'
 
 export default function Index() {
   return (

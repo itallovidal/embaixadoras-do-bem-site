@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
-import { Footer } from '@/components/footer/footer'
-import { Navbar } from '@/components/navbar'
+import { Footer } from '@/components/global-components/footer/footer'
 import { Inter } from 'next/font/google'
+import { Navbar } from '@/components/global-components/navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import bannerBackground from '../../../assets/background-volunteer-form.jpg'
 import Image from 'next/image'
-import { Button } from '@/components/button'
+import { Button } from '../../global-components/button'
 import { Input } from '@/components/ui/input'
 import { Heading } from '@/components/global-components/text/heading'
 import { Paragraph } from '@/components/global-components/text/paragraph'
