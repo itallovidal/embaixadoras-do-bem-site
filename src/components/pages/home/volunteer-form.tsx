@@ -2,9 +2,9 @@ import React from 'react'
 import bannerBackground from '../../../assets/background-volunteer-form.jpg'
 import Image from 'next/image'
 import { Button } from '../../global-components/button'
-import { Input } from '@/components/ui/input'
 import { Heading } from '@/components/global-components/text/heading'
 import { Paragraph } from '@/components/global-components/text/paragraph'
+import { Input } from '@/components/global-components/input/input'
 
 export function VolunteerForm() {
   return (
@@ -41,26 +41,30 @@ export function VolunteerForm() {
           <Paragraph>Faça parte dessa causa. A prevenção salva! 🌸</Paragraph>
         </div>
         <div className={'flex flex-col gap-4 my-5 md:mt-12'}>
-          <form className={'md:flex md:flex-wrap md:gap-4 md:justify-end '}>
-            <label className={'text-white'}>
-              Nome
-              <Input />
-            </label>
+          <form className={'md:flex md:flex-wrap md:gap-6 md:justify-end '}>
+            <Input
+              labelVariant={'light'}
+              field={'Nome'}
+              placeholder={'joão..'}
+            />
 
-            <label className={'text-white'}>
-              Nome
-              <Input />
-            </label>
+            <Input
+              labelVariant={'light'}
+              field={'Email'}
+              placeholder={'joão..'}
+            />
 
-            <label className={'text-white'}>
-              Nome
-              <Input />
-            </label>
+            <Input
+              labelVariant={'light'}
+              field={'Telefone'}
+              placeholder={'joão..'}
+            />
 
-            <label className={'text-white'}>
-              Nome
-              <Input />
-            </label>
+            <Input
+              labelVariant={'light'}
+              field={'Área de Atuação'}
+              placeholder={'joão..'}
+            />
           </form>
           <Button variant={'outline'} className={'self-end'}>
             Me voluntariar!
