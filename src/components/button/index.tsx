@@ -22,7 +22,7 @@ export function Button({ href, Icon, variant, children, ...props }: NavButton) {
   }
 
   return (
-    <ShadButton variant={variant} {...props}>
+    <ShadButton className={'gap-2'} variant={variant} {...props}>
       <>
         {Icon && <Icon />}
         {children && children}
