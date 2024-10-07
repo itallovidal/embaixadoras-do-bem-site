@@ -1,7 +1,7 @@
 import imagePlaceholder from '../../../../../assets/about-pic-1.jpg'
 import Image from 'next/image'
-import { Paragraph } from '@/components/text'
 import { Button } from '@/components/button'
+import { Paragraph } from '@/components/global-components/text/paragraph'
 
 export function AdminProjectCard() {
   return (
@@ -17,7 +17,7 @@ export function AdminProjectCard() {
           className={'w-full block object-cover'}
         />
       </picture>
-      <Paragraph style={'line-clamp-2'}>
+      <Paragraph className={'line-clamp-2 '}>
         Projeto filhos do amanhã ou depois de amanhã quando der nao sei
       </Paragraph>
 

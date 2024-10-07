@@ -1,9 +1,10 @@
 import React from 'react'
-import { Heading, Paragraph } from '@/components/text'
 import bannerBackground from '../../../assets/background-volunteer-form.jpg'
 import Image from 'next/image'
 import { Button } from '@/components/button'
 import { Input } from '@/components/ui/input'
+import { Heading } from '@/components/global-components/text/heading'
+import { Paragraph } from '@/components/global-components/text/paragraph'
 
 export function VolunteerForm() {
   return (

@@ -1,8 +1,8 @@
 import React from 'react'
 import { AdminProjectCard } from '@/components/pages/admin/components/admin-project-card/admin-project-card'
-import { Heading } from '@/components/text'
 import { Button } from '@/components/button'
 import { Plus } from 'lucide-react'
+import { Heading } from '@/components/global-components/text/heading'
 
 export function ProjectManager() {
   return (

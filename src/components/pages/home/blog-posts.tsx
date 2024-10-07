@@ -1,7 +1,7 @@
 import { Button } from '@/components/button'
 import React from 'react'
-import { Heading } from '@/components/text'
 import { BlogCard } from '@/components/blog-card/blog-card'
+import { Heading } from '@/components/global-components/text/heading'
 
 export function BlogPosts() {
   return (

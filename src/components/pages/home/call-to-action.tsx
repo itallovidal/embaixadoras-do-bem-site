@@ -1,6 +1,7 @@
-import { Heading, Paragraph } from '@/components/text'
 import { Banknote, Gift, HeartHandshake } from 'lucide-react'
 import { Button } from '@/components/button'
+import { Heading } from '@/components/global-components/text/heading'
+import { Paragraph } from '@/components/global-components/text/paragraph'
 
 export function CallToAction() {
   return (
@@ -16,10 +17,10 @@ export function CallToAction() {
             className={'bg-pink-dark p-2 size-12 rounded-full'}
             color={'white'}
           />
-          <Paragraph style={'font-bold text-center'}>
+          <Paragraph className={'font-bold text-center'}>
             Sua contribuição faz toda a diferença
           </Paragraph>
-          <Paragraph style={'text-center'}>
+          <Paragraph className={'text-center'}>
             Seja uma doação única ou de maneira recorrente, cada centavo conta
             para ajudar em nossa causa!
           </Paragraph>
@@ -32,10 +33,10 @@ export function CallToAction() {
             className={'bg-blue-dark p-2 size-12 rounded-full'}
             color={'white'}
           />
-          <Paragraph style={'font-bold'}>
+          <Paragraph className={'font-bold'}>
             Pequenos gestos, grandes impactos!
           </Paragraph>
-          <Paragraph style={'text-center'}>
+          <Paragraph className={'text-center'}>
             Uma grande ação começa com pequenos gestos, se junte e causa e
             impacte vidas!
           </Paragraph>
@@ -48,8 +49,10 @@ export function CallToAction() {
             className={'bg-pink-dark p-2 size-12 rounded-full'}
             color={'white'}
           />
-          <Paragraph style={'font-bold'}>Juntos somos mais fortes</Paragraph>
-          <Paragraph style={'text-center'}>
+          <Paragraph className={'font-bold'}>
+            Juntos somos mais fortes
+          </Paragraph>
+          <Paragraph className={'text-center'}>
             Ajude doando itens, materiais e peças para a causa. Temos diversas
             campanhas disponíveis!
           </Paragraph>

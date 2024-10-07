@@ -1,6 +1,6 @@
 import Image, { ImageProps } from 'next/image'
-import { SubHeading } from '@/components/text'
 import { Separator } from '@/components/ui/separator'
+import { SubHeading } from '@/components/global-components/text/subheading'
 
 interface HeaderProps {
   img: ImageProps['src']
@@ -42,7 +42,7 @@ export function Header({
         )}
 
         {description && (
-          <SubHeading style={'w-[60%]'}>{description}</SubHeading>
+          <SubHeading className={'w-[60%]'}>{description}</SubHeading>
         )}
       </div>
     </header>

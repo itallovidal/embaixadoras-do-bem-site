@@ -1,4 +1,3 @@
-import { Heading, Paragraph } from '@/components/text'
 import {
   CarouselContent,
   CarouselItem,
@@ -11,6 +10,8 @@ import aboutPic1 from '../../assets/about-pic-1.jpg'
 import aboutPic2 from '../../assets/about-pic-2.jpg'
 import aboutPic3 from '../../assets/about-pic-3.jpg'
 import projectPic from '../../assets/placeholder-project-banner.png'
+import { Heading } from '@/components/global-components/text/heading'
+import { Paragraph } from '@/components/global-components/text/paragraph'
 
 interface IProjectPhotos {
   img: StaticImageData
@@ -54,7 +55,7 @@ export function Carousel() {
                   className={'h-[500px] object-cover rounded-md w-full'}
                 />
                 <div>
-                  <Paragraph style={'text-center'}>
+                  <Paragraph className={'text-center'}>
                     {photo.description}
                   </Paragraph>
                 </div>

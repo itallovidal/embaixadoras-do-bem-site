@@ -3,7 +3,9 @@ import Image from 'next/image'
 import AboutPic1 from '../../../assets/about-pic-1.jpg'
 import AboutPic2 from '../../../assets/about-pic-2.jpg'
 import AboutPic3 from '../../../assets/about-pic-3.jpg'
-import { Heading, Paragraph, Highlight } from '@/components/text'
+import { Heading } from '@/components/global-components/text/heading'
+import { Paragraph } from '@/components/global-components/text/paragraph'
+import { TextHighlight } from '@/components/global-components/text/textHighlight'
 
 export function About() {
   return (
@@ -13,17 +15,19 @@ export function About() {
           <Heading> Sobre nós </Heading>
 
           <Paragraph>
-            <Highlight>Somos uma ONG</Highlight> - Organização Não Governamental
-            - constituída regimentalmente em fevereiro de 2024, mas somos
-            <Highlight>atuantes desde 2020</Highlight> sob a coordenação de
-            <Highlight>Tania Mary Gomez.</Highlight>
+            <TextHighlight>Somos uma ONG</TextHighlight> - Organização Não
+            Governamental - constituída regimentalmente em fevereiro de 2024,
+            mas somos
+            <TextHighlight>atuantes desde 2020</TextHighlight> sob a coordenação
+            de
+            <TextHighlight>Tania Mary Gomez.</TextHighlight>
           </Paragraph>
           <Paragraph>
-            O <Highlight>grupo formou-se no ano de 2020</Highlight>, em plena
-            crise da COVID, atuando fundamentalmente em projetos e ou ações
-            individuais ou coletivos em datas comemorativas e significativas em
-            cada mês do ano visando a prevenção e promoção à saúde
-            principalmente.
+            O <TextHighlight>grupo formou-se no ano de 2020</TextHighlight>, em
+            plena crise da COVID, atuando fundamentalmente em projetos e ou
+            ações individuais ou coletivos em datas comemorativas e
+            significativas em cada mês do ano visando a prevenção e promoção à
+            saúde principalmente.
           </Paragraph>
         </div>
 
@@ -43,18 +47,18 @@ export function About() {
           <Paragraph>
             A criação das Embaixadoras do bem foi motivado pelo histórico de
             vida da Sra. Tânia Mary Gomez e pelo reconhecimento dado à ela,
-            <Highlight>
+            <TextHighlight>
               quando recebeu o título de embaixadora da paz mundial
-            </Highlight>
+            </TextHighlight>
             , que é dado as pessoas que realizam trabalhos diferenciados em prol
             do próximo.
           </Paragraph>
           <Paragraph>
-            Tânia Mary Gomez{' '}
-            <Highlight>venceu o câncer de mama há 23 anos </Highlight>, como
-            compromisso com Deus, criou o projeto Chaveiro da Vida - Prevenção
-            ao Alcance das Mãos, instrumento didático para levar o alerta de
-            prevenção ao câncer de Mama.
+            Tânia Mary Gomez
+            <TextHighlight>venceu o câncer de mama há 23 anos </TextHighlight>,
+            como compromisso com Deus, criou o projeto Chaveiro da Vida -
+            Prevenção ao Alcance das Mãos, instrumento didático para levar o
+            alerta de prevenção ao câncer de Mama.
           </Paragraph>
         </div>
 
@@ -73,22 +77,22 @@ export function About() {
           <Heading>Juntas somos mais fortes! </Heading>
           <Paragraph>
             Motivadas pelo seu dinamismo e experiência de vida, várias
-            <Highlight>amigas</Highlight> e
-            <Highlight>simpatizantes se tornaram voluntárias </Highlight> de
-            vários projetos com o propósito de servir ao próximo. Desde 2020, as
-            Embaixadoras do Bem
-            <Highlight>
+            <TextHighlight>amigas</TextHighlight> e
+            <TextHighlight>simpatizantes se tornaram voluntárias</TextHighlight>
+            de vários projetos com o propósito de servir ao próximo. Desde 2020,
+            as Embaixadoras do Bem
+            <TextHighlight>
               desenvolvem diversas ações no Outubro Rosa e Novembro Azul.
-            </Highlight>
+            </TextHighlight>
           </Paragraph>
           <Paragraph>
             As voluntárias tem diferentes formações e distintas experiências de
             vida e de trabalho. Dessa forma,
-            <Highlight>se somam pelos seus talentos</Highlight> e desenvolvem
-            projetos e ações que fazem a diferença nas
-            <Highlight>
+            <TextHighlight>se somam pelos seus talentos</TextHighlight> e
+            desenvolvem projetos e ações que fazem a diferença nas
+            <TextHighlight>
               comunidades carentes, hospitais e Entidades do Terceiro Setor.
-            </Highlight>
+            </TextHighlight>
           </Paragraph>
         </div>
 
