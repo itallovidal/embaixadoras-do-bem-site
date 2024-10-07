@@ -5,7 +5,11 @@ interface IProps extends HTMLProps<HTMLSpanElement> {
   variant?: 'blue' | 'pink'
 }
 
-export function Highlight({ children, className, variant = 'pink' }: IProps) {
+export function TextHighlight({
+  children,
+  className,
+  variant = 'pink',
+}: IProps) {
   const color = variant === 'pink' ? 'text-pink-dark' : 'text-blue-dark'
   return <span className={`${color} ${className}`}>{children}</span>
 }
