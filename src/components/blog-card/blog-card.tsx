@@ -12,9 +12,13 @@ import { Button } from '@/components/button'
 
 export function BlogCard() {
   return (
-    <Card className={'w-[calc(theme(width.1/3)-theme(gap.2))] bg-gray-100'}>
+    <Card
+      className={
+        'w-full md:w-[calc(theme(width.1/3)-theme(gap.2))] bg-gray-100'
+      }
+    >
       <CardHeader>
-        <picture className={'overflow-hidden rounded-lg max-w-[350px] mb-4'}>
+        <picture className={'overflow-hidden rounded-lg md:max-w-[350px] mb-4'}>
           <Image
             className={'w-full h-full block object-cover'}
             width={350}

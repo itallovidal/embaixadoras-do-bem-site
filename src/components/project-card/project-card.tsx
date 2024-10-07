@@ -12,9 +12,9 @@ import { Button } from '@/components/button'
 
 export function ProjectCard() {
   return (
-    <Card className={'w-[calc(theme(width.1/2)-theme(gap.2))]'}>
+    <Card className={'w-full md:w-[calc(theme(width.1/2)-theme(gap.2))]'}>
       <CardHeader>
-        <picture className={'overflow-hidden rounded-lg max-w-[550px] mb-4'}>
+        <picture className={'overflow-hidden rounded-lg md:max-w-[550px] mb-4'}>
           <Image
             className={'w-full h-full block object-cover'}
             width={580}

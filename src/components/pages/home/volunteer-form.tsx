@@ -9,12 +9,12 @@ export function VolunteerForm() {
   return (
     <article
       className={
-        'flex flex-col overflow-hidden gap-12 my-24 relative h-[875px]'
+        'flex flex-col overflow-hidden gap-12 my-24 relative md:h-[875px]'
       }
     >
       <section
         className={
-          'flex gap-12 flex-row lg:flex-row justify-between max-w-safeMobile xl:max-w-safeDesktop mx-auto'
+          'flex gap-2 md:gap-12 flex-col md:flex-row lg:flex-row justify-between max-w-safeMobile xl:max-w-safeDesktop mx-auto'
         }
       >
         <Image
@@ -22,7 +22,7 @@ export function VolunteerForm() {
           alt={'fundo de uma campanha'}
           className={'w-full h-full -z-10 top-0 left-0 absolute'}
         />
-        <div className={'bg-white p-12 max-w-[550px] rounded-b-3xl'}>
+        <div className={'bg-white p-12 md:max-w-[550px] rounded-b-3xl'}>
           <Heading>Junte-se à nós!</Heading>
           <Paragraph>
             Acreditamos que a mudança começa com gestos simples de
@@ -39,8 +39,8 @@ export function VolunteerForm() {
           </Paragraph>
           <Paragraph>Faça parte dessa causa. A prevenção salva! 🌸</Paragraph>
         </div>
-        <div className={'flex flex-col gap-4 mt-12'}>
-          <form className={'flex flex-wrap gap-4 justify-end'}>
+        <div className={'flex flex-col gap-4 my-5 md:mt-12'}>
+          <form className={'md:flex md:flex-wrap md:gap-4 md:justify-end '}>
             <label className={'text-white'}>
               Nome
               <Input />

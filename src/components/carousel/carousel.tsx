@@ -41,7 +41,10 @@ export function Carousel() {
       <section className={'flex flex-col justify-between gap-12'}>
         <Heading>Orgulho de Ajudar!</Heading>
 
-        <ShadcnUiCarousel className={'w-1/2 self-center'} opts={{ loop: true }}>
+        <ShadcnUiCarousel
+          className={'w-4/5 lg:w-1/2 self-center'}
+          opts={{ loop: true }}
+        >
           <CarouselContent>
             {projectsPhotos.map((photo, index) => (
               <CarouselItem key={index}>
