@@ -9,7 +9,7 @@ interface IProps extends CheckboxProps {
 export function Checkbox({ title, description, ...rest }: IProps) {
   return (
     <div className="items-top flex space-x-2">
-      <ShadCNCheckbox {...rest} id={rest.id} />
+      <ShadCNCheckbox onClick={rest.onChange} {...rest} id={rest.id} />
       <div className="grid gap-1.5 leading-none">
         <label
           htmlFor={rest.id}

@@ -6,6 +6,7 @@ interface IProps extends InputProps {
   labelVariant?: 'light' | 'dark'
   isMultiline?: boolean
   wrapperStyle?: string
+  errorMessage?: string
 }
 
 export function Input({
@@ -13,6 +14,7 @@ export function Input({
   isMultiline = false,
   labelVariant = 'dark',
   wrapperStyle,
+  errorMessage = undefined,
   ...rest
 }: IProps) {
   const color = labelVariant === 'light' ? 'text-white' : 'text-black'
@@ -26,6 +28,7 @@ export function Input({
           // rows={4}
           {...(rest as TextareaProps)}
         />
+        {errorMessage && <span>{errorMessage}</span>}
       </div>
     )
   }
@@ -34,6 +37,7 @@ export function Input({
     <div className={`space-y-4 ${wrapperStyle}`}>
       <label className={color}>{field}</label>
       <ShadCnInput {...(rest as InputProps)} />
+      {errorMessage && <span>{errorMessage}</span>}
     </div>
   )
 }

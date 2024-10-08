@@ -11,6 +11,7 @@ export function generatePreviewImages(
     if (!files[i]) return images
 
     images.push({
+      info: files[i],
       id: uuidv4(),
       src: URL.createObjectURL(files![i]),
       name: files![i].name,
