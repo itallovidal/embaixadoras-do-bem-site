@@ -5,6 +5,8 @@ import { Heading } from '@/components/global-components/text/heading'
 import { ChangeEvent, useState } from 'react'
 import { SelectedImageCard } from '@/components/global-components/selected-image-card/selected-image-card'
 import { generatePreviewImages } from '@/utils/generate-preview-images'
+import { DateTimePicker } from '@/components/global-components/date-time-picker/date-time-picker'
+import { SubHeading } from '@/components/global-components/text/subheading'
 
 function CreateProject() {
   const [selectedImages, setSelectedImages] = useState<ISelectedImages[]>([])
@@ -22,11 +24,11 @@ function CreateProject() {
   }
 
   return (
-    <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto my-12'}>
-      <Heading>Criação de Projeto</Heading>
+    <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto my-24'}>
+      <Heading className={'mb-4'}>Criação de Projeto</Heading>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className={'p-4  bg-gray-300 rounded-lg gap-8 flex flex-col'}
+        className={'p-4  bg-gray-200 rounded-lg gap-8 flex flex-col'}
       >
         <div className={'flex gap-4'}>
           <Input
@@ -42,8 +44,8 @@ function CreateProject() {
             />
 
             <div className={'flex gap-4 mb-4'}>
-              <Input field={'Data de Início'} placeholder={'01/01/2024'} />
-              <Input field={'Data de Término'} placeholder={'30/01/2024'} />
+              <DateTimePicker label={'Data de Inicio'} />
+              <DateTimePicker label={'Data de Fim'} />
             </div>
             <Checkbox
               title={'Projeto ainda vigente'}
@@ -51,19 +53,18 @@ function CreateProject() {
                 'Marque essa opção caso o projeto ainda esteja ocorrendo.'
               }
             />
+
+            <Input
+              accept={'image/png, image/jpeg, image/jpg'}
+              className={'cursor-pointer w-fit'}
+              field={'Clique para escolher as imagens'}
+              type={'file'}
+              onChange={(event) => handlePreviewImages(event)}
+              multiple
+            />
           </div>
         </div>
-        <div>
-          <Input
-            accept={'image/png, image/jpeg, image/jpg'}
-            className={'cursor-pointer'}
-            field={'Clique para escolher as imagens'}
-            type={'file'}
-            onChange={(event) => handlePreviewImages(event)}
-            multiple
-          />
-        </div>
-        <div className={'flex gap-4 flex-wrap'}>
+        <div className={'flex gap-4 flex-wrap p-4 bg-white rounded-md'}>
           {selectedImages.length > 0 &&
             selectedImages.map((value) => {
               return (
@@ -75,7 +76,7 @@ function CreateProject() {
               )
             })}
         </div>
-        <Button className={'self-center'}>Criar projeto</Button>
+        <Button className={'self-center mb-12'}>Criar projeto</Button>
       </form>
     </div>
   )

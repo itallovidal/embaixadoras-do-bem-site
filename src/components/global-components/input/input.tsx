@@ -1,7 +1,5 @@
 import { Input as ShadCnInput, InputProps } from '@/components/ui/input'
 import { Textarea, TextareaProps } from '@/components/ui/textarea'
-import { HTMLProps } from 'react'
-import TailwindConfig from 'tailwindcss/stubs/tailwind.config'
 
 interface IProps extends InputProps {
   field: string
@@ -24,7 +22,7 @@ export function Input({
       <div className={`flex flex-col gap-4 ${wrapperStyle}`}>
         <label className={color}>{field}</label>
         <Textarea
-          className={'resize-none h-full'}
+          className={'resize-none h-full leading-7'}
           // rows={4}
           {...(rest as TextareaProps)}
         />

@@ -1,8 +1,9 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { Heading, Paragraph } from '@/components/text'
 import Image from 'next/image'
 import backgroundplaceholder from '../../../assets/placeholder.png'
+import { Heading } from '@/components/global-components/text/heading'
+import { Paragraph } from '@/components/global-components/text/paragraph'
 function Index() {
   const router = useRouter()
   const { id } = router.query as { id: string }
@@ -11,7 +12,7 @@ function Index() {
     <article className={'my-12'}>
       <section className={'max-w-safeMobile lg:max-w-safeDesktop m-auto'}>
         <Heading>Projetinho Cheirinho de Neném</Heading>
-        <Paragraph style={'w-[60%]'}>
+        <Paragraph className={'w-[60%]'}>
           Projeto Cheirinho de Neném onde são feitos pelas mãos habilidosas de
           Voluntárias e são levados os enxovais de bebê em Comunidades e
           Enfermarias e foi levado até para África em uma missão de Voluntários

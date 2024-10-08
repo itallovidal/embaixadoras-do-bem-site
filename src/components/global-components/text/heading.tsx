@@ -1,9 +1,9 @@
-import React from 'react'
+import { HTMLProps } from 'react'
 
-export function Heading({ children }: { children: string }) {
-  return (
-    <h1 className={'text-heading'}>
-      <strong>{children}</strong>
-    </h1>
-  )
+interface IProps extends HTMLProps<HTMLHeadingElement> {
+  children: string
+}
+
+export function Heading({ children, ...rest }: IProps) {
+  return <h1 className={`text-heading ${rest.className}`}>{children}</h1>
 }
