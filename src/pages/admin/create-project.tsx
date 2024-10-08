@@ -2,12 +2,32 @@ import { Input } from '@/components/global-components/input/input'
 import { Checkbox } from '@/components/global-components/checkbox/checkbox'
 import { Button } from '@/components/ui/button'
 import { Heading } from '@/components/global-components/text/heading'
+import { ChangeEvent, useState } from 'react'
+import { SelectedImageCard } from '@/components/global-components/selected-image-card/selected-image-card'
+import { generatePreviewImages } from '@/utils/generate-preview-images'
 
 function CreateProject() {
+  const [selectedImages, setSelectedImages] = useState<ISelectedImages[]>([])
+  console.log(selectedImages)
+
+  function handlePreviewImages(event: ChangeEvent<HTMLInputElement>) {
+    const files = generatePreviewImages(event.target.files)
+
+    setSelectedImages(files)
+  }
+
+  function onDelete(id: string) {
+    const images = selectedImages.filter((image) => image.id !== id)
+    setSelectedImages(images)
+  }
+
   return (
     <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto my-12'}>
       <Heading>Criação de Projeto</Heading>
-      <form className={'p-4  bg-gray-300 rounded-lg gap-8 flex flex-col'}>
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className={'p-4  bg-gray-300 rounded-lg gap-8 flex flex-col'}
+      >
         <div className={'flex gap-4'}>
           <Input
             wrapperStyle={'flex-1'}
@@ -39,8 +59,21 @@ function CreateProject() {
             className={'cursor-pointer'}
             field={'Clique para escolher as imagens'}
             type={'file'}
+            onChange={(event) => handlePreviewImages(event)}
             multiple
           />
+        </div>
+        <div className={'flex gap-4 flex-wrap'}>
+          {selectedImages.length > 0 &&
+            selectedImages.map((value) => {
+              return (
+                <SelectedImageCard
+                  key={value.id}
+                  {...value}
+                  onDelete={onDelete}
+                />
+              )
+            })}
         </div>
         <Button className={'self-center'}>Criar projeto</Button>
       </form>
