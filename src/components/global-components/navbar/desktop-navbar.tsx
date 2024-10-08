@@ -6,7 +6,11 @@ import Image from 'next/image'
 
 export function DesktopNavbar() {
   return (
-    <div className={'hidden sm:block bg-pink-dark navbar-detail relative '}>
+    <div
+      className={
+        'hidden sticky top-0 z-30 sm:block bg-pink-dark navbar-detail '
+      }
+    >
       <div className={'max-w-safeDesktop m-auto'}>
         <div
           className={

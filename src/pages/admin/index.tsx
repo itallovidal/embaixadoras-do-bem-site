@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProjectManager } from '@/components/pages/admin/project-manager/project-manager'
+import { ProjectManager } from '@/components/pages/admin/project-manager'
 
 function Index() {
   return (
