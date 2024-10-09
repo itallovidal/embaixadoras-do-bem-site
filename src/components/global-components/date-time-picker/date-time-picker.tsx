@@ -28,14 +28,14 @@ export function DateTimePicker({
   errorMessage = undefined,
 }: IProps) {
   return (
-    <div className={'flex flex-col'}>
+    <div className={'flex flex-col gap-2'}>
       <Paragraph>{label}</Paragraph>
       <Popover>
         <PopoverTrigger asChild disabled={isDisabled}>
           <Button
-            variant={'ghost'}
+            variant={'lightGhost'}
             className={cn(
-              'w-[280px] justify-start text-left font-normal',
+              'w-[280px] justify-start text-left font-normal bg-white',
               !date && 'text-muted-foreground',
             )}
           >

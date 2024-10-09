@@ -59,23 +59,8 @@ function CreateProject() {
         onSubmit={(e) => e.preventDefault()}
         className={'p-4  bg-gray-200 rounded-lg gap-8 flex flex-col'}
       >
-        <div className={'flex gap-4'}>
-          <Controller
-            control={control}
-            render={({ field }) => (
-              <Input
-                wrapperStyle={'flex-1'}
-                field={'Descrição do projeto'}
-                placeholder={'Conte os detalhes..'}
-                errorMessage={errors.description?.message}
-                isMultiline
-                {...field}
-              />
-            )}
-            name={'description'}
-          />
-
-          <div className={'flex flex-col gap-4'}>
+        <div className={'flex gap-4 '}>
+          <div className={'flex flex-col flex-1 gap-4 '}>
             <Controller
               control={control}
               render={({ field }) => (
@@ -89,6 +74,23 @@ function CreateProject() {
               name={'title'}
             />
 
+            <Controller
+              control={control}
+              render={({ field }) => (
+                <Input
+                  wrapperStyle={'h-full '}
+                  field={'Descrição do projeto'}
+                  placeholder={'Conte os detalhes..'}
+                  errorMessage={errors.description?.message}
+                  isMultiline
+                  {...field}
+                />
+              )}
+              name={'description'}
+            />
+          </div>
+
+          <div className={'flex flex-col gap-4'}>
             <div className={'flex gap-4 mb-4'}>
               <DateTimePicker
                 label={'Data de Inicio'}
@@ -138,13 +140,14 @@ function CreateProject() {
             })}
           </div>
         )}
-        <Button
-          onClick={handleSubmit(handleCreateProject)}
-          className={'self-center mb-12'}
-        >
-          Criar projeto
-        </Button>
       </form>
+
+      <Button
+        onClick={handleSubmit(handleCreateProject)}
+        className={'self-center my-12'}
+      >
+        Criar projeto
+      </Button>
     </div>
   )
 }
