@@ -4,12 +4,10 @@ import { Trash } from 'lucide-react'
 interface SelectedImageCardProps {
   id: string
   src: string
-  name: string
   onDelete: (id: string) => void
 }
 
 export function SelectedImageCard({
-  name,
   src,
   id,
   onDelete,
@@ -18,7 +16,7 @@ export function SelectedImageCard({
     <picture className={'relative rounded-md w-[200px]'}>
       <Image
         src={src}
-        alt={name}
+        alt={'Foto selecionada.'}
         key={id}
         className={'object-contain rounded-md w-full block'}
         width={350}

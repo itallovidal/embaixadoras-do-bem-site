@@ -33,7 +33,7 @@ export function DateTimePicker({
       <Popover>
         <PopoverTrigger asChild disabled={isDisabled}>
           <Button
-            variant={'lightGhost'}
+            variant={'ghost'}
             className={cn(
               'w-[280px] justify-start text-left font-normal bg-white',
               !date && 'text-muted-foreground',

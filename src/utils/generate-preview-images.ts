@@ -2,8 +2,8 @@ import { v4 as uuidv4 } from 'uuid'
 
 export function generatePreviewImages(
   files: FileList | null,
-): ISelectedImages[] {
-  const images: ISelectedImages[] = []
+): ISelectedImage[] {
+  const images: ISelectedImage[] = []
 
   if (!files) return images
 
@@ -11,10 +11,9 @@ export function generatePreviewImages(
     if (!files[i]) return images
 
     images.push({
-      info: files[i],
+      file: files[i],
       id: uuidv4(),
       src: URL.createObjectURL(files![i]),
-      name: files![i].name,
     })
   }
 
