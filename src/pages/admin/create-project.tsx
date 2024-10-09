@@ -49,7 +49,8 @@ function CreateProject() {
 
   const selectedImages = watch('images')
 
-  console.log(selectedImages)
+  console.log(watch())
+  console.log(errors)
 
   return (
     <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto my-24'}>
@@ -105,6 +106,7 @@ function CreateProject() {
             </div>
 
             <Checkbox
+              errorMessage={errors.isActive?.message}
               title={'Projeto ainda vigente'}
               description={
                 'Marque essa opção caso o projeto ainda esteja ocorrendo.'

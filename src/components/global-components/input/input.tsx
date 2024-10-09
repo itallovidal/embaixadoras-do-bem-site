@@ -1,5 +1,6 @@
 import { Input as ShadCnInput, InputProps } from '@/components/ui/input'
 import { Textarea, TextareaProps } from '@/components/ui/textarea'
+import { ErrorMessage } from '@/components/global-components/text/errorMessage'
 
 interface IProps extends InputProps {
   field: string
@@ -25,19 +26,18 @@ export function Input({
         <label className={color}>{field}</label>
         <Textarea
           className={'resize-none h-full leading-7'}
-          // rows={4}
           {...(rest as TextareaProps)}
         />
-        {errorMessage && <span>{errorMessage}</span>}
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </div>
     )
   }
 
   return (
-    <div className={`space-y-4 ${wrapperStyle}`}>
+    <div className={`flex flex-col gap-4 ${wrapperStyle}`}>
       <label className={color}>{field}</label>
       <ShadCnInput {...(rest as InputProps)} />
-      {errorMessage && <span>{errorMessage}</span>}
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </div>
   )
 }

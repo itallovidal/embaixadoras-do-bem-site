@@ -10,6 +10,7 @@ import { ptBR } from 'date-fns/locale'
 import { Calendar } from '@/components/ui/calendar'
 import { Paragraph } from '@/components/global-components/text/paragraph'
 import { Button } from '@/components/ui/button'
+import { ErrorMessage } from '@/components/global-components/text/errorMessage'
 
 interface IProps {
   label: string
@@ -27,7 +28,7 @@ export function DateTimePicker({
   errorMessage = undefined,
 }: IProps) {
   return (
-    <div className={'block'}>
+    <div className={'flex flex-col'}>
       <Paragraph>{label}</Paragraph>
       <Popover>
         <PopoverTrigger asChild disabled={isDisabled}>
@@ -56,7 +57,7 @@ export function DateTimePicker({
           />
         </PopoverContent>
 
-        {errorMessage && <span>{errorMessage}</span>}
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </Popover>
     </div>
   )

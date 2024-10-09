@@ -1,12 +1,19 @@
 import { Checkbox as ShadCNCheckbox } from '@/components/ui/checkbox'
 import { CheckboxProps } from '@radix-ui/react-checkbox'
+import { ErrorMessage } from '@/components/global-components/text/errorMessage'
 
 interface IProps extends CheckboxProps {
   description: string
   title: string
+  errorMessage?: string
 }
 
-export function Checkbox({ title, description, ...rest }: IProps) {
+export function Checkbox({
+  title,
+  description,
+  errorMessage,
+  ...rest
+}: IProps) {
   return (
     <div className="items-top flex space-x-2">
       <ShadCNCheckbox onClick={rest.onChange} {...rest} id={rest.id} />
@@ -18,6 +25,7 @@ export function Checkbox({ title, description, ...rest }: IProps) {
           {title}
         </label>
         <p className="text-sm text-muted-foreground">{description}</p>
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </div>
     </div>
   )
