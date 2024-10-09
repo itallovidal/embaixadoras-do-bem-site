@@ -1,5 +1,5 @@
 import { Header } from '@/components/global-components/header/header'
-import Banner from '../assets/banner-home-background.png'
+import Banner from '@/assets/banner-home-background.png'
 import { About } from '@/components/pages/home/about'
 import { CallToAction } from '@/components/pages/home/call-to-action'
 import { Projects } from '@/components/pages/home/projects'

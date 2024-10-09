@@ -13,7 +13,36 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@/root/*": [
+        "./*"
+      ],
+      "@/types/*": [
+        "./src/@types/*"
+      ],
+      "@/assets/*": [
+        "./src/assets/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/domain/*": [
+        "./src/domain/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*"
+      ],
+      "@/pages/*": [
+        "./src/pages/*"
+      ],
+      "@/styles/*": [
+        "./src/styles/*"
+      ],
+      "@/utils/*": [
+        "./src/utils/*"
+      ]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -10,10 +10,13 @@ import { Controller, useForm } from 'react-hook-form'
 import {
   createProjectSchema,
   TCreateProjectSchema,
-} from '@/lib/zod/create-project.schema'
+} from '@/types/schemas/create-project.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useToast } from '@/hooks/use-toast'
+import { createProject } from '@/utils/api/create-project'
 
 function CreateProject() {
+  const { toast } = useToast()
   const {
     watch,
     getValues,
@@ -43,14 +46,24 @@ function CreateProject() {
   }
 
   async function handleCreateProject(data: TCreateProjectSchema) {
-    console.log('Foi!')
-    console.log(data)
+    try {
+      await createProject(data)
+      toast({
+        title: 'Projeto salvo!',
+        description: 'Projeto criado com sucesso.',
+      })
+    } catch (e) {
+      if (e instanceof Error) {
+        toast({
+          variant: 'destructive',
+          title: e.message,
+          description: e.cause as string,
+        })
+      }
+    }
   }
 
   const selectedImages = watch('images')
-
-  console.log(watch())
-  console.log(errors)
 
   return (
     <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto my-24'}>

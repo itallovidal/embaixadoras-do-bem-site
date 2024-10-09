@@ -7,7 +7,6 @@ import { Paragraph } from '@/components/global-components/text/paragraph'
 function Index() {
   const router = useRouter()
   const { id } = router.query as { id: string }
-  console.log(id)
   return (
     <article className={'my-12'}>
       <section className={'max-w-safeMobile lg:max-w-safeDesktop m-auto'}>
