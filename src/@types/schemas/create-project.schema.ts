@@ -22,7 +22,7 @@ export const createProjectSchema = z
       .array()
       .refine((value) => value.length > 0, { message: 'Mínimo de 1 imagem' }),
   })
-  .refine(({ isActive, endDate }) => !(!isActive && endDate === undefined), {
+  .refine((value) => value.endDate || value.isActive !== undefined, {
     path: ['isActive'],
     message: 'Escolha uma data final ou marque como vigente.',
   })

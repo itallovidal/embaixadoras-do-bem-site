@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { ErrorEntity } from '@/pages/api/_domain/error-entity'
 import formidable from 'formidable'
 import { createProjectDTOSchema } from '@/pages/api/_schemas/create-project-DTO.schema'
+import { databaseRepository } from '@/pages/api/_domain/db'
 
 export const config = {
   api: {
@@ -27,9 +28,7 @@ export default async function handler(
       return res.status(500).json({ error: error.getError() })
     }
 
-    console.log(files)
-
-    if (!files.file) {
+    if (!files.images) {
       const error = new ErrorEntity(
         'Nenhuma imagem enviada.',
         'Para criação de um projeto, deve-se ter pelo menos uma imagem.',
@@ -44,7 +43,6 @@ export default async function handler(
         if (Array.isArray(value)) {
           return [key, ...value]
         }
-
         return [key, value]
       }),
     )
@@ -62,6 +60,11 @@ export default async function handler(
     }
 
     const project = projectParsed.data
+    const { images } = files
+
+    console.log(images)
+
+    await databaseRepository.createProject(project, images)
 
     return res.status(201).json({ message: 'Project Created' })
   })

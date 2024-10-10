@@ -14,6 +14,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@/hooks/use-toast'
 import { createProject } from '@/utils/api/create-project'
+import { Loader2 } from 'lucide-react'
 
 function CreateProject() {
   const { toast } = useToast()
@@ -23,7 +24,7 @@ function CreateProject() {
     setValue,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<TCreateProjectSchema>({
     defaultValues: {
       images: [],
@@ -49,6 +50,7 @@ function CreateProject() {
     try {
       await createProject(data)
       toast({
+        className: 'bg-green-600 text-white',
         title: 'Projeto salvo!',
         description: 'Projeto criado com sucesso.',
       })
@@ -82,6 +84,7 @@ function CreateProject() {
                   placeholder={'Qual foi seu nome?'}
                   errorMessage={errors.title?.message}
                   {...field}
+                  disabled={isSubmitting}
                 />
               )}
               name={'title'}
@@ -97,6 +100,7 @@ function CreateProject() {
                   errorMessage={errors.description?.message}
                   isMultiline
                   {...field}
+                  disabled={isSubmitting}
                 />
               )}
               name={'description'}
@@ -110,6 +114,7 @@ function CreateProject() {
                 date={watch('startDate')}
                 errorMessage={errors.startDate?.message}
                 setDate={(date) => date && setValue('startDate', date)}
+                isDisabled={isSubmitting}
               />
               <DateTimePicker
                 isDisabled={watch('isActive')}
@@ -117,6 +122,7 @@ function CreateProject() {
                 date={watch('endDate')}
                 errorMessage={errors.endDate?.message}
                 setDate={(date) => date && setValue('endDate', date)}
+                isDisabled={isSubmitting}
               />
             </div>
 
@@ -127,6 +133,7 @@ function CreateProject() {
                 'Marque essa opção caso o projeto ainda esteja ocorrendo.'
               }
               onClick={() => setValue('isActive', !watch('isActive'))}
+              disabled={isSubmitting}
             />
 
             <Input
@@ -137,6 +144,7 @@ function CreateProject() {
               onChange={(event) => handlePreviewImages(event)}
               multiple
               errorMessage={errors.images?.message}
+              disabled={isSubmitting}
             />
           </div>
         </div>
@@ -156,9 +164,11 @@ function CreateProject() {
       </form>
 
       <Button
+        disabled={isSubmitting}
         onClick={handleSubmit(handleCreateProject)}
         className={'self-center my-12'}
       >
+        {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         Criar projeto
       </Button>
     </div>

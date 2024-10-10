@@ -12,7 +12,7 @@ export async function createProject(data: TCreateProjectSchema) {
 
   data.images.forEach((image) => {
     const { file } = image
-    formData.append('file', file)
+    formData.append('images', file)
   })
 
   const response = await api.post('/admin/create-project', formData, {
