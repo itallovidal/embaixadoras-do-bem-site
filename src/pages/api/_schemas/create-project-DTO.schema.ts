@@ -10,7 +10,10 @@ export const createProjectDTOSchema = z.object({
     required_error: 'Campo obrigatório.',
   }),
   endDate: z.coerce.date().optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: z
+    .string()
+    .refine((value) => value === 'true' || value === 'false')
+    .transform((value) => value === 'true'),
   description: z
     .string({
       required_error: 'Campo obrigatório.',
