@@ -117,12 +117,11 @@ function CreateProject() {
                 isDisabled={isSubmitting}
               />
               <DateTimePicker
-                isDisabled={watch('isActive')}
+                isDisabled={watch('isActive') || isSubmitting}
                 label={'Data de Fim'}
                 date={watch('endDate')}
                 errorMessage={errors.endDate?.message}
                 setDate={(date) => date && setValue('endDate', date)}
-                isDisabled={isSubmitting}
               />
             </div>
 
