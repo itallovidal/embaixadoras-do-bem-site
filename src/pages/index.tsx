@@ -6,6 +6,9 @@ import { Projects } from '@/components/pages/home/projects'
 import { BlogPosts } from '@/components/pages/home/blog-posts'
 import { Carousel } from '@/components/global-components/carousel/carousel'
 import { VolunteerForm } from '@/components/pages/home/volunteer-form'
+import { useEffect } from 'react'
+import { api } from '@/lib/axios/axios'
+import { getProjects } from '@/utils/api/get-projects'
 
 export default function Index() {
   return (

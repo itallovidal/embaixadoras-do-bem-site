@@ -4,7 +4,10 @@ import {
   addDoc,
   collection,
   Firestore,
+  getDocs,
   getFirestore,
+  limit,
+  query,
 } from '@firebase/firestore'
 import { uuidv4 } from '@firebase/util'
 import { ICreateProjectDTO } from '@/pages/api/_types/create-project-dto.type'
@@ -13,10 +16,12 @@ import {
   FirebaseStorage,
   getDownloadURL,
   getStorage,
+  list,
   ref,
   uploadBytesResumable,
 } from '@firebase/storage'
 import fs from 'node:fs/promises'
+import { IGetProjectRes } from '@/types/responses/get-project-response'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private db: Firestore
@@ -48,27 +53,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     this.storage = storage
   }
 
-  async createProject(project: ICreateProjectDTO, images: formidable.File[]) {
-    const usersCollection = collection(this.db, 'projects')
-    const id = uuidv4()
-    await addDoc(usersCollection, {
-      id,
-      ...project,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    })
-
-    // if (files.length === 0) throw new Error('Erro com o arquivo.')
-
-    console.log('arquivos:')
-    console.log(images)
-
-    for await (const image of images) {
-      await this.storeFile(image, id)
-    }
-  }
-
-  async storeFile(file: formidable.File, id: string) {
+  private async storeFile(file: formidable.File, id: string) {
     console.log('Arquivo a ser guardado:')
     console.log(file)
 
@@ -86,8 +71,67 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
       return await getDownloadURL(snapshot.ref)
     })
   }
+
+  private async getFiles(
+    imagePath: string,
+    resultsLimit?: number,
+  ): Promise<string[]> {
+    const imgPathRef = ref(this.storage, imagePath)
+    const imgList = await list(imgPathRef, { maxResults: resultsLimit })
+    const imgsUrls: string[] = []
+
+    for await (const item of imgList.items) {
+      const url = await getDownloadURL(item)
+      imgsUrls.push(url)
+    }
+
+    return imgsUrls
+  }
+
+  async createProject(project: ICreateProjectDTO, images: formidable.File[]) {
+    const projectsCollection = collection(this.db, 'projects')
+    const id = uuidv4()
+    await addDoc(projectsCollection, {
+      id,
+      ...project,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })
+
+    // if (files.length === 0) throw new Error('Erro com o arquivo.')
+
+    console.log('arquivos:')
+    console.log(images)
+
+    for await (const image of images) {
+      await this.storeFile(image, id)
+    }
+  }
+
+  async getProjects(queryLimit?: number): Promise<IGetProjectRes[]> {
+    const projectsCollection = collection(this.db, 'projects')
+    let projectData
+
+    if (queryLimit) {
+      const projectQuery = query(projectsCollection, limit(queryLimit))
+      projectData = await getDocs(projectQuery)
+    } else {
+      projectData = await getDocs(projectsCollection)
+    }
+
+    const projects = await Promise.all(
+      projectData.docs.map(async (docs) => {
+        const doc = docs.data() as Omit<IGetProjectRes, 'images'>
+        const imgUrl = await this.getFiles(`projects/${doc.id}`, 1)
+        return { ...doc, images: imgUrl }
+      }),
+    )
+
+    return projects
+  }
+
+  // getProjectDetails()
   // editProject
   // deleteProject
-  // getProjectDetails
   // getProjectImages
 }
