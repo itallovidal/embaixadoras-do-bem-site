@@ -10,7 +10,7 @@ import { getProjects } from '@/utils/api/get-projects'
 export default function Index() {
   const { data: projects, isLoading } = useQuery({
     queryKey: ['all-projects'],
-    queryFn: () => getProjects( ),
+    queryFn: () => getProjects(),
   })
 
   return (

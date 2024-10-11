@@ -1,7 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import backgroundplaceholder from '../../../assets/placeholder.png'
 import { Heading } from '@/components/global-components/text/heading'
 import { Paragraph } from '@/components/global-components/text/paragraph'
 import { useQuery } from '@tanstack/react-query'
@@ -23,7 +22,9 @@ function Index() {
   if (project)
     return (
       <article className={'my-12'}>
-        <section className={'max-w-safeMobile lg:max-w-safeDesktop m-auto my-24'}>
+        <section
+          className={'max-w-safeMobile lg:max-w-safeDesktop m-auto my-24'}
+        >
           <Heading>{project.title}</Heading>
           <Paragraph className={''}>{project.description}</Paragraph>
 

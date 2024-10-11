@@ -1,7 +1,7 @@
 import React from 'react'
 import { ProjectManager } from '@/components/pages/admin/project-manager'
 
-function Index() {
+function Dashboard() {
   return (
     <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto'}>
       <ProjectManager />
@@ -9,4 +9,4 @@ function Index() {
   )
 }
 
-export default Index
+export default Dashboard
