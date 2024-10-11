@@ -5,4 +5,5 @@ type IGetProjectResponse = ICreateProjectDTO & {
   updatedAt: Date
   images: string[]
   id: string
+  collectionId: string
 }

@@ -15,7 +15,7 @@ export async function createProject(data: TCreateProjectSchema) {
     formData.append('images', file)
   })
 
-  const response = await api.post('/admin/create-project', formData, {
+  const response = await api.post('/admin/projects/create', formData, {
     headers: {
       'Content-Type': `multipart/form-data`,
     },

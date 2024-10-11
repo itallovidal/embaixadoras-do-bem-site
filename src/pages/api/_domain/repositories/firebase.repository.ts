@@ -3,6 +3,8 @@ import { env } from '@/root/env'
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   Firestore,
   getDocs,
   getFirestore,
@@ -128,7 +130,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
       projectData.docs.map(async (docs) => {
         const doc = docs.data() as Omit<IGetProjectResponse, 'images'>
         const imgUrl = await this.getFiles(`projects/${doc.id}`, 1)
-        return { ...doc, images: imgUrl }
+        return { ...doc, images: imgUrl, collectionId: docs.id }
       }),
     )
 
@@ -136,8 +138,8 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
   }
 
   async getProjectByID(id: string): Promise<IGetProjectResponse> {
-    const usersCollection = collection(this.db, 'projects')
-    const q = query(usersCollection, where('id', '==', id))
+    const projectCollection = collection(this.db, 'projects')
+    const q = query(projectCollection, where('id', '==', id))
     const request = await getDocs(q)
 
     const project = await Promise.all(
@@ -149,5 +151,13 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     )
 
     return project[0]
+  }
+
+  async deleteProjectById(collectionId: string) {
+    console.log('deletando...')
+    console.log(collectionId)
+    const projectRef = doc(this.db, 'projects', collectionId)
+
+    await deleteDoc(projectRef)
   }
 }

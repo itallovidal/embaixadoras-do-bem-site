@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const createProjectDTOSchema = z
+export const idSchema = z
   .string({
     required_error: 'ID inválido ou inexistente.',
   })

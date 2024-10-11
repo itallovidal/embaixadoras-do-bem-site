@@ -18,7 +18,7 @@ function Index() {
     return (
       <article
         className={
-          ' max-w-safeMobile xl:max-w-safeDesktop m-auto flex flex-col gap-12 my-10'
+          'min-h-[60vh] max-w-safeMobile xl:max-w-safeDesktop m-auto flex flex-col gap-12 my-10'
         }
       >
         <div className={'flex justify-between items-center'}>
@@ -28,12 +28,14 @@ function Index() {
           </Button>
         </div>
         <section className={'flex  flex-wrap justify-start gap-4'}>
-          {projects.map((project) => (
+          {projects.map((project, i) => (
             <AdminProjectCard
+              key={i}
               project={{
                 id: project.id,
                 title: project.title,
                 image: project.images[0],
+                collectionId: project.collectionId,
               }}
             />
           ))}

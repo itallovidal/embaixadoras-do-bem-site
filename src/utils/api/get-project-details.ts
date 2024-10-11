@@ -4,7 +4,7 @@ import { api } from '@/lib/axios/axios'
 export async function getProjectDetails(
   id: string,
 ): Promise<IGetProjectResponse> {
-  const response = await api.get(`/admin/get-project/${id}`)
+  const response = await api.get(`/admin/projects/${id}`)
 
   return response.data
 }

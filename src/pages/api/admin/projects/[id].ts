@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { databaseRepository } from '@/pages/api/_domain/db'
-import { createProjectDTOSchema } from '@/pages/api/_schemas/get-project-id-schema'
+import { idSchema } from '@/pages/api/_schemas/get-project-id-schema'
 import { ErrorEntity } from '@/pages/api/_domain/error-entity'
 
 export default async function handler(
@@ -11,7 +11,7 @@ export default async function handler(
 
   const { id: urlID } = req.query
 
-  const idParsed = createProjectDTOSchema.safeParse(urlID)
+  const idParsed = idSchema.safeParse(urlID)
 
   if (!idParsed.success) {
     const error = new ErrorEntity(

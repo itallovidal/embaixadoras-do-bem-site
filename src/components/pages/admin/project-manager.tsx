@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { AdminProjectCard } from '@/components/pages/admin/components/admin-project-card/admin-project-card'
 import { Button } from '../../global-components/button'
 import { ArrowRight, Loader2, Plus } from 'lucide-react'
@@ -12,6 +12,9 @@ export function ProjectManager() {
     queryFn: () => getProjects(4),
   })
 
+  console.log('fetched!')
+  console.log(projects)
+
   if (isLoading) return <Loader2 />
 
   if (projects)
@@ -23,25 +26,29 @@ export function ProjectManager() {
             Criar um projeto
           </Button>
         </div>
-        <section className={'flex flex-col lg:flex-row justify-start gap-4'}>
+        <section className={' flex flex-col lg:flex-row justify-start gap-4'}>
           {projects.map((project) => (
             <AdminProjectCard
+              key={project.id}
               project={{
                 id: project.id,
                 title: project.title,
                 image: project.images[0],
+                collectionId: project.collectionId,
               }}
             />
           ))}
         </section>
-        <Button
-          href={'/admin/projects'}
-          variant={'outline'}
-          className={'self-end'}
-          Icon={ArrowRight}
-        >
-          Ver todos os projetos.
-        </Button>
+        {projects.length > 4 && (
+          <Button
+            href={'/admin/projects'}
+            variant={'outline'}
+            className={'self-end'}
+            Icon={ArrowRight}
+          >
+            Ver todos os projetos.
+          </Button>
+        )}
       </article>
     )
 }
