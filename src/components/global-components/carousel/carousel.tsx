@@ -6,12 +6,19 @@ import {
   CarouselNext,
 } from '@/components/ui/carousel'
 import Image, { StaticImageData } from 'next/image'
-import aboutPic1 from '../../../assets/about-pic-1.jpg'
-import aboutPic2 from '../../../assets/about-pic-2.jpg'
-import aboutPic3 from '../../../assets/about-pic-3.jpg'
-import projectPic from '../../../assets/placeholder-project-banner.png'
+import img1 from '../../../assets/home/imagem-1.png'
+import img2 from '../../../assets/home/imagem-2.jpeg'
+import img3 from '../../../assets/home/imagem-3.png'
+import img4 from '../../../assets/home/imagem-4.png'
+import img5 from '../../../assets/home/imagem-5.jpeg'
+import img6 from '../../../assets/home/imagem-6.jpeg'
+import img7 from '../../../assets/home/imagem-7.png'
+import img8 from '../../../assets/home/imagem-8.png'
+import img9 from '../../../assets/home/imagem-9.jpeg'
 import { Heading } from '@/components/global-components/text/heading'
 import { Paragraph } from '@/components/global-components/text/paragraph'
+import { SubHeading } from '@/components/global-components/text/subheading'
+import Link from 'next/link'
 
 interface IProjectPhotos {
   img: StaticImageData
@@ -19,28 +26,57 @@ interface IProjectPhotos {
 }
 const projectsPhotos: IProjectPhotos[] = [
   {
-    img: aboutPic1,
-    description: 'Foto 1',
+    img: img1,
+    description: 'As embaixadoras juntas!',
   },
   {
-    img: aboutPic2,
-    description: 'Foto 2',
+    img: img2,
+    description: 'Realizando palestras sobre o Outubro rosa!',
   },
   {
-    img: aboutPic3,
-    description: 'Foto 3',
+    img: img9,
+    description: 'E discutindo sobre a saúde do homem no novembro azul!',
   },
   {
-    img: projectPic,
-    description: 'Foto 4',
+    img: img3,
+    description:
+      'As embaixadoras na operação verão: fornecendo dicas contra câncer de pele.',
+  },
+  {
+    img: img4,
+    description: 'Quem não ama um bom verão, não é mesmo?',
+  },
+  {
+    img: img5,
+    description:
+      'Projeto Cheirinho de neném: levamos enxovais para comunidades e enfermarias.',
+  },
+  {
+    img: img6,
+    description:
+      'Ação de páscoa em comunidades carentes levando lanches e chocolates para as crianças.',
+  },
+  {
+    img: img7,
+    description:
+      'Ação do bem entregando kits de higiene e chinelos em hospitais!',
   },
 ]
 
 export function Carousel() {
   return (
     <article className={'flex flex-col gap-12 my-10'}>
-      <section className={'flex flex-col justify-between gap-12'}>
+      <section className={'flex flex-col justify-between'}>
         <Heading>Orgulho de Ajudar!</Heading>
+        <SubHeading>
+          Um pouquinho do nosso trabalho ao longo desses anos.
+        </SubHeading>
+        <Paragraph className={'mb-12'}>
+          Para mais informações, veja todos nossos projetos{' '}
+          <span className={'text-pink-dark'}>
+            <Link href={'/projects'}>aqui</Link>.
+          </span>
+        </Paragraph>
 
         <ShadcnUiCarousel
           className={'w-4/5 lg:w-1/2 self-center'}
@@ -54,8 +90,8 @@ export function Carousel() {
                   alt={photo.description}
                   className={'h-[500px] object-cover rounded-md w-full'}
                 />
-                <div>
-                  <Paragraph className={'text-center'}>
+                <div className={'bg-gray-200 grid place-items-center mt-4 p-4'}>
+                  <Paragraph className={'w-[70%] text-center italic '}>
                     {photo.description}
                   </Paragraph>
                 </div>

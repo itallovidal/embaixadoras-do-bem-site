@@ -5,5 +5,7 @@ interface IProps extends HTMLProps<HTMLHeadingElement> {
 }
 
 export function Heading({ children, ...rest }: IProps) {
-  return <h1 className={`text-heading ${rest.className}`}>{children}</h1>
+  return (
+    <h1 className={`font-bold text-heading ${rest.className}`}>{children}</h1>
+  )
 }

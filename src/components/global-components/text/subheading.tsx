@@ -1,7 +1,7 @@
-import React, { HTMLProps } from 'react'
+import React, { HTMLProps, ReactNode } from 'react'
 
 interface IProps extends HTMLProps<HTMLHeadingElement> {
-  children: string
+  children: ReactNode
 }
 
 export function SubHeading({ children, className, ...rest }: IProps) {
