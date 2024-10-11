@@ -25,7 +25,7 @@ export function CallToAction() {
             para ajudar em nossa causa!
           </Paragraph>
 
-          <Button>Fazer Doação</Button>
+          {/* <Button>Fazer Doação</Button> */}
         </div>
 
         <div className={'flex flex-col gap-4 justify-center items-center'}>
@@ -41,7 +41,7 @@ export function CallToAction() {
             impacte vidas!
           </Paragraph>
 
-          <Button variant={'secondary'}>Se voluntariar</Button>
+          {/* <Button variant={'secondary'}>Se voluntariar</Button> */}
         </div>
 
         <div className={'flex flex-col gap-4 justify-center items-center'}>
@@ -57,7 +57,7 @@ export function CallToAction() {
             campanhas disponíveis!
           </Paragraph>
 
-          <Button>Ajudar</Button>
+          {/* <Button>Ajudar</Button> */}
         </div>
       </section>
     </article>

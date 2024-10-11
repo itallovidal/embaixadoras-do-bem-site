@@ -23,10 +23,10 @@ export default function Index() {
         <About />
         <CallToAction />
         <Projects />
-        <BlogPosts />
+        {/* <BlogPosts /> */}
         <Carousel />
       </div>
-      <VolunteerForm />
+      {/* <VolunteerForm /> */}
     </div>
   )
 }
