@@ -8,15 +8,21 @@ import {
 } from '@/components/ui/card'
 import Image from 'next/image'
 import { Button } from '../button'
-import { IGetProjectRes } from '@/types/responses/get-project-response'
+import { IGetProjectResponse } from '@/types/responses/get-project-response'
 
-type TProjectProps = IGetProjectRes
+type TProjectProps = IGetProjectResponse
 
-export function ProjectCard({ images, title, description }: TProjectProps) {
+export function ProjectCard({ images, title, description, id }: TProjectProps) {
   return (
-    <Card className={'w-full md:w-[calc(theme(width.1/2)-theme(gap.2))]'}>
-      <CardHeader>
-        <picture className={'overflow-hidden rounded-lg md:max-w-[550px] mb-4'}>
+    <Card
+      className={
+        'w-full flex flex-col md:w-[calc(theme(width.1/2)-theme(gap.2))]'
+      }
+    >
+      <CardHeader className={'flex-1'}>
+        <picture
+          className={'overflow-hidden rounded-lg h-full  md:max-w-[550px] mb-4'}
+        >
           <Image
             className={'w-full h-full block object-cover'}
             width={580}
@@ -33,7 +39,7 @@ export function ProjectCard({ images, title, description }: TProjectProps) {
         </CardDescription>
       </CardContent>
       <CardFooter>
-        <Button>Mais informações</Button>
+        <Button href={`/projects/${id}`}>Mais informações</Button>
       </CardFooter>
     </Card>
   )

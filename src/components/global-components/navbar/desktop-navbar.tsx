@@ -30,19 +30,19 @@ export function DesktopNavbar() {
               Home
             </Button>
             <Separator orientation={'vertical'} className={'h-6'} />
-            <Button variant={'lightGhost'} href={'/'}>
+            <Button variant={'lightGhost'} href={'/blog'}>
               Blog
             </Button>
             <Separator orientation={'vertical'} className={'h-6'} />
-            <Button variant={'lightGhost'} href={'/'}>
+            <Button variant={'lightGhost'} href={'/projects'}>
               Projetos
             </Button>
             <Separator orientation={'vertical'} className={'h-6'} />
-            <Button variant={'lightGhost'} href={'/'}>
+            <Button variant={'lightGhost'} href={'/donation'}>
               Faça uma doação
             </Button>
             <Separator orientation={'vertical'} className={'h-6'} />
-            <Button variant={'lightGhost'} href={'/'}>
+            <Button variant={'lightGhost'} href={'/volunteer'}>
               Seja Voluntário
             </Button>
           </nav>

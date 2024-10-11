@@ -8,6 +8,7 @@ import {
   getFirestore,
   limit,
   query,
+  where,
 } from '@firebase/firestore'
 import { uuidv4 } from '@firebase/util'
 import { ICreateProjectDTO } from '@/pages/api/_types/create-project-dto.type'
@@ -21,7 +22,7 @@ import {
   uploadBytesResumable,
 } from '@firebase/storage'
 import fs from 'node:fs/promises'
-import { IGetProjectRes } from '@/types/responses/get-project-response'
+import { IGetProjectResponse } from '@/types/responses/get-project-response'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private db: Firestore
@@ -54,20 +55,26 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
   }
 
   private async storeFile(file: formidable.File, id: string) {
-    console.log('Arquivo a ser guardado:')
-    console.log(file)
+    if (!file.mimetype) throw new Error('Arquivo sem mimetype')
 
-    const fileType = file.mimetype?.slice(6)
+    const fileType = file.mimetype.split('/')[1]
+    const validTypes = ['png', 'jpeg', 'jpg', 'webp']
+
+    if (!validTypes.includes(fileType.toLowerCase())) {
+      throw new Error('Tipo de arquivo não suportado')
+    }
+
     const URL = `projects/${id}/${crypto.randomUUID()}.${fileType}`
-
     const storageRef = ref(this.storage, URL)
 
     const fileBuffer = await fs.readFile(file.filepath)
-    const uploadTask = uploadBytesResumable(storageRef, fileBuffer)
+
+    const uploadTask = uploadBytesResumable(storageRef, fileBuffer, {
+      contentType: file.mimetype,
+    })
 
     return await uploadTask.then(async () => {
       const { snapshot } = uploadTask
-      console.log('concluido')
       return await getDownloadURL(snapshot.ref)
     })
   }
@@ -98,8 +105,6 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
       updatedAt: new Date(),
     })
 
-    // if (files.length === 0) throw new Error('Erro com o arquivo.')
-
     console.log('arquivos:')
     console.log(images)
 
@@ -108,7 +113,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     }
   }
 
-  async getProjects(queryLimit?: number): Promise<IGetProjectRes[]> {
+  async getProjects(queryLimit?: number): Promise<IGetProjectResponse[]> {
     const projectsCollection = collection(this.db, 'projects')
     let projectData
 
@@ -121,7 +126,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
 
     const projects = await Promise.all(
       projectData.docs.map(async (docs) => {
-        const doc = docs.data() as Omit<IGetProjectRes, 'images'>
+        const doc = docs.data() as Omit<IGetProjectResponse, 'images'>
         const imgUrl = await this.getFiles(`projects/${doc.id}`, 1)
         return { ...doc, images: imgUrl }
       }),
@@ -130,8 +135,19 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     return projects
   }
 
-  // getProjectDetails()
-  // editProject
-  // deleteProject
-  // getProjectImages
+  async getProjectByID(id: string): Promise<IGetProjectResponse> {
+    const usersCollection = collection(this.db, 'projects')
+    const q = query(usersCollection, where('id', '==', id))
+    const request = await getDocs(q)
+
+    const project = await Promise.all(
+      request.docs.map(async (docs) => {
+        const doc = docs.data() as Omit<IGetProjectResponse, 'images'>
+        const imgUrl = await this.getFiles(`projects/${doc.id}`)
+        return { ...doc, images: imgUrl }
+      }),
+    )
+
+    return project[0]
+  }
 }

@@ -1,11 +1,11 @@
 import { api } from '@/lib/axios/axios'
-import {IGetProjectRes} from '@/types/responses/get-project-response'
+import { IGetProjectResponse } from '@/types/responses/get-project-response'
 
 export async function getProjects(
   quantity?: number,
-): Promise<IGetProjectRes[]> {
+): Promise<IGetProjectResponse[]> {
   const response = await api.get(
-    `/admin/get-projects?projectQuantity=${quantity}`,
+    `/admin/get-project?projectQuantity=${quantity}`,
   )
 
   return response.data

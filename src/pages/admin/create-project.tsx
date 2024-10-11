@@ -136,7 +136,7 @@ function CreateProject() {
             />
 
             <Input
-              accept={'image/png, image/jpeg, image/jpg'}
+              accept={'image/png, image/jpeg, image/jpg, image/webp'}
               className={'cursor-pointer w-fit'}
               field={'Clique para escolher as imagens'}
               type={'file'}

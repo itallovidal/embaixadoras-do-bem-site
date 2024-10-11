@@ -4,6 +4,7 @@ import { AppLayout } from '@/components/app-layout'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
+
     <AppLayout>
       <Component {...pageProps} />
     </AppLayout>

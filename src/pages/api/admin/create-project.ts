@@ -20,6 +20,7 @@ export default async function handler(
 
   form.parse(req, async (err, fields, files) => {
     if (err) {
+      console.log('Erro interno.')
       const error = new ErrorEntity(
         'Erro interno de servidor.',
         'Algo deu errado em sua requisição, tente novamente mais tarde.',
@@ -29,6 +30,7 @@ export default async function handler(
     }
 
     if (!files.images) {
+      console.log('Nenhuma imagem enviada.')
       const error = new ErrorEntity(
         'Nenhuma imagem enviada.',
         'Para criação de um projeto, deve-se ter pelo menos uma imagem.',
@@ -49,6 +51,7 @@ export default async function handler(
 
     const projectParsed = createProjectDTOSchema.safeParse(fieldsObj)
     if (!projectParsed.success) {
+      console.log('Dados necessários incorretos.')
       const error = new ErrorEntity(
         'Informações erradas.',
         'Dados necessários incorretos.',
@@ -61,8 +64,6 @@ export default async function handler(
 
     const project = projectParsed.data
     const { images } = files
-
-    console.log(images)
 
     await databaseRepository.createProject(project, images)
 
