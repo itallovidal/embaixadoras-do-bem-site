@@ -72,9 +72,9 @@ function CreateProject() {
       <Heading className={'mb-4'}>Criação de Projeto</Heading>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className={'p-4  bg-gray-200 rounded-lg gap-8 flex flex-col'}
+        className={'p-4 bg-gray-200 rounded-lg gap-8 flex flex-col'}
       >
-        <div className={'flex gap-4 '}>
+        <div className={'flex gap-4 flex-col lg:flex-row'}>
           <div className={'flex flex-col flex-1 gap-4 '}>
             <Controller
               control={control}
@@ -107,8 +107,8 @@ function CreateProject() {
             />
           </div>
 
-          <div className={'flex flex-col gap-4'}>
-            <div className={'flex gap-4 mb-4'}>
+          <div className={'flex flex-col gap-4 '}>
+            <div className={'flex flex-col sm:flex-row gap-4 mb-4'}>
               <DateTimePicker
                 label={'Data de Inicio'}
                 date={watch('startDate')}

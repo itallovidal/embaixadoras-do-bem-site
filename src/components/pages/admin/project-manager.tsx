@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { AdminProjectCard } from '@/components/pages/admin/components/admin-project-card/admin-project-card'
 import { Button } from '../../global-components/button'
 import { ArrowRight, Loader2, Plus } from 'lucide-react'
@@ -19,8 +19,8 @@ export function ProjectManager() {
 
   if (projects)
     return (
-      <article className={'flex flex-col gap-12 my-10'}>
-        <div className={'flex justify-between items-center'}>
+      <article className={'flex flex-col gap-12 my-12'}>
+        <div className={'flex flex-col gap-2  justify-between sm:flex-row sm:items-center'}>
           <Heading>Gerencie seus projetos</Heading>
           <Button href={'/admin/projects/create-project'} Icon={Plus}>
             Criar um projeto

@@ -18,7 +18,7 @@ function Index() {
     return (
       <article
         className={
-          'min-h-[60vh] max-w-safeMobile xl:max-w-safeDesktop m-auto flex flex-col gap-12 my-10'
+          'min-h-[60vh] max-w-safeMobile xl:max-w-safeDesktop m-auto flex flex-col gap-12 my-16 sm:my-10'
         }
       >
         <div className={'flex justify-between items-center'}>

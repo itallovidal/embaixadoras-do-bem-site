@@ -54,7 +54,7 @@ export function AdminProjectCard({
     <Dialog>
       <div
         className={
-          'flex flex-col items-center justify-center flex-1 max-w-[265px] gap-4 bg-gray-100 p-4'
+          'flex flex-col items-center justify-center flex-1  gap-4 bg-gray-100 p-4 sm:max-w-[265px]'
         }
       >
         <picture className={'w-[200px] h-[200px] rounded overflow-hidden'}>
@@ -93,7 +93,7 @@ export function AdminProjectCard({
           <DialogDescription>
             A exclusão é permanente, pense bem antes de realizá-la.
           </DialogDescription>
-          <DialogFooter className="sm:justify-center p-4">
+          <DialogFooter className={'flex flex-row gap-5 justify-center p-4'}>
             <DialogClose asChild>
               <Button variant={'default'} onClick={handleDelete}>
                 Excluir
