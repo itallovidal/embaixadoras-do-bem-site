@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 import { loginSchema, TLoginSchema } from '@/types/schemas/login.schema'
 import { useRouter } from 'next/router'
+import { login } from '@/utils/api/auth/login'
 
 export default function Login() {
   const { toast } = useToast()
@@ -23,6 +24,7 @@ export default function Login() {
   async function handleLogin(data: TLoginSchema) {
     try {
       console.log(data)
+      login(data)
       toast({
         className: 'bg-green-600 text-white',
         title: 'Usuário logado',

@@ -25,6 +25,7 @@ import {
 } from '@firebase/storage'
 import fs from 'node:fs/promises'
 import { IGetProjectResponse } from '@/types/responses/get-project-response'
+import { TLoginSchema } from '@/types/schemas/login.schema'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private db: Firestore
@@ -160,4 +161,6 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
 
     await deleteDoc(projectRef)
   }
+
+  async login(data: TLoginSchema) {}
 }
