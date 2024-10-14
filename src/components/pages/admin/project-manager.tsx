@@ -1,10 +1,11 @@
 import React from 'react'
 import { AdminProjectCard } from '@/components/pages/admin/components/admin-project-card/admin-project-card'
 import { Button } from '../../global-components/button'
-import { ArrowRight, Loader2, Plus } from 'lucide-react'
+import { ArrowRight, Plus } from 'lucide-react'
 import { Heading } from '@/components/global-components/text/heading'
 import { useQuery } from '@tanstack/react-query'
 import { getProjects } from '@/utils/api/get-projects'
+import Loader from '@/components/global-components/loader/loader'
 
 export function ProjectManager() {
   const { data: projects, isLoading } = useQuery({
@@ -15,12 +16,16 @@ export function ProjectManager() {
   console.log('fetched!')
   console.log(projects)
 
-  if (isLoading) return <Loader2 />
+  if (isLoading) return <Loader />
 
   if (projects)
     return (
       <article className={'flex flex-col gap-12 my-12'}>
-        <div className={'flex flex-col gap-2  justify-between sm:flex-row sm:items-center'}>
+        <div
+          className={
+            'flex flex-col gap-2  justify-between sm:flex-row sm:items-center'
+          }
+        >
           <Heading>Gerencie seus projetos</Heading>
           <Button href={'/admin/projects/create-project'} Icon={Plus}>
             Criar um projeto

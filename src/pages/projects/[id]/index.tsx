@@ -5,8 +5,9 @@ import { Heading } from '@/components/global-components/text/heading'
 import { Paragraph } from '@/components/global-components/text/paragraph'
 import { useQuery } from '@tanstack/react-query'
 import { getProjectDetails } from '@/utils/api/get-project-details'
-import { ArrowLeft, Loader2 } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/global-components/button'
+import Loader from '@/components/global-components/loader/loader'
 function Index() {
   const router = useRouter()
   const { id } = router.query as { id: string }
@@ -18,7 +19,7 @@ function Index() {
 
   console.log(project)
 
-  if (isLoading) return <Loader2 />
+  if (isLoading) return <Loader />
 
   if (project)
     return (

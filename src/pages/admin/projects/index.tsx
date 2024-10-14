@@ -1,10 +1,11 @@
 import React from 'react'
 import { AdminProjectCard } from '@/components/pages/admin/components/admin-project-card/admin-project-card'
-import { ArrowLeft, Loader2 } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { Heading } from '@/components/global-components/text/heading'
 import { useQuery } from '@tanstack/react-query'
 import { getProjects } from '@/utils/api/get-projects'
 import { Button } from '@/components/global-components/button'
+import Loader from '@/components/global-components/loader/loader'
 
 function Index() {
   const { data: projects, isLoading } = useQuery({
@@ -12,7 +13,7 @@ function Index() {
     queryFn: () => getProjects(),
   })
 
-  if (isLoading) return <Loader2 />
+  if (isLoading) return <Loader />
 
   if (projects)
     return (
