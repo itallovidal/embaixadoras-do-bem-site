@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getProjects } from '@/utils/api/get-projects'
 import { Button } from '@/components/global-components/button'
 import Loader from '@/components/global-components/loader/loader'
+import { getServerSideProps } from '@/lib/gssp-admin-cookies'
 
 function Index() {
   const { data: projects, isLoading } = useQuery({
@@ -46,3 +47,5 @@ function Index() {
 }
 
 export default Index
+
+export { getServerSideProps }

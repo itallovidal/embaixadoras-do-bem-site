@@ -1,5 +1,5 @@
-import React from 'react'
 import { ProjectManager } from '@/components/pages/admin/project-manager'
+import { getServerSideProps } from '@/lib/gssp-admin-cookies'
 
 function Dashboard() {
   return (
@@ -12,3 +12,5 @@ function Dashboard() {
 }
 
 export default Dashboard
+
+export { getServerSideProps }

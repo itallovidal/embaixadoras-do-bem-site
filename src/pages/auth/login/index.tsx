@@ -8,6 +8,7 @@ import { loginSchema, TLoginSchema } from '@/types/schemas/login.schema'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/router'
 import { login } from '@/utils/api/auth/login'
+import { useMutation } from '@tanstack/react-query'
 
 export default function Index() {
   const {
@@ -20,40 +21,28 @@ export default function Index() {
   const { toast } = useToast()
   const router = useRouter()
 
-  async function handleLogin(data: TLoginSchema) {
-    try {
-      const { success } = await login(data)
-
-      if (!success) {
-        toast({
-          variant: 'destructive',
-          title: 'Credenciais erradas',
-          description: 'Senha ou email inválidos!',
-        })
-        return
-      }
-
+  const { mutateAsync } = useMutation({
+    mutationKey: ['login'],
+    mutationFn: login,
+    onSuccess: async () => {
       toast({
         className: 'bg-green-600 text-white',
         title: 'Usuário logado',
         description: 'Usuário logado com sucessso!',
       })
-
       await router.push('/admin/dashboard')
-    } catch (e) {
-      if (e instanceof Error) {
-        console.log({
-          title: e.message,
-          description: e.cause as string,
-        })
-      }
-
+    },
+    onError: (error) => {
       toast({
         variant: 'destructive',
-        title: 'Erro',
-        description: 'Falha ao logar, volte mais tarde!',
+        title: error.message,
+        description: String(error.cause),
       })
-    }
+    },
+  })
+
+  async function handleLogin(data: TLoginSchema) {
+    await mutateAsync(data)
   }
 
   return (

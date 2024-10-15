@@ -162,7 +162,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     await deleteDoc(projectRef)
   }
 
-  async login({ email, password }: TLoginSchema): Promise<boolean> {
+  async login({ email, password }: TLoginSchema): Promise<IUserDTO> {
     const usersColletion = collection(this.db, 'users')
     const q = query(
       usersColletion,
@@ -170,8 +170,16 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
       where('password', '==', password),
     )
     const data = await getDocs(q)
-    const docs = data.docs.map((docs) => docs.data())
+    const user = data.docs.map((doc) => {
+      const userInfo = doc.data() as Omit<IUserDTO, 'collectionId'>
+      return {
+        id: userInfo.id,
+        email: userInfo.email,
+        name: userInfo.name,
+        collectionId: doc.id,
+      }
+    })[0]
 
-    return !!docs.length
+    return user
   }
 }

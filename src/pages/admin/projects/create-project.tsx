@@ -15,6 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@/hooks/use-toast'
 import { createProject } from '@/utils/api/create-project'
 import { Loader2 } from 'lucide-react'
+import { getServerSideProps } from '@/lib/gssp-admin-cookies'
 
 function CreateProject() {
   const { toast } = useToast()
@@ -175,3 +176,5 @@ function CreateProject() {
 }
 
 export default CreateProject
+
+export { getServerSideProps }
