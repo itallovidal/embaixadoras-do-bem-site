@@ -1,4 +1,3 @@
-import { useToast } from '@/hooks/use-toast'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Heading } from '@/components/global-components/text/heading'
@@ -6,13 +5,11 @@ import { Input } from '@/components/global-components/input/input'
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 import { loginSchema, TLoginSchema } from '@/types/schemas/login.schema'
+import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/router'
 import { login } from '@/utils/api/auth/login'
 
-export default function Login() {
-  const { toast } = useToast()
-  const router = useRouter()
-
+export default function Index() {
   const {
     control,
     handleSubmit,
@@ -20,25 +17,42 @@ export default function Login() {
   } = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
   })
+  const { toast } = useToast()
+  const router = useRouter()
 
   async function handleLogin(data: TLoginSchema) {
     try {
-      console.log(data)
-      login(data)
+      const { success } = await login(data)
+
+      if (!success) {
+        toast({
+          variant: 'destructive',
+          title: 'Credenciais erradas',
+          description: 'Senha ou email inválidos!',
+        })
+        return
+      }
+
       toast({
         className: 'bg-green-600 text-white',
         title: 'Usuário logado',
         description: 'Usuário logado com sucessso!',
       })
-      router.push('/admin/dashboard')
+
+      await router.push('/admin/dashboard')
     } catch (e) {
       if (e instanceof Error) {
-        toast({
-          variant: 'destructive',
+        console.log({
           title: e.message,
           description: e.cause as string,
         })
       }
+
+      toast({
+        variant: 'destructive',
+        title: 'Erro',
+        description: 'Falha ao logar, volte mais tarde!',
+      })
     }
   }
 

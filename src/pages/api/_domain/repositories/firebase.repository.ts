@@ -162,5 +162,16 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     await deleteDoc(projectRef)
   }
 
-  async login(data: TLoginSchema) {}
+  async login({ email, password }: TLoginSchema): Promise<boolean> {
+    const usersColletion = collection(this.db, 'users')
+    const q = query(
+      usersColletion,
+      where('email', '==', email),
+      where('password', '==', password),
+    )
+    const data = await getDocs(q)
+    const docs = data.docs.map((docs) => docs.data())
+
+    return !!docs.length
+  }
 }
