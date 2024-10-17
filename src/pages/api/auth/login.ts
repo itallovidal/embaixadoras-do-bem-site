@@ -2,9 +2,11 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { databaseRepository } from '@/pages/api/_domain/db'
 import { loginDTOSchema } from '@/pages/api/_schemas/loginDTO.schema'
 import { ErrorEntity } from '@/pages/api/_domain/error-entity'
-import { sign } from 'jsonwebtoken'
+import { SignJWT } from 'jose'
 import { env } from '@/root/env'
 import { setCookie } from 'nookies'
+
+const encodedSecret = new TextEncoder().encode(env.JWT_SECRET)
 
 export default async function handler(
   req: NextApiRequest,
@@ -37,10 +39,14 @@ export default async function handler(
     return res.status(error.status).json({ error: error.getError() })
   }
 
-  const token = sign(
-    { id: userSaved.id, collectionId: userSaved.collectionId },
-    env.JWT_SECRET,
-  )
+  const token = await new SignJWT({
+    id: userSaved.id,
+    collectionId: userSaved.collectionId,
+  })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setIssuedAt()
+    .sign(encodedSecret)
+  console.log(token)
 
   setCookie(
     {
@@ -71,7 +77,7 @@ export default async function handler(
     },
   )
 
-  res.status(201).json({
+  res.status(200).json({
     user,
   })
 }

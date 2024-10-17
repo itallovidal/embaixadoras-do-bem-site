@@ -16,6 +16,15 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method !== 'POST') return res.status(405).end()
+  const userStringfied = req.headers.user
+  console.log('userStringfied', userStringfied)
+  if (!userStringfied) return res.status(401).end()
+
+  const user = JSON.parse(String(userStringfied))
+
+  console.log('Usuário de dentro da rota!')
+  console.log(user)
+
   const form = formidable({})
 
   form.parse(req, async (err, fields, files) => {
