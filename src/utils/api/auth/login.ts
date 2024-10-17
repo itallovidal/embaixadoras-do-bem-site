@@ -4,7 +4,7 @@ import { TLoginSchema } from '@/types/schemas/login.schema'
 export async function login(data: TLoginSchema): Promise<ILoginResponse> {
   const response = await api.post('/auth/login', data)
 
-  if (response.status === 201) {
+  if (response.status === 200) {
     return response.data
   }
 

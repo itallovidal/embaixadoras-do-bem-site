@@ -1,6 +1,7 @@
 import { api } from '@/lib/axios/axios'
 import { TProjectSchema } from '@/types/schemas/project.schema'
 import { IImgToAdd, IImgToRemove, IResponseError } from '@/types/interfaces'
+import nookies from 'nookies'
 
 type IEditProjectProps = Omit<TProjectSchema, 'images'> & {
   imgsToAdd: IImgToAdd[]
@@ -27,12 +28,15 @@ export async function editProject(data: IEditProjectProps) {
     formData.append('imgsToAdd', file)
   })
 
+  const cookies = nookies.get()
+
   const response = await api.put(
     `/admin/projects/edit/${data.collectionId}/${data.id}`,
     formData,
     {
       headers: {
         'Content-Type': `multipart/form-data`,
+        Authorization: 'Bearer ' + cookies['@EDB:user-token'],
       },
     },
   )

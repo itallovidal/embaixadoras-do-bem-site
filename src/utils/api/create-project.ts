@@ -1,6 +1,7 @@
 import { api } from '@/lib/axios/axios'
 import { TProjectSchema } from '@/types/schemas/project.schema'
-import {IResponseError} from "@/types/interfaces";
+import { IResponseError } from '@/types/interfaces'
+import nookies from 'nookies'
 
 export async function createProject(data: TProjectSchema) {
   const formData = new FormData()
@@ -15,9 +16,12 @@ export async function createProject(data: TProjectSchema) {
     formData.append('images', file)
   })
 
+  const cookies = nookies.get()
+
   const response = await api.post('/admin/projects/create', formData, {
     headers: {
       'Content-Type': `multipart/form-data`,
+      Authorization: 'Bearer ' + cookies['@EDB:user-token'],
     },
   })
 
