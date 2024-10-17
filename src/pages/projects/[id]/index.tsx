@@ -8,6 +8,7 @@ import { getProjectDetails } from '@/utils/api/get-project-details'
 import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/global-components/button'
 import Loader from '@/components/global-components/loader/loader'
+import { convertSecondsToDate } from '@/utils/convert-seconds-to-date'
 function Index() {
   const router = useRouter()
   const { id } = router.query as { id: string }
@@ -16,7 +17,14 @@ function Index() {
     queryFn: () => getProjectDetails(id),
     enabled: !!id,
   })
+  const startDate = project?.startDate
+    ? convertSecondsToDate(project?.startDate.seconds).toLocaleString('pt-BR').split(',')[0]
+    : undefined
+  const endDate = project?.endDate
+    ? convertSecondsToDate(project?.endDate.seconds).toLocaleString('pt-BR').split(',')[0]
+    : undefined
 
+  console.log(project)
   if (isLoading) return <Loader />
 
   if (project)
@@ -37,6 +45,15 @@ function Index() {
             </div>
           </div>
           <Paragraph>{project.description}</Paragraph>
+
+          <div>
+            <p>Data do inicio do projeto {startDate}</p>
+            {project.isActive ? (
+              <p>Projeto ainda ativo</p>
+            ) : (
+              <p>Data da finalização do projeto {endDate}</p>
+            )}
+          </div>
 
           <div
             className={'mt-8 flex flex-col flex-wrap w-full gap-4 sm:flex-row'}
