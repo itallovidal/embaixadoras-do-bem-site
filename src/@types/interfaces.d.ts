@@ -1,8 +1,4 @@
-interface ISelectedImage {
-  id: string
-  src: string
-  file: File
-}
+import { TProjectSchema } from '@/types/schemas/project.schema'
 
 interface IResponseError {
   title: string
@@ -12,4 +8,13 @@ interface IResponseError {
     code: number
     message: string
   }
+}
+
+interface IImgToAdd {
+  file: File
+  id: string
+}
+
+interface IImgToRemove {
+  src: string
 }

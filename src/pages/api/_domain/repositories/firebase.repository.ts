@@ -10,12 +10,14 @@ import {
   getFirestore,
   limit,
   query,
+  updateDoc,
   where,
 } from '@firebase/firestore'
 import { uuidv4 } from '@firebase/util'
 import { ICreateProjectDTO } from '@/pages/api/_types/create-project-dto.type'
 import formidable from 'formidable'
 import {
+  deleteObject,
   FirebaseStorage,
   getDownloadURL,
   getStorage,
@@ -26,6 +28,7 @@ import {
 import fs from 'node:fs/promises'
 import { IGetProjectResponse } from '@/types/responses/get-project-response'
 import { TLoginSchema } from '@/types/schemas/login.schema'
+import { TProjectSchema } from '@/types/schemas/project.schema'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private db: Firestore
@@ -98,6 +101,11 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     return imgsUrls
   }
 
+  private async deleteFile(path: string) {
+    const imgPathRef = ref(this.storage, path)
+    await deleteObject(imgPathRef)
+  }
+
   async createProject(project: ICreateProjectDTO, images: formidable.File[]) {
     const projectsCollection = collection(this.db, 'projects')
     const id = uuidv4()
@@ -107,9 +115,6 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
       createdAt: new Date(),
       updatedAt: new Date(),
     })
-
-    console.log('arquivos:')
-    console.log(images)
 
     for await (const image of images) {
       await this.storeFile(image, id)
@@ -147,7 +152,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
       request.docs.map(async (docs) => {
         const doc = docs.data() as Omit<IGetProjectResponse, 'images'>
         const imgUrl = await this.getFiles(`projects/${doc.id}`)
-        return { ...doc, images: imgUrl }
+        return { ...doc, images: imgUrl, collectionId: docs.id }
       }),
     )
 
@@ -155,8 +160,6 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
   }
 
   async deleteProjectById(collectionId: string) {
-    console.log('deletando...')
-    console.log(collectionId)
     const projectRef = doc(this.db, 'projects', collectionId)
 
     await deleteDoc(projectRef)
@@ -181,5 +184,35 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     })[0]
 
     return user
+  }
+
+  async editProject({
+    collectionId,
+    id,
+    imgsToRemove,
+    imgsToAdd,
+    ...project
+  }: {
+    collectionId: string
+    id: string
+    imgsToRemove: string[]
+    imgsToAdd: formidable.File[] | undefined
+    project: Omit<TProjectSchema, 'images'>
+  }) {
+    const projectRef = doc(this.db, 'projects', collectionId)
+    await updateDoc(projectRef, { ...project.project, updatedAt: new Date() })
+    const url = `projects/${id}/`
+
+    if (imgsToAdd) {
+      for await (const image of imgsToAdd) {
+        await this.storeFile(image, id)
+      }
+    }
+
+    if (imgsToRemove) {
+      imgsToRemove.map((img) =>
+        this.deleteFile(url + img.split('%')[2].split('?')[0].slice(2)),
+      )
+    }
   }
 }

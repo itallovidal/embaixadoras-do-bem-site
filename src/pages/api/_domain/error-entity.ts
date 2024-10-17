@@ -9,7 +9,6 @@ export class ErrorEntity {
   ) {}
 
   getError() {
-    console.log(this.details)
     const details = {
       code: this.details?.issues[0].code,
       message: this.details?.issues[0].message,

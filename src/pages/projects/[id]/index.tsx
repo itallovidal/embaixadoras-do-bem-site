@@ -17,8 +17,6 @@ function Index() {
     enabled: !!id,
   })
 
-  console.log(project)
-
   if (isLoading) return <Loader />
 
   if (project)
@@ -43,7 +41,7 @@ function Index() {
           <div
             className={'mt-8 flex flex-col flex-wrap w-full gap-4 sm:flex-row'}
           >
-            {project.images.map((image) => (
+            {project.images.map((image, i) => (
               <picture
                 className={
                   'overflow-hidden rounded-2xl sm:w-[calc(theme(width.1/2)-theme(gap.2))]'
@@ -51,6 +49,7 @@ function Index() {
               >
                 <Image
                   className={'block w-full h-full object-cover'}
+                  key={i}
                   src={image}
                   width={370}
                   height={600}

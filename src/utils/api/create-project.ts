@@ -1,8 +1,8 @@
 import { api } from '@/lib/axios/axios'
-import { TCreateProjectSchema } from '@/types/schemas/create-project.schema'
+import { TProjectSchema } from '@/types/schemas/project.schema'
+import {IResponseError} from "@/types/interfaces";
 
-export async function createProject(data: TCreateProjectSchema) {
-  console.log('Criando projeto..')
+export async function createProject(data: TProjectSchema) {
   const formData = new FormData()
   formData.append('title', data.title)
   formData.append('description', data.description)

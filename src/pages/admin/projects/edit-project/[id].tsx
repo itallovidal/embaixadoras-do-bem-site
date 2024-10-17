@@ -1,26 +1,37 @@
 import { Input } from '@/components/global-components/input/input'
 import { Checkbox } from '@/components/global-components/checkbox/checkbox'
 import { Heading } from '@/components/global-components/text/heading'
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { SelectedImageCard } from '@/components/global-components/selected-image-card/selected-image-card'
 import { generatePreviewImages } from '@/utils/generate-preview-images'
 import { DateTimePicker } from '@/components/global-components/date-time-picker/date-time-picker'
 import { Controller, useForm } from 'react-hook-form'
 import { projectSchema, TProjectSchema } from '@/types/schemas/project.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@/hooks/use-toast'
-import { createProject } from '@/utils/api/create-project'
 import { ArrowLeft, Loader2 } from 'lucide-react'
-import { getServerSideProps } from '@/lib/gssp-admin-cookies'
-import { SelectedImageCard } from '@/components/global-components/selected-image-card/selected-image-card'
+import { GetServerSideProps } from 'next'
+import { getProjectDetails } from '@/utils/api/get-project-details'
+import { convertSecondsToDate } from '@/utils/convert-seconds-to-date'
+import { IGetProjectResponse } from '@/types/responses/get-project-response'
+import { editProject } from '@/utils/api/edit-project'
+import { IImgToAdd, IImgToRemove } from '@/types/interfaces'
 import { Button } from '@/components/global-components/button'
 
-interface ISelectedImage {
+interface ICreateProjectProps {
+  project: IGetProjectResponse
+}
+interface IPreviewImg {
   id: string
   src: string
-  file: File
 }
 
-function CreateProject() {
+function EditProject({ project }: ICreateProjectProps) {
+  const defaultEndDate = convertSecondsToDate(project.endDate.seconds)
+  const defaultStartDate = convertSecondsToDate(project.startDate.seconds)
+  const [imgsToAdd, setImgsToAdd] = useState<IImgToAdd[]>([])
+  const [imgsToRemove, setImgsToRemove] = useState<IImgToRemove[]>([])
+
   const { toast } = useToast()
   const {
     watch,
@@ -32,27 +43,79 @@ function CreateProject() {
   } = useForm<TProjectSchema>({
     defaultValues: {
       images: [],
+      endDate: defaultEndDate,
+      startDate: defaultStartDate,
+      title: project.title,
+      description: project.description,
+      isActive: project.isActive,
     },
     resolver: zodResolver(projectSchema),
   })
 
-  function handlePreviewImages(event: ChangeEvent<HTMLInputElement>) {
-    const files = generatePreviewImages(event.target.files)
-    const allImages = [...getValues('images'), ...files]
-    setValue('images', allImages)
+  const selectedImages = watch('images')
+
+  useEffect(() => {
+    getDefaultImages()
+  }, [])
+
+  function getDefaultImages() {
+    const imgs = project.images.map((img) => {
+      return {
+        src: img,
+        id: img,
+      }
+    })
+    setValue('images', imgs)
   }
 
-  function onDelete(id: string) {
+  function handlePreviewImages(event: ChangeEvent<HTMLInputElement>) {
+    const imgs = generatePreviewImages(event.target.files)
+    const toPreview: { src: string; id: string }[] = []
+    const toAdd: { file: File; id: string }[] = []
+
+    imgs.forEach((file) => {
+      toPreview.push({ src: file.src, id: file.id })
+      toAdd.push({ file: file.file, id: file.id })
+    })
+
+    const allImages = [...getValues('images'), ...toPreview]
+    setValue('images', allImages)
+
+    setImgsToAdd((prevState) => [...prevState, ...toAdd])
+  }
+
+  function onDelete(imgToDelete: string) {
     const selectedImages = getValues('images')
-    const filteredImages = selectedImages.filter(
-      (image: ISelectedImage) => image.id !== id,
-    )
+    const filteredImages = selectedImages.filter((image: IPreviewImg) => {
+      if (image.id !== imgToDelete) return true
+
+      if (imgToDelete.includes('firebasestorage')) {
+        setImgsToRemove((prevState) => [...prevState, image])
+        return false
+      }
+
+      setImgsToAdd((prevState) =>
+        prevState.filter((path) => {
+          return path.id !== imgToDelete
+        }),
+      )
+
+      return false
+    })
     setValue('images', filteredImages)
   }
 
-  async function handleCreateProject(data: TProjectSchema) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async function handleEditProject({ images, ...projectData }: TProjectSchema) {
     try {
-      await createProject(data)
+      await editProject({
+        imgsToAdd,
+        imgsToRemove,
+        ...projectData,
+        collectionId: project.collectionId,
+        id: project.id,
+      })
+
       toast({
         className: 'bg-green-600 text-white',
         title: 'Projeto salvo!',
@@ -69,8 +132,6 @@ function CreateProject() {
     }
   }
 
-  const selectedImages = watch('images')
-
   return (
     <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto my-24'}>
       <div
@@ -78,15 +139,14 @@ function CreateProject() {
           'flex flex-col-reverse items-start justify-between sm:flex-row sm:gap-5 sm:items-center'
         }
       >
-        <Heading className={'mb-4'}>Criação de Projeto</Heading>
+        <Heading className={'mb-4'}>Edição do Projeto</Heading>
 
         <div className={' flex justify-end sm:my-5'}>
-          <Button href={'/admin/dashboard'} Icon={ArrowLeft} variant={'ghost'}>
+          <Button href={'/admin/projects'} Icon={ArrowLeft} variant={'ghost'}>
             Voltar
           </Button>
         </div>
       </div>
-
       <form
         onSubmit={(e) => e.preventDefault()}
         className={'p-4 bg-gray-200 rounded-lg gap-8 flex flex-col'}
@@ -150,6 +210,7 @@ function CreateProject() {
               }
               onClick={() => setValue('isActive', !watch('isActive'))}
               disabled={isSubmitting}
+              checked={watch('isActive')}
             />
 
             <Input
@@ -166,11 +227,12 @@ function CreateProject() {
         </div>
         {selectedImages.length > 0 && (
           <div className={'flex gap-4 flex-wrap p-4 bg-white rounded-md'}>
-            {selectedImages.map((value: ISelectedImage) => {
+            {selectedImages.map((value: IPreviewImg) => {
               return (
                 <SelectedImageCard
                   key={value.id}
-                  {...value}
+                  src={value.src}
+                  id={value.id}
                   onDelete={onDelete}
                 />
               )
@@ -181,16 +243,23 @@ function CreateProject() {
 
       <Button
         disabled={isSubmitting}
-        onClick={handleSubmit(handleCreateProject)}
+        onClick={handleSubmit(handleEditProject)}
         className={'self-center my-12'}
       >
         {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        Criar projeto
+        Salvar projeto
       </Button>
     </div>
   )
 }
 
-export default CreateProject
+export default EditProject
 
-export { getServerSideProps }
+export const getServerSideProps: GetServerSideProps = async (req) => {
+  const { id } = req.params as { id: string }
+  const project = await getProjectDetails(id)
+
+  return {
+    props: { project },
+  }
+}

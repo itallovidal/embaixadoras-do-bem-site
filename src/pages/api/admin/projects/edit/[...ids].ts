@@ -15,7 +15,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  if (req.method !== 'POST') return res.status(405).end()
+  if (req.method !== 'PUT') return res.status(405).end()
+  const { ids } = req.query as { ids: string[] }
+
+  const [collectionId, id] = ids
+
+  if (!collectionId || !id) return res.status(404).json('Não passou o id')
+
   const form = formidable({})
 
   form.parse(req, async (err, fields, files) => {
@@ -28,19 +34,9 @@ export default async function handler(
       return res.status(500).json({ error: error.getError() })
     }
 
-    if (!files.images) {
-      const error = new ErrorEntity(
-        'Nenhuma imagem enviada.',
-        'Para criação de um projeto, deve-se ter pelo menos uma imagem.',
-        400,
-      )
-
-      return res.status(400).json({ error: error.getError() })
-    }
-
     const fieldsObj = Object.fromEntries(
       Object.entries(fields).map(([key, value]) => {
-        if (Array.isArray(value)) {
+        if (Array.isArray(value) && key !== 'imgsToRemove') {
           return [key, ...value]
         }
         return [key, value]
@@ -60,9 +56,15 @@ export default async function handler(
     }
 
     const project = projectParsed.data
-    const { images } = files
+    const { imgsToAdd } = files
 
-    await databaseRepository.createProject(project, images)
+    await databaseRepository.editProject({
+      collectionId,
+      id,
+      imgsToRemove: fieldsObj.imgsToRemove,
+      imgsToAdd,
+      project,
+    })
 
     return res.status(201).json({ message: 'Project Created' })
   })

@@ -1,4 +1,4 @@
-import { createProjectDTOSchema } from '@/pages/api/_schemas/create-project-DTO.schema'
+import { projectDTOSchema } from '@/pages/api/_schemas/project-d-t-o.schema'
 import z from 'zod'
 
-export type ICreateProjectDTO = z.infer<typeof createProjectDTOSchema>
+export type ICreateProjectDTO = z.infer<typeof projectDTOSchema>

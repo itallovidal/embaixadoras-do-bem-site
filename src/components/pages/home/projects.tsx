@@ -11,8 +11,6 @@ export function Projects() {
     queryFn: () => getProjects(4),
   })
 
-  console.log(projects)
-
   return (
     <article className={'flex flex-col  gap-12 my-24'}>
       <Heading>Conheça nossos projetos!</Heading>

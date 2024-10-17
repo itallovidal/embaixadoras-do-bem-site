@@ -14,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import { useRouter } from 'next/router'
 
 interface IProps {
   project: {
@@ -28,6 +29,7 @@ export function AdminProjectCard({
   project: { image, id, title, collectionId },
 }: IProps) {
   const { toast } = useToast()
+  const route = useRouter()
   async function handleDelete() {
     try {
       await api.delete(`/admin/projects/delete/${collectionId}`)
@@ -76,7 +78,11 @@ export function AdminProjectCard({
           >
             Ver projeto
           </Button>
-          <Button className={'w-full'} variant={'default'}>
+          <Button
+            className={'w-full'}
+            variant={'default'}
+            onClick={() => route.push(`/admin/projects/edit-project/${id}`)}
+          >
             Editar
           </Button>
           <DialogTrigger asChild>

@@ -1,6 +1,6 @@
 import z from 'zod'
 
-export const createProjectSchema = z
+export const projectSchema = z
   .object({
     title: z
       .string({
@@ -27,4 +27,4 @@ export const createProjectSchema = z
     message: 'Escolha uma data final ou marque como vigente.',
   })
 
-export type TCreateProjectSchema = z.infer<typeof createProjectSchema>
+export type TProjectSchema = z.infer<typeof projectSchema>

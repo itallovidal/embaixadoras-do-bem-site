@@ -28,9 +28,6 @@ export default async function handler(
 
   const userSaved = await databaseRepository.login({ email, password })
 
-  console.log(userSaved)
-  console.log(!userSaved)
-
   if (!userSaved) {
     const error = new ErrorEntity(
       'Usuário não encontrado',

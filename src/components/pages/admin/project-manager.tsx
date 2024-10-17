@@ -13,9 +13,6 @@ export function ProjectManager() {
     queryFn: () => getProjects(4),
   })
 
-  console.log('fetched!')
-  console.log(projects)
-
   if (isLoading) return <Loader />
 
   if (projects)

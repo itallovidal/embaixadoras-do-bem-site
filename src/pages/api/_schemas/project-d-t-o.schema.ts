@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const createProjectDTOSchema = z
+export const projectDTOSchema = z
   .object({
     title: z
       .string({
