@@ -1,5 +1,5 @@
-import { ComponentType } from 'react'
-import { LucideProps } from 'lucide-react'
+import React, { ComponentType } from 'react'
+import { Loader2, LucideProps } from 'lucide-react'
 import { Button as ShadButton, ButtonProps } from '@/components/ui/button'
 import Link from 'next/link'
 
@@ -7,9 +7,32 @@ interface NavButton extends ButtonProps {
   Icon?: ComponentType<LucideProps>
   children?: string
   href?: string
+  isLoading?: boolean
 }
 
-export function Button({ href, Icon, variant, children, ...props }: NavButton) {
+export function Button({
+  href,
+  Icon,
+  variant,
+  isLoading,
+  children,
+  ...props
+}: NavButton) {
+  if (isLoading)
+    return (
+      <ShadButton
+        disabled={true}
+        className={'gap-2'}
+        variant={variant}
+        {...props}
+      >
+        <>
+          {<Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {children && children}
+        </>
+      </ShadButton>
+    )
+
   if (href) {
     return (
       <ShadButton variant={variant} asChild {...props}>

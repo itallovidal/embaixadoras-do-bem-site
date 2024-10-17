@@ -180,11 +180,10 @@ function CreateProject() {
       </form>
 
       <Button
-        disabled={isSubmitting}
+        isLoading={isSubmitting}
         onClick={handleSubmit(handleCreateProject)}
         className={'self-center my-12'}
       >
-        {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         Criar projeto
       </Button>
     </div>

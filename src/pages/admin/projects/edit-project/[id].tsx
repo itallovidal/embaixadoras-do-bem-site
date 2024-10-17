@@ -242,11 +242,10 @@ function EditProject({ project }: ICreateProjectProps) {
       </form>
 
       <Button
-        disabled={isSubmitting}
+        isLoading={isSubmitting}
         onClick={handleSubmit(handleEditProject)}
         className={'self-center my-12'}
       >
-        {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         Salvar projeto
       </Button>
     </div>
