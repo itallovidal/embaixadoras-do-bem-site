@@ -45,9 +45,9 @@ export function Button({
   }
 
   return (
-    <ShadButton className={'gap-2'} variant={variant} {...props}>
+    <ShadButton className={'gap-2 '} variant={variant} {...props}>
       <>
-        {Icon && <Icon className={'mr-4'} />}
+        {Icon && <Icon className={children && 'mr-4'} />}
         {children && children}
       </>
     </ShadButton>

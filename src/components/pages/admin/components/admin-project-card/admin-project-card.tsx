@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { useRouter } from 'next/router'
+import nookies from 'nookies'
 
 interface IProps {
   project: {
@@ -31,8 +32,22 @@ export function AdminProjectCard({
   const { toast } = useToast()
   const route = useRouter()
   async function handleDelete() {
+    const cookies = nookies.get()
+
     try {
-      await api.delete(`/admin/projects/delete/${collectionId}`)
+      const response = await api.delete(
+        `/admin/projects/delete/${collectionId}`,
+        {
+          headers: {
+            'Content-Type': `multipart/form-data`,
+            Authorization: 'Bearer ' + cookies['@EDB:user-token'],
+          },
+        },
+      )
+
+      if (response.status !== 200) {
+        throw Error(`Failed to delete ${collectionId}`)
+      }
       await queryClient.invalidateQueries({
         queryKey: ['last-projects'],
       })
@@ -101,7 +116,7 @@ export function AdminProjectCard({
           </DialogDescription>
           <DialogFooter className={'flex flex-row gap-5 justify-center p-4'}>
             <DialogClose asChild>
-              <Button variant={'default'} onClick={handleDelete}>
+              <Button variant={'default'} onClick={() => handleDelete()}>
                 Excluir
               </Button>
             </DialogClose>

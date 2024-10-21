@@ -9,10 +9,11 @@ import { projectSchema, TProjectSchema } from '@/types/schemas/project.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@/hooks/use-toast'
 import { createProject } from '@/utils/api/create-project'
-import { ArrowLeft, Loader2 } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { getServerSideProps } from '@/lib/gssp-admin-cookies'
 import { SelectedImageCard } from '@/components/global-components/selected-image-card/selected-image-card'
 import { Button } from '@/components/global-components/button'
+import { useRouter } from 'next/router'
 
 interface ISelectedImage {
   id: string
@@ -20,7 +21,8 @@ interface ISelectedImage {
   file: File
 }
 
-function CreateProject() {
+function Index() {
+  const router = useRouter()
   const { toast } = useToast()
   const {
     watch,
@@ -58,6 +60,7 @@ function CreateProject() {
         title: 'Projeto salvo!',
         description: 'Projeto criado com sucesso.',
       })
+      await router.push('/admin/dashboard')
     } catch (e) {
       if (e instanceof Error) {
         toast({
@@ -190,6 +193,6 @@ function CreateProject() {
   )
 }
 
-export default CreateProject
+export default Index
 
 export { getServerSideProps }

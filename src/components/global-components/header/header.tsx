@@ -33,7 +33,7 @@ export function Header({
       >
         {title && (
           <>
-            <h1 className={'text-6xl'}>{title}</h1>
+            <h1 className={'font-bold text-5xl sm:text-6xl'}>{title}</h1>
             <Separator
               orientation={'horizontal'}
               className={'bg-pink-dark my-5 py-1 w-[10%]'}
@@ -42,7 +42,9 @@ export function Header({
         )}
 
         {description && (
-          <SubHeading className={'w-[60%]'}>{description}</SubHeading>
+          <SubHeading className={'w-[90%] sm:w-[60%]'}>
+            {description}
+          </SubHeading>
         )}
       </div>
     </header>

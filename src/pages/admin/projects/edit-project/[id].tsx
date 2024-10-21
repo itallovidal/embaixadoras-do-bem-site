@@ -9,7 +9,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { projectSchema, TProjectSchema } from '@/types/schemas/project.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@/hooks/use-toast'
-import { ArrowLeft, Loader2 } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { GetServerSideProps } from 'next'
 import { getProjectDetails } from '@/utils/api/get-project-details'
 import { convertSecondsToDate } from '@/utils/convert-seconds-to-date'
@@ -17,6 +17,8 @@ import { IGetProjectResponse } from '@/types/responses/get-project-response'
 import { editProject } from '@/utils/api/edit-project'
 import { IImgToAdd, IImgToRemove } from '@/types/interfaces'
 import { Button } from '@/components/global-components/button'
+import nookies from 'nookies'
+import { api } from '@/lib/axios/axios'
 
 interface ICreateProjectProps {
   project: IGetProjectResponse
@@ -27,10 +29,14 @@ interface IPreviewImg {
 }
 
 function EditProject({ project }: ICreateProjectProps) {
-  const defaultEndDate = convertSecondsToDate(project.endDate.seconds)
-  const defaultStartDate = convertSecondsToDate(project.startDate.seconds)
+  const defaultEndDate =
+    project.endDate && convertSecondsToDate(project.endDate.seconds)
+  const defaultStartDate =
+    project.startDate && convertSecondsToDate(project.startDate.seconds)
   const [imgsToAdd, setImgsToAdd] = useState<IImgToAdd[]>([])
   const [imgsToRemove, setImgsToRemove] = useState<IImgToRemove[]>([])
+
+  console.log(project)
 
   const { toast } = useToast()
   const {
@@ -43,8 +49,8 @@ function EditProject({ project }: ICreateProjectProps) {
   } = useForm<TProjectSchema>({
     defaultValues: {
       images: [],
-      endDate: defaultEndDate,
-      startDate: defaultStartDate,
+      endDate: defaultEndDate || undefined,
+      startDate: defaultStartDate || undefined,
       title: project.title,
       description: project.description,
       isActive: project.isActive,
@@ -256,7 +262,16 @@ export default EditProject
 
 export const getServerSideProps: GetServerSideProps = async (req) => {
   const { id } = req.params as { id: string }
-  const project = await getProjectDetails(id)
+
+  const cookies = nookies.get(req)
+
+  const response = await api.get(`/admin/projects/${id}`, {
+    headers: {
+      Authorization: 'Bearer ' + cookies['@EDB:user-token'],
+    },
+  })
+
+  const project = response.data
 
   return {
     props: { project },
