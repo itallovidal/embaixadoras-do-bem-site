@@ -6,7 +6,6 @@ import { jwtVerify } from 'jose'
 const encodedSecret = new TextEncoder().encode(env.JWT_SECRET)
 
 export async function middleware(req: NextRequest) {
-  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
   if (!req.headers.has('Authorization')) {
     const error = new ErrorEntity(
       'Usuário não autorizado.',
@@ -22,7 +21,6 @@ export async function middleware(req: NextRequest) {
   }
 
   const bearerToken = String(req.headers.get('Authorization'))
-  console.log('bearerToken', bearerToken)
 
   const token = bearerToken.split(' ')[1]
   try {
@@ -31,7 +29,6 @@ export async function middleware(req: NextRequest) {
     headers.set('user', JSON.stringify(user))
     return NextResponse.next({ headers })
   } catch (e) {
-    console.log(e)
     const error = new ErrorEntity(
       'Token Inválido.',
       'Token fornecido não é valido, envie um corretamente.',

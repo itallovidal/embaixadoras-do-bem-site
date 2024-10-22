@@ -7,14 +7,17 @@ export default async function handler(
 ) {
   if (req.method !== 'DELETE') return res.status(405).end()
 
-  const { id: collectionID } = req.query
+  const { ids } = req.query
 
-  if (!collectionID) return res.status(404).json('Não passou o id')
+  if (!Array.isArray(ids)) return res.status(404).json('Não passou os ids')
 
-  console.log(collectionID)
+  const [collectionID, id] = ids
+
+  if (!collectionID || !id) return res.status(404).json('Não passou os ids')
 
   const response = await databaseRepository.deleteProjectById(
     String(collectionID),
+    String(id),
   )
 
   res.status(200).json(response)

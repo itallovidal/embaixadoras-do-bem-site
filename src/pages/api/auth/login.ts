@@ -46,7 +46,6 @@ export default async function handler(
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .sign(encodedSecret)
-  console.log(token)
 
   setCookie(
     {

@@ -28,7 +28,6 @@ function Index() {
         .split(',')[0]
     : undefined
 
-  console.log(project)
   if (isLoading) return <Loader />
 
   if (project)

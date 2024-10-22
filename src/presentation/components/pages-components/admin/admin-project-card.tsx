@@ -16,6 +16,7 @@ import {
 } from '@/presentation/components/shadcn-ui/dialog'
 import { useRouter } from 'next/router'
 import nookies from 'nookies'
+import { useState } from 'react'
 
 interface IProps {
   project: {
@@ -31,12 +32,15 @@ export function AdminProjectCard({
 }: IProps) {
   const { toast } = useToast()
   const route = useRouter()
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false)
+
   async function handleDelete() {
+    setIsDeleteLoading(true)
     const cookies = nookies.get()
 
     try {
       const response = await api.delete(
-        `/admin/projects/delete/${collectionId}`,
+        `/admin/projects/delete/${collectionId}/${id}`,
         {
           headers: {
             'Content-Type': `multipart/form-data`,
@@ -65,6 +69,8 @@ export function AdminProjectCard({
         })
       }
     }
+
+    setIsDeleteLoading(false)
   }
 
   return (
@@ -101,7 +107,11 @@ export function AdminProjectCard({
             Editar
           </Button>
           <DialogTrigger asChild>
-            <Button className={'w-full'} variant={'outline'}>
+            <Button
+              className={'w-full'}
+              variant={'outline'}
+              isLoading={isDeleteLoading}
+            >
               Excluir
             </Button>
           </DialogTrigger>

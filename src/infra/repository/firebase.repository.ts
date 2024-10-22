@@ -22,6 +22,7 @@ import {
   getDownloadURL,
   getStorage,
   list,
+  listAll,
   ref,
   uploadBytesResumable,
 } from '@firebase/storage'
@@ -159,10 +160,14 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     return project[0]
   }
 
-  async deleteProjectById(collectionId: string) {
+  async deleteProjectById(collectionId: string, id: string) {
     const projectRef = doc(this.db, 'projects', collectionId)
-
     await deleteDoc(projectRef)
+
+    const imgPathRef = ref(this.storage, `projects/${id}/`)
+    const imgList = await listAll(imgPathRef)
+
+    for await (const item of imgList.items) await this.deleteFile(item.fullPath)
   }
 
   async login({ email, password }: TLoginSchema): Promise<IUserDTO> {

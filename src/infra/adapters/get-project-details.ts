@@ -7,9 +7,6 @@ export async function getProjectDetails(
 ): Promise<IGetProjectResponse> {
   const cookies = nookies.get()
 
-  console.log('aaa')
-  console.log(cookies)
-
   const response = await api.get(`/admin/projects/${id}`, {
     headers: {
       Authorization: 'Bearer ' + cookies['@EDB:user-token'],

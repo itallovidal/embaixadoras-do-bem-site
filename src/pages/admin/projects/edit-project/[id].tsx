@@ -37,7 +37,6 @@ function EditProject({ project }: ICreateProjectProps) {
   const [imgsToAdd, setImgsToAdd] = useState<IImageToAdd[]>([])
   const [imgsToRemove, setImgsToRemove] = useState<IImageToRemove[]>([])
 
-  console.log(project)
 
   const { toast } = useToast()
   const {
