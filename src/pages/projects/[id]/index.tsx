@@ -42,7 +42,11 @@ function Index() {
             <Heading>{project.title}</Heading>
 
             <div className={' flex justify-end sm:my-5'}>
-              <Button href={'/projects'} Icon={ArrowLeft} variant={'ghost'}>
+              <Button
+                onClick={() => router.back()}
+                Icon={ArrowLeft}
+                variant={'ghost'}
+              >
                 Voltar
               </Button>
             </div>

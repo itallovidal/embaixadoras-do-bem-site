@@ -33,6 +33,7 @@ export function AdminProjectCard({
   const { toast } = useToast()
   const route = useRouter()
   const [isDeleteLoading, setIsDeleteLoading] = useState(false)
+  const [isEditLoading, setIsEditLoading] = useState(false)
 
   async function handleDelete() {
     setIsDeleteLoading(true)
@@ -73,6 +74,12 @@ export function AdminProjectCard({
     setIsDeleteLoading(false)
   }
 
+  async function handleEdit() {
+    setIsEditLoading(true)
+    await route.push(`/admin/projects/edit-project/${id}`)
+    setIsEditLoading(false)
+  }
+
   return (
     <Dialog>
       <div
@@ -102,7 +109,8 @@ export function AdminProjectCard({
           <Button
             className={'w-full'}
             variant={'default'}
-            onClick={() => route.push(`/admin/projects/edit-project/${id}`)}
+            onClick={() => handleEdit()}
+            isLoading={isEditLoading}
           >
             Editar
           </Button>

@@ -20,6 +20,7 @@ import { editProject } from '@/infra/adapters/edit-project'
 import { Button } from '@/presentation/components/global-components/button'
 import nookies from 'nookies'
 import { api } from '@/infra/lib/axios/axios'
+import { useRouter } from 'next/router'
 
 interface ICreateProjectProps {
   project: IGetProjectResponse
@@ -36,7 +37,7 @@ function EditProject({ project }: ICreateProjectProps) {
     project.startDate && convertSecondsToDate(project.startDate.seconds)
   const [imgsToAdd, setImgsToAdd] = useState<IImageToAdd[]>([])
   const [imgsToRemove, setImgsToRemove] = useState<IImageToRemove[]>([])
-
+  const router = useRouter()
 
   const { toast } = useToast()
   const {
@@ -127,6 +128,8 @@ function EditProject({ project }: ICreateProjectProps) {
         title: 'Projeto salvo!',
         description: 'Projeto criado com sucesso.',
       })
+
+      router.push('/admin/dashboard')
     } catch (e) {
       if (e instanceof Error) {
         toast({
