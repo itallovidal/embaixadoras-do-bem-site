@@ -1,6 +1,13 @@
-import { envSchema } from '@/types/schemas/env.schema'
+import { z } from 'zod'
 
-const envParsed = envSchema.safeParse(process.env)
+export const envValidation = z.object({
+  FIREBASE_APP_ID: z.string(),
+  FIREBASE_API_KEY: z.string(),
+  FIREBASE_MESSAGING_SENDER_ID: z.string(),
+  JWT_SECRET: z.string(),
+})
+
+const envParsed = envValidation.safeParse(process.env)
 
 if (!envParsed.success) throw new Error('Local variables error.')
 

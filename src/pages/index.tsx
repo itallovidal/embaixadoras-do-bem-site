@@ -1,10 +1,10 @@
-import { Header } from '@/components/global-components/header/header'
-import Banner from '@/assets/banner-home-background.png'
-import { About } from '@/components/pages/home/about'
-import { CallToAction } from '@/components/pages/home/call-to-action'
-import { Projects } from '@/components/pages/home/projects'
+import { Header } from '@/presentation/components/global-components/header/header'
+import Banner from '@/root/public/home/banner-home-background.png'
+import { About } from '@/presentation/components/pages-components/home/about'
+import { CallToAction } from '@/presentation/components/pages-components/home/call-to-action'
+import { Projects } from '@/presentation/components/pages-components/home/projects'
 // import { BlogPosts } from '@/components/pages/home/blog-posts'
-import { Carousel } from '@/components/global-components/carousel/carousel'
+import { Carousel } from '@/presentation/components/global-components/carousel/carousel'
 // import { VolunteerForm } from '@/components/pages/home/volunteer-form'
 
 export default function Index() {

@@ -1,14 +1,14 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import { Heading } from '@/components/global-components/text/heading'
-import { Paragraph } from '@/components/global-components/text/paragraph'
+import { Heading } from '@/presentation/components/global-components/text/heading'
+import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
 import { useQuery } from '@tanstack/react-query'
-import { getProjectDetails } from '@/utils/api/get-project-details'
+import { getProjectDetails } from '@/infra/adapters/get-project-details'
 import { ArrowLeft } from 'lucide-react'
-import { Button } from '@/components/global-components/button'
-import Loader from '@/components/global-components/loader/loader'
-import { convertSecondsToDate } from '@/utils/convert-seconds-to-date'
+import { Button } from '../../../presentation/components/global-components/button'
+import Loader from '@/presentation/components/global-components/loader/loader'
+import { convertSecondsToDate } from '@/presentation/utils/convert-seconds-to-date'
 function Index() {
   const router = useRouter()
   const { id } = router.query as { id: string }

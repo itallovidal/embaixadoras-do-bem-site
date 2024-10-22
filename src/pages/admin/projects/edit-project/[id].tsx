@@ -1,24 +1,25 @@
-import { Input } from '@/components/global-components/input/input'
-import { Checkbox } from '@/components/global-components/checkbox/checkbox'
-import { Heading } from '@/components/global-components/text/heading'
+import { Input } from '@/presentation/components/global-components/input/input'
+import { Checkbox } from '@/presentation/components/global-components/checkbox/checkbox'
+import { Heading } from '@/presentation/components/global-components/text/heading'
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { SelectedImageCard } from '@/components/global-components/selected-image-card/selected-image-card'
-import { generatePreviewImages } from '@/utils/generate-preview-images'
-import { DateTimePicker } from '@/components/global-components/date-time-picker/date-time-picker'
+import { SelectedImageCard } from '@/presentation/components/global-components/selected-image-card/selected-image-card'
+import { generatePreviewImages } from '@/presentation/utils/generate-preview-images'
+import { DateTimePicker } from '@/presentation/components/global-components/date-time-picker/date-time-picker'
 import { Controller, useForm } from 'react-hook-form'
-import { projectSchema, TProjectSchema } from '@/types/schemas/project.schema'
+import {
+  projectSchema,
+  TProjectSchema,
+} from '@/presentation/validation/project.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useToast } from '@/hooks/use-toast'
+import { useToast } from '@/presentation/hooks/use-toast'
 import { ArrowLeft } from 'lucide-react'
 import { GetServerSideProps } from 'next'
-import { getProjectDetails } from '@/utils/api/get-project-details'
-import { convertSecondsToDate } from '@/utils/convert-seconds-to-date'
-import { IGetProjectResponse } from '@/types/responses/get-project-response'
-import { editProject } from '@/utils/api/edit-project'
-import { IImgToAdd, IImgToRemove } from '@/types/interfaces'
-import { Button } from '@/components/global-components/button'
+import { convertSecondsToDate } from '@/presentation/utils/convert-seconds-to-date'
+import { IGetProjectResponse } from '@/domain/api-responses/projects/get-project-response'
+import { editProject } from '@/infra/adapters/edit-project'
+import { Button } from '@/presentation/components/global-components/button'
 import nookies from 'nookies'
-import { api } from '@/lib/axios/axios'
+import { api } from '@/infra/lib/axios/axios'
 
 interface ICreateProjectProps {
   project: IGetProjectResponse
@@ -33,8 +34,8 @@ function EditProject({ project }: ICreateProjectProps) {
     project.endDate && convertSecondsToDate(project.endDate.seconds)
   const defaultStartDate =
     project.startDate && convertSecondsToDate(project.startDate.seconds)
-  const [imgsToAdd, setImgsToAdd] = useState<IImgToAdd[]>([])
-  const [imgsToRemove, setImgsToRemove] = useState<IImgToRemove[]>([])
+  const [imgsToAdd, setImgsToAdd] = useState<IImageToAdd[]>([])
+  const [imgsToRemove, setImgsToRemove] = useState<IImageToRemove[]>([])
 
   console.log(project)
 

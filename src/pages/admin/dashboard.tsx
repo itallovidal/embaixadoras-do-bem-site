@@ -1,5 +1,5 @@
-import { ProjectManager } from '@/components/pages/admin/project-manager'
-import { getServerSideProps } from '@/lib/gssp-admin-cookies'
+import { ProjectManager } from '@/presentation/components/pages-components/admin/project-manager'
+import { getServerSideProps } from '@/gssp-admin-cookies'
 
 function Dashboard() {
   return (

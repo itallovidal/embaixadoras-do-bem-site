@@ -1,12 +1,12 @@
 import React from 'react'
-import { AdminProjectCard } from '@/components/pages/admin/components/admin-project-card/admin-project-card'
+import { AdminProjectCard } from '@/presentation/components/pages-components/admin/admin-project-card'
 import { ArrowLeft } from 'lucide-react'
-import { Heading } from '@/components/global-components/text/heading'
+import { Heading } from '@/presentation/components/global-components/text/heading'
 import { useQuery } from '@tanstack/react-query'
-import { getProjects } from '@/utils/api/get-projects'
-import { Button } from '@/components/global-components/button'
-import Loader from '@/components/global-components/loader/loader'
-import { getServerSideProps } from '@/lib/gssp-admin-cookies'
+import { getProjects } from '@/infra/adapters/get-projects'
+import { Button } from '../../../presentation/components/global-components/button'
+import Loader from '@/presentation/components/global-components/loader/loader'
+import { getServerSideProps } from '@/gssp-admin-cookies'
 
 function Index() {
   const { data: projects, isLoading } = useQuery({

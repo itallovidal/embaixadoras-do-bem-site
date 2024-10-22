@@ -1,6 +1,6 @@
-import '../styles/globals.css'
+import '@/presentation/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { AppLayout } from '@/components/app-layout'
+import { AppLayout } from '@/presentation/app-layout'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

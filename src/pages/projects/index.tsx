@@ -1,12 +1,12 @@
-import { Header } from '@/components/global-components/header/header'
-import Banner from '@/assets/banner-projects-background.png'
-import { Button } from '@/components/global-components/button'
-import { ProjectCard } from '@/components/global-components/project-card/project-card'
+import { Header } from '@/presentation/components/global-components/header/header'
+import Banner from '@/root/public/projects/banner-projects-background.png'
+import { Button } from '../../presentation/components/global-components/button'
+import { ProjectCard } from '@/presentation/components/global-components/project-card/project-card'
 import React from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
-import { getProjects } from '@/utils/api/get-projects'
-import Loader from '@/components/global-components/loader/loader'
+import { getProjects } from '@/infra/adapters/get-projects'
+import Loader from '@/presentation/components/global-components/loader/loader'
 
 export default function Index() {
   const { data: projects, isLoading } = useQuery({

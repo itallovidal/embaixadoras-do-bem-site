@@ -46,7 +46,7 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    '/api/admin/projects/:path*',
+    '/api/admin/projects/create.ts',
     '/api/admin/projects/delete/:path*',
     '/api/admin/projects/edit/:path/:path*',
   ],
