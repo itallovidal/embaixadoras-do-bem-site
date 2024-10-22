@@ -29,9 +29,13 @@ export function MobileNavbar() {
           >
             <Separator orientation={'horizontal'} className={'h-1 w-6'} />
 
-            <Button className={'w-full'}>Home</Button>
+            <Button className={'w-full'} href={'/'}>
+              Home
+            </Button>
             {/* <Button className={'w-full'}>Blog</Button> */}
-            <Button className={'w-full'}>Projetos</Button>
+            <Button className={'w-full'} href={'/projects'}>
+              Projetos
+            </Button>
             {/* <Button className={'w-full'}>Doar</Button> */}
             {/* <Button className={'w-full'}>Seja Voluntário</Button> */}
           </DrawerClose>
