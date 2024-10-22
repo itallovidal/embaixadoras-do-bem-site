@@ -16,6 +16,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method !== 'POST') return res.status(405).end()
+  console.log(req.headers)
   const userStringfied = req.headers.user
   console.log('userStringfied', userStringfied)
   if (!userStringfied) return res.status(401).end()

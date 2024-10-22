@@ -18,10 +18,14 @@ function Index() {
     enabled: !!id,
   })
   const startDate = project?.startDate
-    ? convertSecondsToDate(project?.startDate.seconds).toLocaleString('pt-BR').split(',')[0]
+    ? convertSecondsToDate(project?.startDate.seconds)
+        .toLocaleString('pt-BR')
+        .split(',')[0]
     : undefined
   const endDate = project?.endDate
-    ? convertSecondsToDate(project?.endDate.seconds).toLocaleString('pt-BR').split(',')[0]
+    ? convertSecondsToDate(project?.endDate.seconds)
+        .toLocaleString('pt-BR')
+        .split(',')[0]
     : undefined
 
   console.log(project)
