@@ -20,7 +20,7 @@ import { editProject } from '@/infra/adapters/edit-project'
 import { Button } from '@/presentation/components/global-components/button'
 import nookies from 'nookies'
 import { useRouter } from 'next/router'
-import axios from 'axios'
+import { api } from '@/infra/lib/axios/axios'
 
 interface ICreateProjectProps {
   project: IGetProjectResponse
@@ -271,9 +271,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const cookies = nookies.get(req.cookies)
 
-  const host = req.headers.host
-
-  const response = await axios.get(`${host}/api/admin/projects/${id}`, {
+  const response = await api.get(`/admin/projects/${id}`, {
     headers: {
       Authorization: 'Bearer ' + cookies['@EDB:user-token'],
     },
