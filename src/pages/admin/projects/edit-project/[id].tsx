@@ -19,7 +19,6 @@ import { IGetProjectResponse } from '@/domain/api-responses/projects/get-project
 import { editProject } from '@/infra/adapters/edit-project'
 import { Button } from '@/presentation/components/global-components/button'
 import nookies from 'nookies'
-import { api } from '@/infra/lib/axios/axios'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 
