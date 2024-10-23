@@ -1,6 +1,7 @@
 import axios from 'axios'
+import { env } from '@/root/env'
 
-const host = 'http://localhost:3000'
+const host = env.HOST_URL
 
 export const api = axios.create({
   baseURL: `${host}/api`,
