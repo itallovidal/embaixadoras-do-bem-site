@@ -9,6 +9,7 @@ import { ArrowLeft } from 'lucide-react'
 import { Button } from '../../../presentation/components/global-components/button'
 import Loader from '@/presentation/components/global-components/loader/loader'
 import { convertSecondsToDate } from '@/presentation/utils/convert-seconds-to-date'
+import { ShowProjectStatus } from '@/presentation/components/pages-components/project/show-project-status'
 function Index() {
   const router = useRouter()
   const { id } = router.query as { id: string }
@@ -41,7 +42,7 @@ function Index() {
           >
             <Heading>{project.title}</Heading>
 
-            <div className={' flex justify-end sm:my-5'}>
+            <div className={'flex mb-12 justify-end sm:my-5'}>
               <Button
                 onClick={() => router.back()}
                 Icon={ArrowLeft}
@@ -53,14 +54,9 @@ function Index() {
           </div>
           <Paragraph>{project.description}</Paragraph>
 
-          <div>
-            <p>Data do inicio do projeto {startDate}</p>
-            {project.isActive ? (
-              <p>Projeto ainda ativo</p>
-            ) : (
-              <p>Data da finalização do projeto {endDate}</p>
-            )}
-          </div>
+          <ShowProjectStatus
+            project={{ isActive: project?.isActive, startDate, endDate }}
+          />
 
           <div
             className={'mt-8 flex flex-col flex-wrap w-full gap-4 sm:flex-row'}

@@ -5,7 +5,7 @@ interface IProps extends HTMLProps<HTMLParagraphElement> {
 }
 export function Paragraph({ children, className, ...rest }: IProps) {
   return (
-    <p className={`text-md leading-8 ${className}`} {...rest}>
+    <p className={`text-md leading-7 ${className}`} {...rest}>
       {children}
     </p>
   )
