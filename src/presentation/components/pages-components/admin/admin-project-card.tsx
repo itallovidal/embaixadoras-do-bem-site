@@ -84,7 +84,7 @@ export function AdminProjectCard({
     <Dialog>
       <div
         className={
-          'flex flex-col items-center justify-center flex-1  gap-4 bg-gray-100 p-4 sm:max-w-[265px]'
+          'animate-showing opacity-0 flex flex-col items-center justify-center flex-1  gap-4 bg-gray-100 p-4 sm:max-w-[265px]'
         }
       >
         <picture className={'w-[200px] h-[200px] rounded overflow-hidden'}>

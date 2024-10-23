@@ -78,6 +78,21 @@ module.exports = {
           5: 'hsl(var(--chart-5))',
         },
       },
+      animation: {
+        showing: 'showing 300ms cubic-bezier(0.33, 1, 0.68, 1) forwards',
+      },
+      keyframes: {
+        showing: {
+          '0%': {
+            transform: 'translateY(10%)',
+            opacity: '0',
+          },
+          '100%': {
+            transform: 'translateY(0%)',
+            opacity: '1',
+          },
+        },
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

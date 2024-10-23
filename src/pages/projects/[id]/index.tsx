@@ -6,10 +6,10 @@ import { Paragraph } from '@/presentation/components/global-components/text/para
 import { useQuery } from '@tanstack/react-query'
 import { getProjectDetails } from '@/infra/adapters/get-project-details'
 import { ArrowLeft } from 'lucide-react'
-import { Button } from '../../../presentation/components/global-components/button'
-import Loader from '@/presentation/components/global-components/loader/loader'
+import { Button } from '@/presentation/components/global-components/button'
 import { convertSecondsToDate } from '@/presentation/utils/convert-seconds-to-date'
 import { ShowProjectStatus } from '@/presentation/components/pages-components/project/show-project-status'
+import { ProjectCardSkeleton } from '@/presentation/components/skeletons/project-details-skeleton'
 function Index() {
   const router = useRouter()
   const { id } = router.query as { id: string }
@@ -29,11 +29,11 @@ function Index() {
         .split(',')[0]
     : undefined
 
-  if (isLoading) return <Loader />
+  if (isLoading) return <ProjectCardSkeleton />
 
   if (project)
     return (
-      <article className={'my-12'}>
+      <article className={'my-12 animate-showing opacity-0'}>
         <section className={'max-w-safeMobile xl:max-w-safeDesktop m-auto'}>
           <div
             className={

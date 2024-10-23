@@ -6,7 +6,7 @@ import React from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import { getProjects } from '@/infra/adapters/get-projects'
-import Loader from '@/presentation/components/global-components/loader/loader'
+import { ProjectCardSkeleton } from '@/presentation/components/skeletons/project-card-skeleton'
 
 export default function Index() {
   const { data: projects, isLoading } = useQuery({
@@ -35,7 +35,8 @@ export default function Index() {
             'flex flex-col md:flex-row gap-4 flex-wrap justify-center mb-5'
           }
         >
-          {isLoading && <Loader />}
+          {isLoading &&
+            Array.from({ length: 4 }).map(() => <ProjectCardSkeleton />)}
           {projects &&
             projects.map((project, i) => {
               return <ProjectCard {...project} key={i} />

@@ -16,7 +16,7 @@ export function ProjectCard({ images, title, description, id }: TProjectProps) {
   return (
     <Card
       className={
-        'w-full flex flex-col md:w-[calc(theme(width.1/2)-theme(gap.2))]'
+        'animate-showing opacity-0 w-full flex flex-col md:w-[calc(theme(width.1/2)-theme(gap.2))]'
       }
     >
       <CardHeader className={'flex-1'}>

@@ -9,7 +9,7 @@ import { Carousel } from '@/presentation/components/global-components/carousel/c
 
 export default function Index() {
   return (
-    <div>
+    <div className={'animate-showing opacity-0'}>
       <Header
         title={'Embaixadoras do Bem'}
         alt={'Apoiando a causa'}

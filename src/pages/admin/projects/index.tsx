@@ -4,9 +4,9 @@ import { ArrowLeft } from 'lucide-react'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 import { useQuery } from '@tanstack/react-query'
 import { getProjects } from '@/infra/adapters/get-projects'
-import { Button } from '../../../presentation/components/global-components/button'
-import Loader from '@/presentation/components/global-components/loader/loader'
+import { Button } from '@/presentation/components/global-components/button'
 import { getServerSideProps } from '@/gssp-admin-cookies'
+import { ProjectCardSkeleton } from '@/presentation/components/skeletons/project-card-skeleton'
 
 function Index() {
   const { data: projects, isLoading } = useQuery({
@@ -14,7 +14,8 @@ function Index() {
     queryFn: () => getProjects(),
   })
 
-  if (isLoading) return <Loader />
+  if (isLoading)
+    return Array.from({ length: 4 }).map(() => <ProjectCardSkeleton />)
 
   if (projects)
     return (
