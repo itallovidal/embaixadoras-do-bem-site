@@ -32,7 +32,7 @@ function Index() {
   return (
     <article className={'my-12 animate-showing opacity-0'}>
       <section className={'max-w-safeMobile xl:max-w-safeDesktop m-auto'}>
-        {!isLoading && <ProjectDetailsSkeleton />}
+        {isLoading && <ProjectDetailsSkeleton />}
 
         {project && (
           <>
