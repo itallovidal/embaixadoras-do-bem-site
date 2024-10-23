@@ -11,9 +11,7 @@ export function ProjectDetailsSkeleton() {
       </div>
 
       <div
-        className={
-          'mt-8 flex flex-col flex-wrap w-full gap-[1rem] sm:flex-row'
-        }
+        className={'mt-8 flex flex-col flex-wrap w-full gap-[1rem] sm:flex-row'}
       >
         {Array.from({ length: 4 }).map((_, index) => (
           <Skeleton
