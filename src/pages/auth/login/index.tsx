@@ -4,7 +4,10 @@ import { Heading } from '@/presentation/components/global-components/text/headin
 import { Input } from '@/presentation/components/global-components/input/input'
 import { Button } from '@/presentation/components/shadcn-ui/button'
 import { Loader2 } from 'lucide-react'
-import { loginSchema, TLoginSchema } from '@/presentation/validation/login.schema'
+import {
+  loginSchema,
+  TLoginSchema,
+} from '@/presentation/validation/login.schema'
 import { useToast } from '@/presentation/hooks/use-toast'
 import { useRouter } from 'next/router'
 import { login } from '@/infra/adapters/login'

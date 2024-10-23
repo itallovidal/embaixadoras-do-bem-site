@@ -6,7 +6,7 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from '@/presentation/components/shadcn-ui/drawer'
-import { Home, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { Separator } from '@/presentation/components/shadcn-ui/separator'
 import { Button } from '../button'
 import Logo from '@/root/public/embaixadoras-do-bem-logo.svg'

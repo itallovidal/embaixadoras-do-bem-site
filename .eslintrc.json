@@ -3,5 +3,9 @@
   "rules": {
     "no-useless-constructor": "off",
     "no-throw-literal": "off"
-  }
+  },
+  "ignorePatterns":[
+    "/src/presentation/hooks/",
+    "/src/presentation/components/shadcn-ui/*"
+  ]
 }

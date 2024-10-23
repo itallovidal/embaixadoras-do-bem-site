@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-// import { databaseRepository } from '@/pages/api/_domain/db'
 import { ErrorEntity } from '@/pages/api/_domain/error-entity'
 import formidable from 'formidable'
 import { projectDTOSchema } from '@/pages/api/_schemas/project-d-t-o.schema'
@@ -21,6 +20,7 @@ export default async function handler(
   if (!userStringfied) return res.status(401).end()
 
   const user = JSON.parse(String(userStringfied))
+  console.log(user)
 
   const form = formidable({})
 

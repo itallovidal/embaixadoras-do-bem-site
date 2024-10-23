@@ -1,4 +1,4 @@
-import { useToast } from "@/presentation/hooks/use-toast"
+import { useToast } from '@/presentation/hooks/use-toast'
 import {
   Toast,
   ToastClose,
@@ -6,7 +6,7 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from "@/presentation/components/shadcn-ui/toast"
+} from '@/presentation/components/shadcn-ui/toast'
 
 export function Toaster() {
   const { toasts } = useToast()

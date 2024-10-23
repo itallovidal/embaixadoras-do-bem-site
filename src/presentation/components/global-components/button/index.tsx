@@ -1,6 +1,9 @@
 import React, { ComponentType } from 'react'
 import { Loader2, LucideProps } from 'lucide-react'
-import { Button as ShadButton, ButtonProps } from '@/presentation/components/shadcn-ui/button'
+import {
+  Button as ShadButton,
+  ButtonProps,
+} from '@/presentation/components/shadcn-ui/button'
 import Link from 'next/link'
 
 interface NavButton extends ButtonProps {

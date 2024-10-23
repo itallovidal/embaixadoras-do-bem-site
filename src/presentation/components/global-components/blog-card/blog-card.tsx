@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/presentation/components/shadcn-ui/card'
-import Image from 'next/image'
 import { Button } from '../button'
 
 export function BlogCard() {

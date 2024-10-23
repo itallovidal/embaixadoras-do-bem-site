@@ -29,6 +29,7 @@ export async function middleware(req: NextRequest) {
     headers.set('user', JSON.stringify(user))
     return NextResponse.next({ headers })
   } catch (e) {
+    console.log(e)
     const error = new ErrorEntity(
       'Token Inválido.',
       'Token fornecido não é valido, envie um corretamente.',
