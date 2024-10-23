@@ -28,7 +28,7 @@ export function Input({
 
   if (isMultiline) {
     return (
-      <div className={`flex flex-col gap-4 ${wrapperStyle}`}>
+      <div className={`flex flex-col gap-4 ${wrapperStyle} `}>
         <label className={color}>{field}</label>
         <Textarea
           className={'resize-none h-full leading-7'}
@@ -40,9 +40,9 @@ export function Input({
   }
 
   return (
-    <div className={`flex flex-col gap-4 ${wrapperStyle}`}>
+    <div className={`flex flex-col gap-4 ${wrapperStyle} `}>
       <label className={color}>{field}</label>
-      <ShadCnInput {...(rest as InputProps)} />
+      <ShadCnInput {...(rest as InputProps)} className={'w-full'} />
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </div>
   )

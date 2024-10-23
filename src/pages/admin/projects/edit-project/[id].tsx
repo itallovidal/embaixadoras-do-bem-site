@@ -19,8 +19,8 @@ import { IGetProjectResponse } from '@/domain/api-responses/projects/get-project
 import { editProject } from '@/infra/adapters/edit-project'
 import { Button } from '@/presentation/components/global-components/button'
 import nookies from 'nookies'
-import { api } from '@/infra/lib/axios/axios'
 import { useRouter } from 'next/router'
+import { api } from '@/infra/lib/axios/axios'
 
 interface ICreateProjectProps {
   project: IGetProjectResponse
@@ -263,10 +263,13 @@ function EditProject({ project }: ICreateProjectProps) {
 
 export default EditProject
 
-export const getServerSideProps: GetServerSideProps = async (req) => {
-  const { id } = req.params as { id: string }
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  params,
+}) => {
+  const { id } = params as { id: string }
 
-  const cookies = nookies.get(req)
+  const cookies = nookies.get(req.cookies)
 
   const response = await api.get(`/admin/projects/${id}`, {
     headers: {

@@ -158,16 +158,18 @@ function Index() {
               disabled={isSubmitting}
             />
 
-            <Input
-              accept={'image/png, image/jpeg, image/jpg, image/webp'}
-              className={'cursor-pointer w-fit'}
-              field={'Clique para escolher as imagens'}
-              type={'file'}
-              onChange={(event) => handlePreviewImages(event)}
-              multiple
-              errorMessage={errors.images?.message}
-              disabled={isSubmitting}
-            />
+            <div>
+              <Input
+                accept={'image/png, image/jpeg, image/jpg, image/webp'}
+                className={'cursor-pointer w-fit'}
+                field={'Clique para escolher as imagens'}
+                type={'file'}
+                onChange={(event) => handlePreviewImages(event)}
+                multiple
+                errorMessage={errors.images?.message}
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
         </div>
         {selectedImages.length > 0 && (
@@ -188,7 +190,7 @@ function Index() {
       <Button
         isLoading={isSubmitting}
         onClick={handleSubmit(handleCreateProject)}
-        className={'self-center my-12'}
+        className={'self-center my-12 w-full md:w-fit'}
       >
         Criar projeto
       </Button>
