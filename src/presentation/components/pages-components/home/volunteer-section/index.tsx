@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
 import { VolunteerForm } from '@/presentation/components/pages-components/home/volunteer-section/volunteerForm'
+import { TextHighlight } from '@/presentation/components/global-components/text/textHighlight'
 
 export function VolunteerSection() {
   return (
@@ -24,20 +25,23 @@ export function VolunteerSection() {
         />
         <div className={'bg-white p-12 md:max-w-[550px] rounded-b-3xl'}>
           <Heading>Junte-se à nós!</Heading>
-          <Paragraph>
+          <Paragraph className={'mb-4'}>
             Acreditamos que a mudança começa com gestos simples de
             solidariedade. Agora, queremos contar com você nessa jornada de
             transformação. Ao se juntar a nós como voluntário(a), você estará
             ajudando a salvar vidas, levando informação e conscientização sobre
             a prevenção do câncer de mama e do câncer de próstata.
           </Paragraph>
-          <Paragraph>
+          <Paragraph className={'mb-4'}>
             Participe! Faça parte deste movimento e ajude-nos a continuar
             espalhando a esperança. Juntos, podemos alcançar mais pessoas e
             levar adiante a nossa causa. Construindo um futuro onde a prevenção
             esteja ao alcance das mãos e a vida seja sempre prioridade.
           </Paragraph>
-          <Paragraph>Faça parte dessa causa. A prevenção salva! 🌸</Paragraph>
+          <Paragraph>
+            Faça parte dessa causa.{' '}
+            <TextHighlight>A prevenção salva! 🌸</TextHighlight>
+          </Paragraph>
         </div>
         <div className={'flex flex-col gap-4 my-5 md:mt-12'}>
           <VolunteerForm />

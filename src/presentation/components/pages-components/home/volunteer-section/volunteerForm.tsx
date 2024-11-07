@@ -54,7 +54,7 @@ export function VolunteerForm() {
         render={({ field }) => (
           <Input
             errorMessage={errors.name?.message}
-            labelVariant={'light'}
+            labelVariant={'dark'}
             field={'Nome'}
             placeholder={'joão..'}
             {...field}
@@ -68,7 +68,7 @@ export function VolunteerForm() {
         render={({ field }) => (
           <Input
             errorMessage={errors.email?.message}
-            labelVariant={'light'}
+            labelVariant={'dark'}
             field={'Email'}
             placeholder={'joão@gmail.com'}
             {...field}
@@ -82,7 +82,7 @@ export function VolunteerForm() {
           render={({ field }) => (
             <Input
               errorMessage={errors.phone?.message}
-              labelVariant={'light'}
+              labelVariant={'dark'}
               field={'Telefone'}
               placeholder={'21 99999 9999'}
               {...field}
@@ -90,7 +90,7 @@ export function VolunteerForm() {
           )}
           name={'phone'}
         />
-        <span>Exemplo: 21963294746</span>
+        <span className={'opacity-60'}>Exemplo: 21963294746</span>
       </div>
 
       <Controller
@@ -98,7 +98,7 @@ export function VolunteerForm() {
         render={({ field }) => (
           <Input
             errorMessage={errors.profession?.message}
-            labelVariant={'light'}
+            labelVariant={'dark'}
             field={'Área de Atuação'}
             placeholder={'Desenvolvedor Web'}
             {...field}
@@ -110,7 +110,7 @@ export function VolunteerForm() {
       <Button
         disabled={isSubmitting}
         onClick={handleSubmit(handleVolunteer)}
-        variant={'outline'}
+        variant={'secondary'}
         className={'self-end'}
       >
         Me voluntariar!
