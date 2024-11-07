@@ -1,5 +1,5 @@
 import { api } from '@/infra/lib/axios/axios'
-import { TProjectSchema } from '@/presentation/validation/project.schema'
+import { TProjectSchema } from '@/validation/project.schema'
 import nookies from 'nookies'
 
 type IEditProjectProps = Omit<TProjectSchema, 'images'> & {

@@ -3,48 +3,48 @@ import { Input } from '@/presentation/components/global-components/input/input'
 import { Button } from '@/presentation/components/global-components/button'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-
-const volunteerSchema = z.object({
-  name: z
-    .string({
-      required_error: 'Campo Obrigatório',
-    })
-    .min(3, {
-      message: 'Mínimo de 3 caracteres.',
-    }),
-  profession: z
-    .string({
-      required_error: 'Campo Obrigatório',
-    })
-    .min(4, {
-      message: 'Mínimo de 4 caracteres.',
-    }),
-  email: z.string({ required_error: 'Campo Obrigatório' }).email(),
-  phone: z
-    .string({
-      required_error: 'Campo Obrigatório',
-    })
-    .regex(/^(\d{2})(9\d{8})$/, {
-      message: 'Formato Incorreto.',
-    }),
-})
-
-type IVolunteerSchema = z.infer<typeof volunteerSchema>
+import { api } from '@/infra/lib/axios/axios'
+import { volunteerSchema } from '@/validation/volunteer.schema'
+import { useToast } from '@/presentation/hooks/use-toast'
 
 export function VolunteerForm() {
+  const { toast } = useToast()
   const {
     handleSubmit,
     control,
-    formState: { errors },
-  } = useForm<IVolunteerSchema>({
+    formState: { errors, isSubmitting },
+  } = useForm<IVolunteer>({
     resolver: zodResolver(volunteerSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      profession: '',
+    },
   })
 
   console.log(errors)
 
-  async function handleVolunteer(data: IVolunteerSchema) {
-    console.log(data)
+  async function handleVolunteer(data: IVolunteer) {
+    try {
+      const response = await api.post('volunteer', data)
+      if (response.status !== 200) {
+        throw new Error('Error.')
+      }
+      toast({
+        className: 'bg-green-600 text-white',
+        title: 'Voluntariado com sucesso!',
+        description:
+          'Guardamos suas informações em nosso banco de dados. Entraremos em contato em breve!',
+      })
+    } catch (e) {
+      console.log(e)
+      toast({
+        className: 'bg-red-600 text-white',
+        title: 'Ops!',
+        description: 'Tivemos um erro interno, tente novamente mais tarde.',
+      })
+    }
   }
 
   return (
@@ -108,6 +108,7 @@ export function VolunteerForm() {
       />
 
       <Button
+        disabled={isSubmitting}
         onClick={handleSubmit(handleVolunteer)}
         variant={'outline'}
         className={'self-end'}

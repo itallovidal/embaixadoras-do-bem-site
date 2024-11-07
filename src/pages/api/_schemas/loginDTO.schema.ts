@@ -1,3 +1,3 @@
-import { loginSchema } from '@/presentation/validation/login.schema'
+import { loginSchema } from '@/validation/login.schema'
 
 export const loginDTOSchema = loginSchema

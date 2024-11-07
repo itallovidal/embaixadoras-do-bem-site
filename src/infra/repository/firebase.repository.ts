@@ -28,8 +28,8 @@ import {
 } from '@firebase/storage'
 import fs from 'node:fs/promises'
 import { IGetProjectResponse } from '@/domain/api-responses/projects/get-project-response'
-import { TLoginSchema } from '@/presentation/validation/login.schema'
-import { TProjectSchema } from '@/presentation/validation/project.schema'
+import { TLoginSchema } from '@/validation/login.schema'
+import { TProjectSchema } from '@/validation/project.schema'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private db: Firestore

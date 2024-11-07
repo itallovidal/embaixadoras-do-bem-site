@@ -9,7 +9,7 @@ import { Controller, useForm } from 'react-hook-form'
 import {
   projectSchema,
   TProjectSchema,
-} from '@/presentation/validation/project.schema'
+} from '@/validation/project.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@/presentation/hooks/use-toast'
 import { ArrowLeft } from 'lucide-react'
