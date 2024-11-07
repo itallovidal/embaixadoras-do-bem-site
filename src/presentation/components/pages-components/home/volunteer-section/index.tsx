@@ -1,12 +1,11 @@
 import React from 'react'
-import bannerBackground from '../../../../../public/home/background-volunteer-form.jpg'
+import bannerBackground from '../../../../../../public/home/background-volunteer-form.jpg'
 import Image from 'next/image'
-import { Button } from '../../global-components/button'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
-import { Input } from '@/presentation/components/global-components/input/input'
+import { VolunteerForm } from '@/presentation/components/pages-components/home/volunteer-section/volunteerForm'
 
-export function VolunteerForm() {
+export function VolunteerSection() {
   return (
     <article
       className={
@@ -41,34 +40,7 @@ export function VolunteerForm() {
           <Paragraph>Faça parte dessa causa. A prevenção salva! 🌸</Paragraph>
         </div>
         <div className={'flex flex-col gap-4 my-5 md:mt-12'}>
-          <form className={'md:flex md:flex-wrap md:gap-6 md:justify-end '}>
-            <Input
-              labelVariant={'light'}
-              field={'Nome'}
-              placeholder={'joão..'}
-            />
-
-            <Input
-              labelVariant={'light'}
-              field={'Email'}
-              placeholder={'joão..'}
-            />
-
-            <Input
-              labelVariant={'light'}
-              field={'Telefone'}
-              placeholder={'joão..'}
-            />
-
-            <Input
-              labelVariant={'light'}
-              field={'Área de Atuação'}
-              placeholder={'joão..'}
-            />
-          </form>
-          <Button variant={'outline'} className={'self-end'}>
-            Me voluntariar!
-          </Button>
+          <VolunteerForm />
         </div>
       </section>
     </article>

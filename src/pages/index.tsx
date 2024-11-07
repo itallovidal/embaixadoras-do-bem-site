@@ -5,7 +5,7 @@ import { CallToAction } from '@/presentation/components/pages-components/home/ca
 import { Projects } from '@/presentation/components/pages-components/home/projects'
 // import { BlogPosts } from '@/components/pages/home/blog-posts'
 import { Carousel } from '@/presentation/components/global-components/carousel/carousel'
-// import { VolunteerForm } from '@/components/pages/home/volunteer-form'
+import { VolunteerSection } from '@/presentation/components/pages-components/home/volunteer-section'
 
 export default function Index() {
   return (
@@ -26,7 +26,7 @@ export default function Index() {
         {/* <BlogPosts /> */}
         <Carousel />
       </div>
-      {/* <VolunteerForm /> */}
+      <VolunteerSection />
     </div>
   )
 }
