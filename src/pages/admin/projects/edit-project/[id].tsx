@@ -6,10 +6,7 @@ import { SelectedImageCard } from '@/presentation/components/global-components/s
 import { generatePreviewImages } from '@/presentation/utils/generate-preview-images'
 import { DateTimePicker } from '@/presentation/components/global-components/date-time-picker/date-time-picker'
 import { Controller, useForm } from 'react-hook-form'
-import {
-  projectSchema,
-  TProjectSchema,
-} from '@/presentation/validation/project.schema'
+import { projectSchema, TProjectSchema } from '@/validation/project.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@/presentation/hooks/use-toast'
 import { ArrowLeft } from 'lucide-react'

@@ -1,5 +1,5 @@
 import { api } from '@/infra/lib/axios/axios'
-import { TLoginSchema } from '@/presentation/validation/login.schema'
+import { TLoginSchema } from '@/validation/login.schema'
 
 export async function login(data: TLoginSchema): Promise<ILoginResponse> {
   const response = await api.post('/auth/login', data)

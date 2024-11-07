@@ -5,6 +5,8 @@ export const envValidation = z.object({
   FIREBASE_API_KEY: z.string(),
   FIREBASE_MESSAGING_SENDER_ID: z.string(),
   JWT_SECRET: z.string(),
+  MAILTRAP_AUTH_USER: z.string(),
+  MAILTRAP_AUTH_PASS: z.string(),
 })
 
 const envParsed = envValidation.safeParse(process.env)

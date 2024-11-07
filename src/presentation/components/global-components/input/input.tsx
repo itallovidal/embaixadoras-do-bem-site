@@ -42,7 +42,11 @@ export function Input({
   return (
     <div className={`flex flex-col gap-4 ${wrapperStyle} `}>
       <label className={color}>{field}</label>
-      <ShadCnInput {...(rest as InputProps)} className={'w-full'} />
+      <ShadCnInput
+        type={'text'}
+        className={'w-full'}
+        {...(rest as InputProps)}
+      />
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </div>
   )
