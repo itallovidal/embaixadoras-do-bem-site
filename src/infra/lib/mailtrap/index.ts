@@ -1,24 +1,22 @@
 import Nodemailer from 'nodemailer'
-// import { env } from '@/root/env'
+import { env } from '@/root/env'
 
 export class MailtrapSender {
-  private emailName = 'embaixadorasdobem.site@gmail.com'
-
-  private SENDER_EMAIL = this.emailName
-  private RECIPIENT_EMAIL = this.emailName
+  private SENDER_EMAIL = 'hello@demomailtrap.com'
+  private RECIPIENT_EMAIL = 'embaixadorasdobem.site@gmail.com'
   private transport = Nodemailer.createTransport({
     host: 'live.smtp.mailtrap.io',
     port: 587,
     auth: {
-      user: 'api',
-      pass: '18426776bbd9edcac61d4211da159e01',
+      user: env.MAILTRAP_AUTH_USER,
+      pass: env.MAILTRAP_AUTH_PASS,
     },
   })
 
   async sendEmail(volunteer: IVolunteer) {
     const mailData = {
       from: {
-        address: 'hello@demomailtrap.com',
+        address: this.SENDER_EMAIL,
         name: 'Formulário do Site',
       },
       to: this.RECIPIENT_EMAIL,
