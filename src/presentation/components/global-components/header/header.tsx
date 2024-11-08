@@ -27,9 +27,7 @@ export function Header({
       />
 
       <div
-        className={
-          'absolute top-0 text-white h-full left-[calc((100%-var(--safe-mobile))/2)] xl:left-[calc((100%-var(--safe-desktop))/2)] content-center'
-        }
+        className={`absolute top-0 text-white ${short ? `h-[370px]` : `h-[600px]`} left-[calc((100%-var(--safe-mobile))/2)] xl:left-[calc((100%-var(--safe-desktop))/2)] content-center`}
       >
         {title && (
           <>

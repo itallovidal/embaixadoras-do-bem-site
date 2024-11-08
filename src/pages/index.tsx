@@ -3,7 +3,6 @@ import Banner from '@/root/public/home/banner-home-background.png'
 import { About } from '@/presentation/components/pages-components/home/about'
 import { CallToAction } from '@/presentation/components/pages-components/home/call-to-action'
 import { Projects } from '@/presentation/components/pages-components/home/projects'
-// import { BlogPosts } from '@/components/pages/home/blog-posts'
 import { Carousel } from '@/presentation/components/global-components/carousel/carousel'
 import { VolunteerSection } from '@/presentation/components/pages-components/home/volunteer-section'
 
@@ -24,9 +23,12 @@ export default function Index() {
         <CallToAction />
         <Projects />
         {/* <BlogPosts /> */}
-        <Carousel />
       </div>
       <VolunteerSection />
+
+      <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto'}>
+        <Carousel />
+      </div>
     </div>
   )
 }

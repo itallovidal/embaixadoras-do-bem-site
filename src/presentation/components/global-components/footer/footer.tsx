@@ -4,7 +4,7 @@ import { Button } from '../button'
 
 export function Footer() {
   return (
-    <footer className={'bg-pink-light w-full justify-items-center'}>
+    <footer className={'bg-[#fafafa] w-full justify-items-center'}>
       <div
         className={
           'max-w-safeMobile lg:max-w-safeDesktop m-auto flex flex-col py-10 items-start gap-10 md:flex-row'
