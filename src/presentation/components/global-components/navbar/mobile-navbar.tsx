@@ -13,13 +13,16 @@ import Logo from '@/root/public/embaixadoras-do-bem-logo.svg'
 import Image from 'next/image'
 
 export function MobileNavbar() {
+  const [open, setOpen] = React.useState(false)
   return (
-    <Drawer direction={'left'}>
+    <Drawer direction={'left'} open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild className={'fixed top-4 right-4 z-30 sm:hidden'}>
         <Button Icon={Menu} />
       </DrawerTrigger>
 
-      <DrawerContent className={'h-screen w-[80%]'}>
+      <DrawerContent
+        className={'h-screen w-[80%] flex flex-col justify-center'}
+      >
         <DrawerHeader className={'grid place-items-center'}>
           <Image src={Logo} alt={'logo'} className={'size-24'} />
         </DrawerHeader>
@@ -29,11 +32,19 @@ export function MobileNavbar() {
           >
             <Separator orientation={'horizontal'} className={'h-1 w-6'} />
 
-            <Button className={'w-full'} href={'/'}>
+            <Button
+              className={'w-full'}
+              href={'/'}
+              onClick={() => setOpen(false)}
+            >
               Home
             </Button>
             {/* <Button className={'w-full'}>Blog</Button> */}
-            <Button className={'w-full'} href={'/projects'}>
+            <Button
+              className={'w-full'}
+              href={'/projects'}
+              onClick={() => setOpen(false)}
+            >
               Projetos
             </Button>
             {/* <Button className={'w-full'}>Doar</Button> */}
