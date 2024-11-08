@@ -21,7 +21,9 @@ export function VolunteerSection() {
         <Image
           src={bannerBackground}
           alt={'fundo de uma campanha'}
-          className={'w-full h-full -z-10 top-0 left-0 absolute'}
+          className={
+            'w-full h-full -z-10 top-0 left-0 absolute object-cover opacity-40 lg:opacity-100'
+          }
         />
         <div className={'bg-white p-12 md:max-w-[550px] rounded-b-3xl'}>
           <Heading>Junte-se à nós!</Heading>

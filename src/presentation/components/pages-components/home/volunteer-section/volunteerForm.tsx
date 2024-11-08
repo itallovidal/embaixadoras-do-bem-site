@@ -12,6 +12,7 @@ export function VolunteerForm() {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<IVolunteer>({
     resolver: zodResolver(volunteerSchema),
@@ -22,8 +23,6 @@ export function VolunteerForm() {
       profession: '',
     },
   })
-
-  console.log(errors)
 
   async function handleVolunteer(data: IVolunteer) {
     try {
@@ -37,6 +36,8 @@ export function VolunteerForm() {
         description:
           'Guardamos suas informações em nosso banco de dados. Entraremos em contato em breve!',
       })
+
+      reset()
     } catch (e) {
       console.log(e)
       toast({
@@ -48,11 +49,12 @@ export function VolunteerForm() {
   }
 
   return (
-    <form className={'md:flex md:flex-wrap md:gap-6 md:justify-end '}>
+    <form className={'flex flex-wrap gap-6'}>
       <Controller
         control={control}
         render={({ field }) => (
           <Input
+            wrapperStyle={'w-full lg:w-[calc(50%-theme(gap.3))]'}
             errorMessage={errors.name?.message}
             labelVariant={'dark'}
             field={'Nome'}
@@ -67,6 +69,7 @@ export function VolunteerForm() {
         control={control}
         render={({ field }) => (
           <Input
+            wrapperStyle={'w-full lg:w-[calc(50%-theme(gap.3))]'}
             errorMessage={errors.email?.message}
             labelVariant={'dark'}
             field={'Email'}
@@ -76,7 +79,7 @@ export function VolunteerForm() {
         )}
         name={'email'}
       />
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 w-full lg:w-[calc(50%-theme(gap.3))]">
         <Controller
           control={control}
           render={({ field }) => (
@@ -97,6 +100,7 @@ export function VolunteerForm() {
         control={control}
         render={({ field }) => (
           <Input
+            wrapperStyle={'w-full lg:w-[calc(50%-theme(gap.3))]'}
             errorMessage={errors.profession?.message}
             labelVariant={'dark'}
             field={'Área de Atuação'}
@@ -111,7 +115,8 @@ export function VolunteerForm() {
         disabled={isSubmitting}
         onClick={handleSubmit(handleVolunteer)}
         variant={'secondary'}
-        className={'self-end'}
+        className={'self-end mt-3 w-full'}
+        isLoading={isSubmitting}
       >
         Me voluntariar!
       </Button>
