@@ -2,7 +2,7 @@ import Nodemailer from 'nodemailer'
 import { env } from '@/root/env'
 
 export class MailtrapSender {
-  private SENDER_EMAIL = 'hello@demomailtrap.com'
+  private SENDER_EMAIL = 'hello@embaixadorasdobem.org'
   private RECIPIENT_EMAIL = 'embaixadorasdobem.site@gmail.com'
   private transport = Nodemailer.createTransport({
     host: 'live.smtp.mailtrap.io',
