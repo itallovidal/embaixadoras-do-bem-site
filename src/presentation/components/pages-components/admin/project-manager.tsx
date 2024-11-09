@@ -14,7 +14,7 @@ export function ProjectManager() {
   })
 
   return (
-    <article className={'animate-showing opacity-0 flex flex-col gap-12 my-12'}>
+    <article className={'animate-showing opacity-0 flex flex-col gap-12'}>
       <div
         className={
           'flex flex-col gap-2  justify-between sm:flex-row sm:items-center'

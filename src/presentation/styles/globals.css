@@ -108,6 +108,17 @@
   border-top-right-radius: 50px;
 }
 
+article{
+  margin-block: 7.5rem;
+}
+article#donate-section{
+  margin-bottom: 0;
+}
+
+article#donate-section+article{
+  margin-top: 0;
+}
+
 .navbar-detail:before{
   position: absolute;
   z-index: 100;

@@ -2,14 +2,16 @@ import React from 'react'
 import donateBackground from '../../../../../../public/home/bg-donate.jpg'
 import Image from 'next/image'
 import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
-import { TextHighlight } from '@/presentation/components/global-components/text/textHighlight'
 import qrcodeDonate from '../../../../../../public/qrcode-donate/qrcodedonate.svg'
 import { SubHeading } from '@/presentation/components/global-components/text/subheading'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 
 export function DonateSection() {
   return (
-    <article className={'flex flex-col justify-end gap-12 mb-12 sm:mb-0 md:h-[640px]'}>
+    <article
+      id={'donate-section'}
+      className={'flex flex-col justify-end gap-12'}
+    >
       <section
         className={
           'flex gap-2 md:gap-12 flex-col md:flex-row w-full lg:flex-row justify-between xl:max-w-safeDesktop mx-auto'
@@ -17,7 +19,7 @@ export function DonateSection() {
       >
         <div
           className={
-            'p-12 md:max-w-[550px] sm:rounded-t-3xl overflow-hidden relative'
+            'p-12 md:max-w-[550px] sm:rounded-t-3xl overflow-hidden relative '
           }
         >
           <SubHeading className={'text-white text-center sm:text-justify'}>
@@ -58,14 +60,22 @@ export function DonateSection() {
           <Heading className={'text-pink-dark'}>Doações</Heading>
           <Image src={qrcodeDonate} height={250} alt={'qr da doação.'} />
           <div className={'flex flex-col gap-2 items-center justify-center'}>
-            <Paragraph className={'my-0 text-gray-400'}>Nome</Paragraph>
-            <Paragraph className={'my-0 text-center'}>
+            <Paragraph style={{ marginBlock: 0 }} className={'text-gray-400'}>
+              Nome
+            </Paragraph>
+            <Paragraph style={{ marginBlock: 0 }} className={'text-center'}>
               Embaixadores Do Bem Organização Não Governamental
             </Paragraph>
-            <Paragraph className={'my-0 text-gray-400'}>CNPJ</Paragraph>
-            <Paragraph className={'my-0'}>54.765.878/0001-47</Paragraph>
-            <Paragraph className={'my-0 text-gray-400'}>Instituição</Paragraph>
-            <Paragraph className={'my-0'}>CORA SCFI</Paragraph>
+            <Paragraph style={{ marginBlock: 0 }} className={' text-gray-400'}>
+              CNPJ
+            </Paragraph>
+            <Paragraph style={{ marginBlock: 0 }}>54.765.878/0001-47</Paragraph>
+            <Paragraph style={{ marginBlock: 0 }} className={' text-gray-400'}>
+              Instituição
+            </Paragraph>
+            <Paragraph style={{ marginBlock: 0 }} className={''}>
+              CORA SCFI
+            </Paragraph>
           </div>
         </div>
       </section>

@@ -5,7 +5,7 @@ import { Paragraph } from '@/presentation/components/global-components/text/para
 
 export function CallToAction() {
   return (
-    <article className={'gap-12 my-24'}>
+    <article className={'gap-12'}>
       <div>
         <Heading className={'text-center sm:text-justify'}>
           Doe esperança,

@@ -5,7 +5,7 @@ import { Heading } from '@/presentation/components/global-components/text/headin
 
 export function BlogPosts() {
   return (
-    <article className={'flex flex-col  gap-12 my-24'}>
+    <article className={'flex flex-col  gap-12'}>
       <Heading>Fique por dentro do nosso blog!</Heading>
       <section
         className={'flex flex-row  lg:flex-row justify-between gap-3 flex-wrap'}

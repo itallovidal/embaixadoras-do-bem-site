@@ -15,7 +15,7 @@ export default function Index() {
         alt={'Apoiando a causa'}
         img={Banner}
         description={
-          'Desde 2020, desenvolvendo campanhas de promoção e prevenção à Saúde.'
+          'Desde 2020 desenvolvendo campanhas de promoção e prevenção à Saúde.'
         }
       />
 

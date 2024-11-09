@@ -64,7 +64,7 @@ const projectsPhotos: IProjectPhotos[] = [
 
 export function Carousel() {
   return (
-    <article className={'flex flex-col gap-12 my-10'}>
+    <article className={'flex flex-col gap-12'}>
       <section className={'flex flex-col justify-between'}>
         <Heading>Orgulho de Ajudar!</Heading>
         <SubHeading>

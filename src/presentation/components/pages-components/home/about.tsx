@@ -9,7 +9,7 @@ import { TextHighlight } from '@/presentation/components/global-components/text/
 
 export function About() {
   return (
-    <article className={'flex flex-col gap-12 my-10'}>
+    <article className={'flex flex-col gap-12'}>
       <section className={'flex flex-col lg:flex-row justify-between gap-12'}>
         <div>
           <Heading className={'text-center sm:text-justify'}>Sobre nós</Heading>
@@ -77,12 +77,12 @@ export function About() {
       <section className={'flex flex-col lg:flex-row  justify-between gap-12'}>
         <div>
           <Heading className={'text-center sm:text-justify'}>
-            Juntas somos muito mais fortes!
+            Juntas somos fortes!
           </Heading>
           <Paragraph>
             Motivadas pelo seu dinamismo e experiência de vida, várias{' '}
             <TextHighlight>amigas</TextHighlight> e{' '}
-            <TextHighlight>simpatizantes se tornaram voluntárias</TextHighlight>
+            <TextHighlight>simpatizantes se tornaram voluntárias</TextHighlight>{' '}
             de vários projetos com o propósito de servir ao próximo. Desde 2020,
             as Embaixadoras do Bem{' '}
             <TextHighlight>
