@@ -36,12 +36,10 @@ export function VolunteerSection() {
             Participe! Faça parte deste movimento e ajude-nos a continuar
             espalhando a esperança. Juntos, podemos alcançar mais pessoas e
             levar adiante a nossa causa. Construindo um futuro onde a prevenção
-            esteja ao alcance das mãos e a vida seja sempre prioridade.
+            esteja ao alcance das mãos e a vida seja sempre prioridade.Faça
+            parte dessa causa.
           </Paragraph>
-          <Paragraph>
-            Faça parte dessa causa.{' '}
-            <TextHighlight>A prevenção salva! 🌸</TextHighlight>
-          </Paragraph>
+          <TextHighlight>A prevenção salva! 🌸</TextHighlight>
         </div>
         <div className={'flex flex-col gap-4 my-5 md:mt-12'}>
           <VolunteerForm />

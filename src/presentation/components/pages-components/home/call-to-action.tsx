@@ -21,7 +21,7 @@ export function CallToAction() {
             className={'bg-pink-dark p-2 size-12 rounded-full'}
             color={'white'}
           />
-          <Paragraph className={'font-bold my-0'}>
+          <Paragraph style={{ marginBlock: 0 }} className={'font-bold'}>
             Pequenos gestos, grandes impactos!
           </Paragraph>
           <Paragraph className={'text-center mt-0 '}>
@@ -37,7 +37,10 @@ export function CallToAction() {
             className={'bg-blue-dark p-2 size-12 rounded-full'}
             color={'white'}
           />
-          <Paragraph className={'font-bold text-center mt-0 my-0'}>
+          <Paragraph
+            style={{ marginBlock: 0 }}
+            className={'font-bold text-center mt-0'}
+          >
             Sua contribuição faz toda a diferença
           </Paragraph>
           <Paragraph className={'text-center mt-0'}>
@@ -53,7 +56,7 @@ export function CallToAction() {
             className={'bg-pink-dark p-2 size-12 rounded-full'}
             color={'white'}
           />
-          <Paragraph className={'font-bold my-0'}>
+          <Paragraph style={{ marginBlock: 0 }} className={'font-bold'}>
             Ajude-nos a espalhar solidariedade
           </Paragraph>
           <Paragraph className={'text-center mt-0'}>
