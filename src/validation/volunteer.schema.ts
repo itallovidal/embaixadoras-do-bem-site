@@ -15,7 +15,7 @@ export const volunteerSchema = z.object({
     .min(4, {
       message: 'Mínimo de 4 caracteres.',
     }),
-  email: z.string({ required_error: 'Campo Obrigatório' }).email(),
+  email: z.string({ required_error: 'Campo Obrigatório' }).email({message: `Email inválido.`}),
   phone: z
     .string({
       required_error: 'Campo Obrigatório',
