@@ -12,7 +12,7 @@ export function About() {
     <article className={'flex flex-col gap-12 my-10'}>
       <section className={'flex flex-col lg:flex-row justify-between gap-12'}>
         <div>
-          <Heading> Sobre nós </Heading>
+          <Heading className={'text-center sm:text-justify'}>Sobre nós</Heading>
 
           <Paragraph>
             <TextHighlight>Somos uma ONG</TextHighlight> - Organização Não
@@ -43,7 +43,9 @@ export function About() {
         className={'flex flex-col lg:flex-row-reverse justify-between gap-12'}
       >
         <div>
-          <Heading> Inspiração de vida</Heading>
+          <Heading className={'text-center sm:text-justify'}>
+            Inspiração de vida
+          </Heading>
           <Paragraph>
             A criação das Embaixadoras do bem foi motivado pelo histórico de
             vida da Sra. Tânia Mary Gomez e pelo reconhecimento dado à ela,{' '}
@@ -74,7 +76,9 @@ export function About() {
 
       <section className={'flex flex-col lg:flex-row  justify-between gap-12'}>
         <div>
-          <Heading>Juntas somos mais fortes! </Heading>
+          <Heading className={'text-center sm:text-justify'}>
+            Juntas somos muito mais fortes!
+          </Heading>
           <Paragraph>
             Motivadas pelo seu dinamismo e experiência de vida, várias{' '}
             <TextHighlight>amigas</TextHighlight> e{' '}

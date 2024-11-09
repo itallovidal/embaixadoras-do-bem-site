@@ -14,7 +14,7 @@ export function Projects() {
 
   return (
     <article className={'flex flex-col  gap-12 my-24'}>
-      <Heading>Conheça nossos projetos!</Heading>
+      <Heading className={'text-center sm:text-justify'}>Conheça nossos projetos!</Heading>
 
       <section
         className={'flex flex-row  lg:flex-row justify-between gap-4 flex-wrap'}

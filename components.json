@@ -15,6 +15,6 @@
     "utils": "@/presentation/utils/utils",
     "ui": "@/presentation/components/shadcn-ui",
     "lib": "@/lib",
-    "hooks": "@/presentation/hooks"
+    "hooks": "@/presentation/hooks",
   }
 }

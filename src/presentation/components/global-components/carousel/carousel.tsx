@@ -70,7 +70,7 @@ export function Carousel() {
         <SubHeading>
           Um pouquinho do nosso trabalho ao longo desses anos.
         </SubHeading>
-        <Paragraph className={'mb-12'}>
+        <Paragraph>
           Para mais informações, veja todos nossos projetos{' '}
           <span className={'text-pink-dark'}>
             <Link href={'/projects'}>aqui</Link>.
