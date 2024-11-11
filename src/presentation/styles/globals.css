@@ -148,3 +148,7 @@ article#donate-section+article{
   color: var(--pink-dark);
   text-decoration: underline;
 }
+
+.blog-content  ul{
+  list-style-type: initial;
+}

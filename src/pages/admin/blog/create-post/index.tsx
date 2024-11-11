@@ -138,7 +138,7 @@ function Index({ tags }: { tags: IBlogPostsTag[] }) {
                 render={({ field: { ref, ...rest } }) => (
                   <Input
                     className="max-w-[280px]"
-                    field={'Título da publicação'}
+                    field={'Nome da publicação'}
                     errorMessage={errors.title?.message}
                     {...rest}
                     disabled={isSubmitting}
