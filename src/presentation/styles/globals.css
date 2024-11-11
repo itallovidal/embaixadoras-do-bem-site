@@ -129,3 +129,13 @@ article#donate-section+article{
   height: 100%;
   background-color: white;
 }
+
+#preview-form > h1{
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+#preview-form > p{
+  font-weight: bold;
+  font-size: 2rem;
+}

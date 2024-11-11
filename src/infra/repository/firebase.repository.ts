@@ -220,4 +220,11 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
       )
     }
   }
+
+  async getBlogPostsTags() {
+    const tagsCollection = collection(this.db, 'blogPostsTags')
+    const docs = await getDocs(tagsCollection)
+
+    return docs.docs.map((doc) => doc.data())
+  }
 }
