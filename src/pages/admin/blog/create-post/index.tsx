@@ -32,6 +32,7 @@ import { GetServerSideProps } from 'next'
 import nookies from 'nookies'
 import { api } from '@/infra/lib/axios/axios'
 import { getBlogTags } from '@/infra/adapters/get-blog-tags'
+import { createBlogPost } from '@/infra/adapters/create-blog-post'
 
 function Index({ tags }: { tags: IBlogPostsTag[] }) {
   // const router = useRouter()
@@ -54,7 +55,7 @@ function Index({ tags }: { tags: IBlogPostsTag[] }) {
   async function handleCreateBlogPost(data: TBlogPostSchema) {
     try {
       console.log(data)
-      // await createBlogPost(data)
+      await createBlogPost(data)
       toast({
         className: 'bg-green-600 text-white',
         title: 'Publicação enviada!',

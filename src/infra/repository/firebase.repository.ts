@@ -30,6 +30,7 @@ import fs from 'node:fs/promises'
 import { IGetProjectResponse } from '@/domain/api-responses/projects/get-project-response'
 import { TLoginSchema } from '@/validation/login.schema'
 import { TProjectSchema } from '@/validation/project.schema'
+import { TBlogPostSchema } from '@/validation/blogPost.schema'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private readonly db: Firestore
@@ -226,5 +227,17 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     const docs = await getDocs(tagsCollection)
 
     return docs.docs.map((doc) => doc.data())
+  }
+
+  async createBlogPost(post: TBlogPostSchema) {
+    const blogPostsCollection = collection(this.db, 'blogPosts')
+    const id = uuidv4()
+
+    await addDoc(blogPostsCollection, {
+      id,
+      ...post,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })
   }
 }
