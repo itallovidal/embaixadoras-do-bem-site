@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Input } from '@/presentation/components/global-components/input/input'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 import React from 'react'
@@ -5,11 +7,8 @@ import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@/presentation/hooks/use-toast'
 import { ArrowLeft } from 'lucide-react'
-import { getServerSideProps } from '@/gssp-admin-cookies'
-import { Button } from '../../../../presentation/components/global-components/button'
+import { Button } from '@/presentation/components/global-components/button'
 import { blogPostSchema, TBlogPostSchema } from '@/validation/blogPost.schema'
-import { useQuery } from '@tanstack/react-query'
-import { getBlogPostsTags } from '@/infra/adapters/get-blogPostsTags'
 import {
   Select,
   SelectTrigger,
@@ -29,8 +28,12 @@ import { SubHeading } from '@/presentation/components/global-components/text/sub
 import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { GetServerSideProps } from 'next'
+import nookies from 'nookies'
+import { api } from '@/infra/lib/axios/axios'
+import { getBlogTags } from '@/infra/adapters/get-blog-tags'
 
-function Index() {
+function Index({ tags }: { tags: IBlogPostsTag[] }) {
   // const router = useRouter()
   const { toast } = useToast()
   const {
@@ -45,17 +48,12 @@ function Index() {
       author: '',
       title: '',
       text: '',
-      tagId: '',
     },
-  })
-
-  const { data: tags } = useQuery({
-    queryKey: ['get-blogPostTags'],
-    queryFn: () => getBlogPostsTags(),
   })
 
   async function handleCreateBlogPost(data: TBlogPostSchema) {
     try {
+      console.log(data)
       // await createBlogPost(data)
       toast({
         className: 'bg-green-600 text-white',
@@ -74,6 +72,8 @@ function Index() {
     }
   }
 
+  const previewText = watch('text')
+
   return (
     <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto my-24'}>
       <div
@@ -89,7 +89,7 @@ function Index() {
           </Button>
         </div>
       </div>
-      <Card className={'my-12'}>
+      <Card className={'mb-12'}>
         <CardHeader>
           <CardTitle>Guia</CardTitle>
           <CardDescription>
@@ -114,84 +114,104 @@ function Index() {
             Para negrito, coloque o texto entre dois asteriscos (**): <br />
             Exemplo: **Texto em negrito**
           </Paragraph>
+
+          <SubHeading>Como usar lista?</SubHeading>
+          <Paragraph>
+            Para usar listas, basta colocar um travessão (-): <br />
+            Exemplo: - item 1
+          </Paragraph>
         </CardContent>
         <CardFooter>
           <p>Veja o Resultado no campo de pré-visualização</p>
         </CardFooter>
       </Card>
 
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        className={'p-4 bg-gray-200 rounded-lg gap-8 flex flex-col'}
-      >
-        <div className={'flex gap-4 flex-col lg:flex-row'}>
-          <div className={'flex flex-col flex-1 gap-4 '}>
-            <Controller
-              control={control}
-              render={({ field }) => (
-                <Input
-                  className="max-w-[280px]"
-                  field={'Título da publicação'}
-                  errorMessage={errors.title?.message}
-                  {...field}
-                  disabled={isSubmitting}
-                />
-              )}
-              name={'title'}
-            />
-
-            <Controller
-              control={control}
-              render={({ field }) => (
-                <Input
-                  className={'h-[500px]'}
-                  wrapperStyle={'h-full'}
-                  field={'Artigo'}
-                  placeholder={'Conte os detalhes..'}
-                  errorMessage={errors.text?.message}
-                  isMultiline
-                  {...field}
-                  disabled={isSubmitting}
-                />
-              )}
-              name={'text'}
-            />
-
-            <div className={'flex flex-row gap-4 items-end'}>
+      <div className={'flex flex-col sm:flex-row gap-12'}>
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className={'p-4 bg-gray-200 rounded-lg gap-8 flex flex-col flex-1 '}
+        >
+          <div className={'flex gap-4 flex-col lg:flex-row sticky top-24'}>
+            <div className={'flex flex-col flex-1 gap-4 '}>
               <Controller
                 control={control}
-                render={({ field }) => (
+                render={({ field: { ref, ...rest } }) => (
                   <Input
-                    field={'Autor(a)'}
-                    errorMessage={errors.author?.message}
-                    {...field}
+                    className="max-w-[280px]"
+                    field={'Título da publicação'}
+                    errorMessage={errors.title?.message}
+                    {...rest}
                     disabled={isSubmitting}
                   />
                 )}
-                name={'author'}
+                name={'title'}
               />
 
-              <Select onValueChange={(value) => setValue('tagId', value)}>
-                <SelectTrigger className="max-w-[280px]">
-                  <SelectValue placeholder="Selecione a Categoria" />
-                </SelectTrigger>
-                <SelectContent>
-                  {tags &&
-                    tags.map((tag) => (
-                      <SelectItem className={'cursor-pointer'} value={tag.id}>
-                        {tag.name}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
+              <Controller
+                control={control}
+                render={({ field: { ref, ...rest } }) => (
+                  <Input
+                    className={'h-[500px]'}
+                    wrapperStyle={'h-full'}
+                    field={'Artigo'}
+                    placeholder={'Conte os detalhes..'}
+                    errorMessage={errors.text?.message}
+                    isMultiline
+                    {...rest}
+                    disabled={isSubmitting}
+                  />
+                )}
+                name={'text'}
+              />
+
+              <div
+                className={`flex flex-row gap-4 ${errors.author?.message ? 'items-center' : 'items-end'}`}
+              >
+                <Controller
+                  control={control}
+                  render={({ field: { ref, ...rest } }) => (
+                    <Input
+                      field={'Autor(a)'}
+                      errorMessage={errors.author?.message}
+                      {...rest}
+                      disabled={isSubmitting}
+                    />
+                  )}
+                  name={'author'}
+                />
+
+                <Select onValueChange={(value) => setValue('tagId', value)}>
+                  <SelectTrigger className="max-w-[280px]">
+                    <SelectValue placeholder="Selecione a Categoria" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {tags &&
+                      tags.map((tag) => (
+                        <SelectItem
+                          key={tag.id}
+                          className={'cursor-pointer'}
+                          value={tag.id}
+                        >
+                          {tag.name}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
 
-      <div id={'preview-form'} className={'my-12'}>
-        <Heading className={'text-pink-dark'}>Pré Visualização</Heading>
-        <Markdown remarkPlugins={[remarkGfm]}>{watch('text')}</Markdown>
+        <div className={'blog-content flex-1'}>
+          <Heading className={'text-pink-dark'}>Pré Visualização</Heading>
+          {previewText.length === 0 && (
+            <Paragraph>
+              {' '}
+              Comece a escrever o artigo para mostrar aqui.
+            </Paragraph>
+          )}
+          <Markdown remarkPlugins={[remarkGfm]}>{watch('text')}</Markdown>
+        </div>
       </div>
 
       <Button
@@ -207,32 +227,21 @@ function Index() {
 
 export default Index
 
-export { getServerSideProps }
+export const getServerSideProps: GetServerSideProps = async (req) => {
+  const cookies = nookies.get(req)
+  const token = cookies['@EDB:user-token']
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false,
+      },
+    }
+  }
 
-// <Controller
-//     control={control}
-//     name={'tagId'}
-//     render={({ field }) => (
-//         <div>
-//           <Select
-//               onValueChange={(value) => {
-//                 field.onChange(value)
-//                 setValue('tagId', value)
-//               }}
-//               value={field.value}
-//               defaultValue={field.value}
-//           >
-//             <SelectTrigger>
-//               <SelectValue placeholder="Selecione uma tag" />
-//             </SelectTrigger>
-//             <SelectContent>
-//               {data?.map((tag) => (
-//                   <SelectItem key={tag.id} value={tag.id}>
-//                     {tag.name}
-//                   </SelectItem>
-//               ))}
-//             </SelectContent>
-//           </Select>
-//         </div>
-//     )}
-// />
+  const tags = await getBlogTags()
+
+  return {
+    props: { tags },
+  }
+}

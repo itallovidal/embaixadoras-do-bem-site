@@ -32,8 +32,8 @@ import { TLoginSchema } from '@/validation/login.schema'
 import { TProjectSchema } from '@/validation/project.schema'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
-  private db: Firestore
-  private storage: FirebaseStorage
+  private readonly db: Firestore
+  private readonly storage: FirebaseStorage
 
   private initializeFirebase() {
     const firebaseConfig = {

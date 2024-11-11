@@ -130,12 +130,21 @@ article#donate-section+article{
   background-color: white;
 }
 
-#preview-form > h1{
+.blog-content > h1{
   font-weight: bold;
   font-size: 2rem;
 }
 
-#preview-form > p{
+.blog-content > h2{
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.5rem;
+}
+
+.blog-content  p, .blog-content  ul, .blog-content  h2s {
+  margin-block: 1rem;
+}
+
+.blog-content  a{
+  color: var(--pink-dark);
+  text-decoration: underline;
 }

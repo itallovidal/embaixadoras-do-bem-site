@@ -8,7 +8,7 @@ export function DesktopNavbar() {
   return (
     <div
       className={
-        'hidden sticky top-0 z-30 sm:block bg-pink-dark navbar-detail '
+        'hidden fixed w-full top-0 z-30 sm:block bg-pink-dark navbar-detail '
       }
     >
       <div className={'max-w-safeDesktop m-auto'}>
