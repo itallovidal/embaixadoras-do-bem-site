@@ -90,7 +90,7 @@ export function AdminPostCard({ post }: { post: IPost }): JSX.Element {
 
         <div className={'my-4 space-y-4'}>
           <Button
-            href={`/projects/${post.id}`}
+            href={`/blog/${post.id}`}
             className={'w-full'}
             variant={'ghost'}
           >

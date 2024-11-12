@@ -1,6 +1,6 @@
 import { Header } from '@/presentation/components/global-components/header/header'
 import Banner from '../../../public/projects/banner-projects-background.png'
-import { Button } from '../../presentation/components/global-components/button'
+import { Button } from '@/presentation/components/global-components/button'
 import React from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { BlogCard } from '@/presentation/components/global-components/blog-card/blog-card'

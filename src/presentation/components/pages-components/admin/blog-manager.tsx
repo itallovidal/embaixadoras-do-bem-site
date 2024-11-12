@@ -30,7 +30,9 @@ export function BlogManager() {
           Array.from({ length: 3 }).map(() => <AdminProjectCardSkeleton />)}
 
         {posts &&
-          posts.map((post) => <AdminPostCard key={post.id} post={post} />)}
+          posts.map(
+            (post, i) => i < 4 && <AdminPostCard key={post.id} post={post} />,
+          )}
       </section>
       {posts && posts.length > 4 && (
         <Button
@@ -39,7 +41,7 @@ export function BlogManager() {
           className={'self-end'}
           Icon={ArrowRight}
         >
-          Ver todos os projetos.
+          Ver todas publicações
         </Button>
       )}
     </article>
