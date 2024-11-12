@@ -230,7 +230,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
   }
 
   async createBlogPost(post: TBlogPostSchema) {
-    const blogPostsCollection = collection(this.db, 'blogPosts')
+    const blogPostsCollection = collection(this.db, 'blog')
     const id = uuidv4()
 
     await addDoc(blogPostsCollection, {
@@ -239,5 +239,26 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
       createdAt: new Date(),
       updatedAt: new Date(),
     })
+  }
+
+  async getBlogPosts(queryLimit?: number): Promise<IPost[]> {
+    const blogPostsCollection = collection(this.db, 'blogPosts')
+    let blogData
+
+    if (queryLimit) {
+      const projectQuery = query(blogPostsCollection, limit(queryLimit))
+      blogData = await getDocs(projectQuery)
+    } else {
+      blogData = await getDocs(blogPostsCollection)
+    }
+
+    const blog = await Promise.all(
+      blogData.docs.map(async (docs) => {
+        const doc = docs.data() as Omit<IPost, 'collectionId'>
+        return { ...doc, collectionId: docs.id }
+      }),
+    )
+
+    return blog
   }
 }
