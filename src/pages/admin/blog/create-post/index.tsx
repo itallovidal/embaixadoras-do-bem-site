@@ -33,15 +33,17 @@ import nookies from 'nookies'
 import { api } from '@/infra/lib/axios/axios'
 import { getBlogTags } from '@/infra/adapters/get-blog-tags'
 import { createBlogPost } from '@/infra/adapters/create-blog-post'
+import { useRouter } from 'next/router'
 
 function Index({ tags }: { tags: IBlogPostsTag[] }) {
-  // const router = useRouter()
+  const router = useRouter()
   const { toast } = useToast()
   const {
     watch,
     control,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<TBlogPostSchema>({
     resolver: zodResolver(blogPostSchema),
@@ -54,14 +56,14 @@ function Index({ tags }: { tags: IBlogPostsTag[] }) {
 
   async function handleCreateBlogPost(data: TBlogPostSchema) {
     try {
-      console.log(data)
       await createBlogPost(data)
       toast({
         className: 'bg-green-600 text-white',
         title: 'Publicação enviada!',
         description: 'Publicação enviada com sucesso.',
       })
-      // await router.push('/admin/dashboard')
+      await router.push('/admin/dashboard')
+      reset()
     } catch (e) {
       if (e instanceof Error) {
         toast({
@@ -220,7 +222,7 @@ function Index({ tags }: { tags: IBlogPostsTag[] }) {
         onClick={handleSubmit(handleCreateBlogPost)}
         className={'self-center my-12 w-full md:w-fit'}
       >
-        Criar projeto
+        Criar publicação
       </Button>
     </div>
   )

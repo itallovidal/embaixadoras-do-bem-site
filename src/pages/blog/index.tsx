@@ -4,8 +4,15 @@ import { Button } from '../../presentation/components/global-components/button'
 import React from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { BlogCard } from '@/presentation/components/global-components/blog-card/blog-card'
+import { useQuery } from '@tanstack/react-query'
+import { getPosts } from '@/infra/adapters/get-posts'
 
 export default function Index() {
+  const { data: posts } = useQuery({
+    queryKey: ['all-posts'],
+    queryFn: () => getPosts(),
+  })
+
   return (
     <article>
       <Header
@@ -17,7 +24,7 @@ export default function Index() {
 
       <section className={'max-w-safeMobile lg:max-w-safeDesktop m-auto my-12'}>
         <div className={'my-5 flex  justify-end'}>
-          <Button Icon={ArrowLeft} variant={'ghost'}>
+          <Button Icon={ArrowLeft} variant={'ghost'} href={'/'}>
             Voltar
           </Button>
         </div>
@@ -27,9 +34,7 @@ export default function Index() {
             'flex flex-col md:flex-row gap-3 flex-wrap justify-start mb-5'
           }
         >
-          {Array.from({ length: 8 }).map(() => (
-            <BlogCard />
-          ))}
+          {posts && posts.map((post) => <BlogCard post={post} />)}
         </div>
       </section>
     </article>

@@ -242,7 +242,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
   }
 
   async getBlogPosts(queryLimit?: number): Promise<IPost[]> {
-    const blogPostsCollection = collection(this.db, 'blogPosts')
+    const blogPostsCollection = collection(this.db, 'blog')
     let blogData
 
     if (queryLimit) {
@@ -260,5 +260,14 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     )
 
     return blog
+  }
+
+  async getBlogPostByID(id: string): Promise<IPost> {
+    const projectCollection = collection(this.db, 'blog')
+    const q = query(projectCollection, where('id', '==', id))
+    const request = await getDocs(q)
+    const posts = request.docs.map((doc) => doc.data()) as IPost[]
+
+    return posts[0]
   }
 }

@@ -24,12 +24,12 @@ export default function Index() {
         <About />
         <Projects />
         <CallToAction />
-        <BlogPosts />
       </div>
       <DonateSection />
       <VolunteerSection />
 
       <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto'}>
+        <BlogPosts />
         <Carousel />
       </div>
     </div>

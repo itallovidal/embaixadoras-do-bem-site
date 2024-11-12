@@ -1,16 +1,16 @@
 import React from 'react'
-import { AdminProjectCard } from '@/presentation/components/pages-components/admin/admin-project-card'
 import { Button } from '../../global-components/button'
 import { ArrowRight, Plus } from 'lucide-react'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 import { useQuery } from '@tanstack/react-query'
-import { getProjects } from '@/infra/adapters/get-projects'
 import { AdminProjectCardSkeleton } from '@/presentation/components/skeletons/admin-project-card-skeleton'
+import { getPosts } from '@/infra/adapters/get-posts'
+import { AdminPostCard } from '@/presentation/components/pages-components/admin/admin-post-card'
 
-export function ProjectManager() {
-  const { data: projects, isLoading } = useQuery({
-    queryKey: ['last-projects'],
-    queryFn: () => getProjects(5),
+export function BlogManager() {
+  const { data: posts, isLoading } = useQuery({
+    queryKey: ['last-posts'],
+    queryFn: () => getPosts(5),
   })
 
   return (
@@ -20,31 +20,21 @@ export function ProjectManager() {
           'flex flex-col gap-2  justify-between sm:flex-row sm:items-center'
         }
       >
-        <Heading>Gerencie seus projetos</Heading>
-        <Button href={'/admin/projects/create-project'} Icon={Plus}>
-          Criar um projeto
+        <Heading>Gerencie suas publicações</Heading>
+        <Button href={'/admin/blog/create-post'} Icon={Plus}>
+          Criar uma publicação
         </Button>
       </div>
       <section className={'flex flex-col lg:flex-row justify-start gap-4'}>
         {isLoading &&
           Array.from({ length: 3 }).map(() => <AdminProjectCardSkeleton />)}
 
-        {projects &&
-          projects.map((project) => (
-            <AdminProjectCard
-              key={project.id}
-              project={{
-                id: project.id,
-                title: project.title,
-                image: project.images[0],
-                collectionId: project.collectionId,
-              }}
-            />
-          ))}
+        {posts &&
+          posts.map((post) => <AdminPostCard key={post.id} post={post} />)}
       </section>
-      {projects && projects.length > 4 && (
+      {posts && posts.length > 4 && (
         <Button
-          href={'/admin/projects'}
+          href={'/admin/blog'}
           variant={'outline'}
           className={'self-end'}
           Icon={ArrowRight}

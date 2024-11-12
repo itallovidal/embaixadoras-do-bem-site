@@ -8,7 +8,7 @@ import { getPosts } from '@/infra/adapters/get-posts'
 export function BlogPosts() {
   const { data: posts, isLoading } = useQuery({
     queryKey: ['last-posts'],
-    queryFn: () => getPosts(4),
+    queryFn: () => getPosts(3),
   })
 
   return (
@@ -20,7 +20,9 @@ export function BlogPosts() {
         {isLoading && <p>carregando..</p>}
         {posts && posts.map((post, i) => <BlogCard key={i} post={post} />)}
       </section>
-      <Button className={'self-center'}>Ver postagens</Button>
+      <Button className={'self-center'} href={'blog'}>
+        Ver postagens
+      </Button>
     </article>
   )
 }

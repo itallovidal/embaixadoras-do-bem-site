@@ -7,9 +7,9 @@ import {
   CardTitle,
 } from '@/presentation/components/shadcn-ui/card'
 import { Button } from '../button'
+import { formatPostDescription } from '@/presentation/utils/format-post-description'
 
 export function BlogCard({ post }: { post: IPost }) {
-  console.log(post)
   return (
     <Card
       className={
@@ -25,15 +25,20 @@ export function BlogCard({ post }: { post: IPost }) {
           {/*  alt={'Foto do projeto x'} */}
           {/* /> */}
         </picture>
-        <CardTitle className={'text-subheading'}>{post.title}</CardTitle>
+        <CardTitle className={'text-subheading leading-12 line-clamp-2 '}>
+          {post.title}
+        </CardTitle>
       </CardHeader>
       <CardContent>
-        <CardDescription className={'leading-6 line-clamp-6'}>
-          {post.text.substring(0, 250)}
+        <CardDescription
+          className={`leading-6 line-clamp-6 text-justify after:content-["..."]`}
+          style={{ wordSpacing: '-2px' }}
+        >
+          {formatPostDescription(post.text)}
         </CardDescription>
       </CardContent>
       <CardFooter>
-        <Button href={`/blog/${post.collectionId}`}>Mais informações</Button>
+        <Button href={`/blog/${post.id}`}>Mais informações</Button>
       </CardFooter>
     </Card>
   )

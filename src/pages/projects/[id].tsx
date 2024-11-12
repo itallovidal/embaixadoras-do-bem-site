@@ -10,7 +10,7 @@ import { Button } from '@/presentation/components/global-components/button'
 import { convertSecondsToDate } from '@/presentation/utils/convert-seconds-to-date'
 import { ShowProjectStatus } from '@/presentation/components/pages-components/project/show-project-status'
 import { ProjectDetailsSkeleton } from '@/presentation/components/skeletons/project-details-skeleton'
-function Index() {
+function Id() {
   const router = useRouter()
   const { id } = router.query as { id: string }
   const { data: project, isLoading } = useQuery({
@@ -88,4 +88,4 @@ function Index() {
   )
 }
 
-export default Index
+export default Id

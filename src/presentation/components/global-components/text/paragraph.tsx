@@ -8,6 +8,7 @@ export function Paragraph({ children, className, ...rest }: IProps) {
     <p
       className={`text-md leading-7  ${!className?.includes('text-center') ? 'text-justify' : 'text-center'} ${className} my-6`}
       {...rest}
+      style={{ wordSpacing: '-2px' }}
     >
       {children}
     </p>

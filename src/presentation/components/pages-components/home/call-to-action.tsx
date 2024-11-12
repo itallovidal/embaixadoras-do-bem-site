@@ -37,10 +37,7 @@ export function CallToAction() {
             className={'bg-blue-dark p-2 size-12 rounded-full'}
             color={'white'}
           />
-          <Paragraph
-            style={{ marginBlock: 0 }}
-            className={'font-bold text-center mt-0'}
-          >
+          <Paragraph style={{ marginBlock: 0 }} className={'font-bold '}>
             Sua contribuição faz toda a diferença
           </Paragraph>
           <Paragraph className={'text-center mt-0'}>
