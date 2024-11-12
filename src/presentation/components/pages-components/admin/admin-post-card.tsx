@@ -1,5 +1,4 @@
 import { Button } from '../../global-components/button'
-import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
 import { api } from '@/infra/lib/axios/axios'
 import { queryClient } from '@/infra/lib/use-query/query-client'
 import { useToast } from '@/presentation/hooks/use-toast'
@@ -31,7 +30,7 @@ export function AdminPostCard({ post }: { post: IPost }): JSX.Element {
 
     try {
       const response = await api.delete(
-        `/admin/projects/delete/${collectionId}/${id}`,
+        `/admin/projects/delete/${post.collectionId}/${post.id}`,
         {
           headers: {
             'Content-Type': `multipart/form-data`,
@@ -41,7 +40,7 @@ export function AdminPostCard({ post }: { post: IPost }): JSX.Element {
       )
 
       if (response.status !== 200) {
-        throw Error(`Failed to delete ${collectionId}`)
+        throw Error(`Failed to delete ${post.collectionId}`)
       }
       await queryClient.invalidateQueries({
         queryKey: ['last-projects'],
@@ -66,7 +65,7 @@ export function AdminPostCard({ post }: { post: IPost }): JSX.Element {
 
   async function handleEdit() {
     setIsEditLoading(true)
-    await route.push(`/admin/projects/edit-project/${id}`)
+    await route.push(`/admin/blog/edit-post/${post.id}`)
     setIsEditLoading(false)
   }
 

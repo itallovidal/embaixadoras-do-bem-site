@@ -3,12 +3,12 @@ import React from 'react'
 import { BlogCard } from '@/presentation/components/global-components/blog-card/blog-card'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 import { useQuery } from '@tanstack/react-query'
-import { getPosts } from '@/infra/adapters/get-posts'
+import { getBlogPosts } from '@/infra/adapters/get-blog-posts'
 
 export function BlogPosts() {
   const { data: posts, isLoading } = useQuery({
     queryKey: ['last-posts'],
-    queryFn: () => getPosts(3),
+    queryFn: () => getBlogPosts(3),
   })
 
   return (

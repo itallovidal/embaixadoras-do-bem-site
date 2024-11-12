@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { getBlogtDetails } from '@/infra/adapters/get-blog-details'
+import { getBlogtDetails } from '@/infra/adapters/get-blog-post-details'
 import { useQuery } from '@tanstack/react-query'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'

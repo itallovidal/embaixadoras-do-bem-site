@@ -18,115 +18,70 @@ import { Button } from '@/presentation/components/global-components/button'
 import nookies from 'nookies'
 import { useRouter } from 'next/router'
 import { api } from '@/infra/lib/axios/axios'
+import { blogPostSchema, TBlogPostSchema } from '@/validation/blogPost.schema'
+import { createBlogPost } from '@/infra/adapters/create-blog-post'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/presentation/components/shadcn-ui/card'
+import { SubHeading } from '@/presentation/components/global-components/text/subheading'
+import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/presentation/components/shadcn-ui/select'
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import { getBlogtDetails } from '@/infra/adapters/get-blog-post-details'
+import { getBlogTags } from '@/infra/adapters/get-blog-tags'
+import { editPost } from '@/infra/adapters/edit-blog-post'
 
-interface ICreateProjectProps {
-  project: IGetProjectResponse
-}
-interface IPreviewImg {
-  id: string
-  src: string
+interface IEditPostProps {
+  post: IPost
+  tags: IBlogPostsTag[]
 }
 
-function EditProject({ project }: ICreateProjectProps) {
-  const defaultEndDate =
-    project.endDate && convertSecondsToDate(project.endDate.seconds)
-  const defaultStartDate =
-    project.startDate && convertSecondsToDate(project.startDate.seconds)
-  const [imgsToAdd, setImgsToAdd] = useState<IImageToAdd[]>([])
-  const [imgsToRemove, setImgsToRemove] = useState<IImageToRemove[]>([])
+function EditPost({ post, tags }: IEditPostProps) {
   const router = useRouter()
-
   const { toast } = useToast()
   const {
     watch,
-    getValues,
-    setValue,
     control,
     handleSubmit,
+    setValue,
+    reset,
     formState: { errors, isSubmitting },
-  } = useForm<TProjectSchema>({
+  } = useForm<TBlogPostSchema>({
+    resolver: zodResolver(blogPostSchema),
     defaultValues: {
-      images: [],
-      endDate: defaultEndDate || undefined,
-      startDate: defaultStartDate || undefined,
-      title: project.title,
-      description: project.description,
-      isActive: project.isActive,
+      author: post.author,
+      title: post.title,
+      text: post.text,
+      tagId: post.tagId,
     },
-    resolver: zodResolver(projectSchema),
   })
 
-  const selectedImages = watch('images')
-
-  useEffect(() => {
-    getDefaultImages()
-  }, [])
-
-  function getDefaultImages() {
-    const imgs = project.images.map((img) => {
-      return {
-        src: img,
-        id: img,
-      }
-    })
-    setValue('images', imgs)
-  }
-
-  function handlePreviewImages(event: ChangeEvent<HTMLInputElement>) {
-    const imgs = generatePreviewImages(event.target.files)
-    const toPreview: { src: string; id: string }[] = []
-    const toAdd: { file: File; id: string }[] = []
-
-    imgs.forEach((file) => {
-      toPreview.push({ src: file.src, id: file.id })
-      toAdd.push({ file: file.file, id: file.id })
-    })
-
-    const allImages = [...getValues('images'), ...toPreview]
-    setValue('images', allImages)
-
-    setImgsToAdd((prevState) => [...prevState, ...toAdd])
-  }
-
-  function onDelete(imgToDelete: string) {
-    const selectedImages = getValues('images')
-    const filteredImages = selectedImages.filter((image: IPreviewImg) => {
-      if (image.id !== imgToDelete) return true
-
-      if (imgToDelete.includes('firebasestorage')) {
-        setImgsToRemove((prevState) => [...prevState, image])
-        return false
-      }
-
-      setImgsToAdd((prevState) =>
-        prevState.filter((path) => {
-          return path.id !== imgToDelete
-        }),
-      )
-
-      return false
-    })
-    setValue('images', filteredImages)
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async function handleEditProject({ images, ...projectData }: TProjectSchema) {
+  async function handleEditBlogPost(data: TBlogPostSchema) {
     try {
-      await editProject({
-        imgsToAdd,
-        imgsToRemove,
-        ...projectData,
-        collectionId: project.collectionId,
-        id: project.id,
+      await editPost({
+        post: data,
+        id: post.id,
+        collectionId: post.collectionId,
       })
-
       toast({
         className: 'bg-green-600 text-white',
-        title: 'Projeto salvo!',
-        description: 'Projeto criado com sucesso.',
+        title: 'Publicação salva!',
+        description: 'Publicação salva com sucesso.',
       })
-
-      router.push('/admin/dashboard')
+      await router.push('/admin/dashboard')
+      reset()
     } catch (e) {
       if (e instanceof Error) {
         toast({
@@ -138,6 +93,8 @@ function EditProject({ project }: ICreateProjectProps) {
     }
   }
 
+  const previewText = watch('text')
+
   return (
     <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto my-24'}>
       <div
@@ -145,138 +102,164 @@ function EditProject({ project }: ICreateProjectProps) {
           'flex flex-col-reverse items-start justify-between sm:flex-row sm:gap-5 sm:items-center'
         }
       >
-        <Heading className={'mb-4'}>Edição do Projeto</Heading>
+        <Heading className={'mb-4'}>Edição da publicação</Heading>
 
         <div className={' flex justify-end sm:my-5'}>
-          <Button href={'/admin/projects'} Icon={ArrowLeft} variant={'ghost'}>
+          <Button href={'/admin/dashboard'} Icon={ArrowLeft} variant={'ghost'}>
             Voltar
           </Button>
         </div>
       </div>
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        className={'p-4 bg-gray-200 rounded-lg gap-8 flex flex-col'}
-      >
-        <div className={'flex gap-4 flex-col lg:flex-row'}>
-          <div className={'flex flex-col flex-1 gap-4 '}>
-            <Controller
-              control={control}
-              render={({ field }) => (
-                <Input
-                  field={'Título do projeto'}
-                  placeholder={'Qual foi seu nome?'}
-                  errorMessage={errors.title?.message}
-                  {...field}
-                  disabled={isSubmitting}
-                />
-              )}
-              name={'title'}
-            />
+      <Card className={'mb-12'}>
+        <CardHeader>
+          <CardTitle>Guia</CardTitle>
+          <CardDescription>
+            Guia de como organizar o contedo do seu artigo.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <SubHeading>Como inserir Titulos?</SubHeading>
+          <Paragraph>
+            Basta utilizar 'Jogo da Velha'. <br /> Exemplo: # Título 1 → Título
+            principal <br /> ## Título 2 → Subtítulo
+          </Paragraph>
 
-            <Controller
-              control={control}
-              render={({ field }) => (
-                <Input
-                  wrapperStyle={'h-full '}
-                  field={'Descrição do projeto'}
-                  placeholder={'Conte os detalhes..'}
-                  errorMessage={errors.description?.message}
-                  isMultiline
-                  {...field}
-                  disabled={isSubmitting}
-                />
-              )}
-              name={'description'}
-            />
-          </div>
+          <SubHeading>Como usar itálico?</SubHeading>
+          <Paragraph>
+            Para itálico, use um asterisco (*) antes e depois da palavra: <br />{' '}
+            Exemplo: *Texto em itálico*
+          </Paragraph>
 
-          <div className={'flex flex-col gap-4 '}>
-            <div className={'flex flex-col sm:flex-row gap-4 mb-4'}>
-              <DateTimePicker
-                label={'Data de Inicio'}
-                date={watch('startDate')}
-                errorMessage={errors.startDate?.message}
-                setDate={(date) => date && setValue('startDate', date)}
-                isDisabled={isSubmitting}
+          <SubHeading>Como usar negrito?</SubHeading>
+          <Paragraph>
+            Para negrito, coloque o texto entre dois asteriscos (**): <br />
+            Exemplo: **Texto em negrito**
+          </Paragraph>
+
+          <SubHeading>Como usar lista?</SubHeading>
+          <Paragraph>
+            Para usar listas, basta colocar um travessão (-): <br />
+            Exemplo: - item 1
+          </Paragraph>
+        </CardContent>
+        <CardFooter>
+          <p>Veja o Resultado no campo de pré-visualização</p>
+        </CardFooter>
+      </Card>
+
+      <div className={'flex flex-col sm:flex-row gap-12'}>
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className={'p-4 bg-gray-200 rounded-lg gap-8 flex flex-col flex-1 '}
+        >
+          <div className={'flex gap-4 flex-col lg:flex-row sticky top-24'}>
+            <div className={'flex flex-col flex-1 gap-4 '}>
+              <Controller
+                control={control}
+                render={({ field: { ref, ...rest } }) => (
+                  <Input
+                    className="max-w-[280px]"
+                    field={'Nome da publicação'}
+                    errorMessage={errors.title?.message}
+                    {...rest}
+                    disabled={isSubmitting}
+                  />
+                )}
+                name={'title'}
               />
-              <DateTimePicker
-                isDisabled={watch('isActive') || isSubmitting}
-                label={'Data de Fim'}
-                date={watch('endDate')}
-                errorMessage={errors.endDate?.message}
-                setDate={(date) => date && setValue('endDate', date)}
+
+              <Controller
+                control={control}
+                render={({ field: { ref, ...rest } }) => (
+                  <Input
+                    className={'h-[500px]'}
+                    wrapperStyle={'h-full'}
+                    field={'Artigo'}
+                    placeholder={'Conte os detalhes..'}
+                    errorMessage={errors.text?.message}
+                    isMultiline
+                    {...rest}
+                    disabled={isSubmitting}
+                  />
+                )}
+                name={'text'}
               />
+
+              <div
+                className={`flex flex-row gap-4 ${errors.author?.message ? 'items-center' : 'items-end'}`}
+              >
+                <Controller
+                  control={control}
+                  render={({ field: { ref, ...rest } }) => (
+                    <Input
+                      field={'Autor(a)'}
+                      errorMessage={errors.author?.message}
+                      {...rest}
+                      disabled={isSubmitting}
+                    />
+                  )}
+                  name={'author'}
+                />
+
+                <Select
+                  onValueChange={(value) => setValue('tagId', value)}
+                  defaultValue={post.tagId}
+                >
+                  <SelectTrigger className="max-w-[280px]">
+                    <SelectValue placeholder="Selecione a Categoria" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {tags &&
+                      tags.map((tag) => (
+                        <SelectItem
+                          key={tag.id}
+                          className={'cursor-pointer'}
+                          value={tag.id}
+                        >
+                          {tag.name}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-
-            <Checkbox
-              errorMessage={errors.isActive?.message}
-              title={'Projeto ainda vigente'}
-              description={
-                'Marque essa opção caso o projeto ainda esteja ocorrendo.'
-              }
-              onClick={() => setValue('isActive', !watch('isActive'))}
-              disabled={isSubmitting}
-              checked={watch('isActive')}
-            />
-
-            <Input
-              accept={'image/png, image/jpeg, image/jpg, image/webp'}
-              className={'cursor-pointer w-fit'}
-              field={'Clique para escolher as imagens'}
-              type={'file'}
-              onChange={(event) => handlePreviewImages(event)}
-              multiple
-              errorMessage={errors.images?.message}
-              disabled={isSubmitting}
-            />
           </div>
+        </form>
+
+        <div className={'blog-content flex-1'}>
+          <Heading className={'text-pink-dark'}>Pré Visualização</Heading>
+          {previewText.length === 0 && (
+            <Paragraph>
+              {' '}
+              Comece a escrever o artigo para mostrar aqui.
+            </Paragraph>
+          )}
+          <Markdown remarkPlugins={[remarkGfm]}>{watch('text')}</Markdown>
         </div>
-        {selectedImages.length > 0 && (
-          <div className={'flex gap-4 flex-wrap p-4 bg-white rounded-md'}>
-            {selectedImages.map((value: IPreviewImg) => {
-              return (
-                <SelectedImageCard
-                  key={value.id}
-                  src={value.src}
-                  id={value.id}
-                  onDelete={onDelete}
-                />
-              )
-            })}
-          </div>
-        )}
-      </form>
+      </div>
 
       <Button
         isLoading={isSubmitting}
-        onClick={handleSubmit(handleEditProject)}
-        className={'self-center my-12'}
+        onClick={handleSubmit(handleEditBlogPost)}
+        className={'self-center my-12 w-full md:w-fit'}
       >
-        Salvar projeto
+        Salvar publicação
       </Button>
     </div>
   )
 }
 
-export default EditProject
+export default EditPost
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  params,
-}) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params as { id: string }
 
-  const cookies = nookies.get(req.cookies)
+  const post = await getBlogtDetails(id)
+  const tags = await getBlogTags()
 
-  const response = await api.get(`/admin/projects/${id}`, {
-    headers: {
-      Authorization: 'Bearer ' + cookies['@EDB:user-token'],
-    },
-  })
-
-  const project = response.data
+  console.log({ post, tags })
 
   return {
-    props: { project },
+    props: { post, tags },
   }
 }

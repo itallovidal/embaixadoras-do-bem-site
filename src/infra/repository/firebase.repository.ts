@@ -31,6 +31,7 @@ import { IGetProjectResponse } from '@/domain/api-responses/projects/get-project
 import { TLoginSchema } from '@/validation/login.schema'
 import { TProjectSchema } from '@/validation/project.schema'
 import { TBlogPostSchema } from '@/validation/blogPost.schema'
+import { IEditPostProps } from '@/infra/adapters/edit-blog-post'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private readonly db: Firestore
@@ -269,5 +270,16 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     const posts = request.docs.map((doc) => doc.data()) as IPost[]
 
     return posts[0]
+  }
+
+  async editPost({
+    collectionId,
+    post,
+  }: {
+    collectionId: string
+    post: TBlogPostSchema
+  }) {
+    const projectRef = doc(this.db, 'blog', collectionId)
+    await updateDoc(projectRef, { ...post, updatedAt: new Date() })
   }
 }

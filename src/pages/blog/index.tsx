@@ -5,12 +5,12 @@ import React from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { BlogCard } from '@/presentation/components/global-components/blog-card/blog-card'
 import { useQuery } from '@tanstack/react-query'
-import { getPosts } from '@/infra/adapters/get-posts'
+import { getBlogPosts } from '@/infra/adapters/get-blog-posts'
 
 export default function Index() {
   const { data: posts } = useQuery({
     queryKey: ['all-posts'],
-    queryFn: () => getPosts(),
+    queryFn: () => getBlogPosts(),
   })
 
   return (
