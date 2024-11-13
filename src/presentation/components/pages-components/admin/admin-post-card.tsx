@@ -65,6 +65,7 @@ export function AdminPostCard({ post }: { post: IPost }): JSX.Element {
 
   async function handleEdit() {
     setIsEditLoading(true)
+    console.log(post.collectionId)
     await route.push(`/admin/blog/edit-post/${post.id}`)
     setIsEditLoading(false)
   }

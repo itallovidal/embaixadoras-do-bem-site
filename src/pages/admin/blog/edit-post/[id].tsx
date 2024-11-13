@@ -1,25 +1,14 @@
 import { Input } from '@/presentation/components/global-components/input/input'
-import { Checkbox } from '@/presentation/components/global-components/checkbox/checkbox'
 import { Heading } from '@/presentation/components/global-components/text/heading'
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { SelectedImageCard } from '@/presentation/components/global-components/selected-image-card/selected-image-card'
-import { generatePreviewImages } from '@/presentation/utils/generate-preview-images'
-import { DateTimePicker } from '@/presentation/components/global-components/date-time-picker/date-time-picker'
+import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { projectSchema, TProjectSchema } from '@/validation/project.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@/presentation/hooks/use-toast'
 import { ArrowLeft } from 'lucide-react'
 import { GetServerSideProps } from 'next'
-import { convertSecondsToDate } from '@/presentation/utils/convert-seconds-to-date'
-import { IGetProjectResponse } from '@/domain/api-responses/projects/get-project-response'
-import { editProject } from '@/infra/adapters/edit-project'
 import { Button } from '@/presentation/components/global-components/button'
-import nookies from 'nookies'
 import { useRouter } from 'next/router'
-import { api } from '@/infra/lib/axios/axios'
 import { blogPostSchema, TBlogPostSchema } from '@/validation/blogPost.schema'
-import { createBlogPost } from '@/infra/adapters/create-blog-post'
 import {
   Card,
   CardContent,
@@ -68,11 +57,10 @@ function EditPost({ post, tags }: IEditPostProps) {
     },
   })
 
-  async function handleEditBlogPost(data: TBlogPostSchema) {
+  async function handleEditBlogPost(form: TBlogPostSchema) {
     try {
       await editPost({
-        post: data,
-        id: post.id,
+        post: form,
         collectionId: post.collectionId,
       })
       toast({
@@ -256,8 +244,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   const post = await getBlogtDetails(id)
   const tags = await getBlogTags()
-
-  console.log({ post, tags })
 
   return {
     props: { post, tags },

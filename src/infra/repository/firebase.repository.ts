@@ -267,7 +267,12 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     const projectCollection = collection(this.db, 'blog')
     const q = query(projectCollection, where('id', '==', id))
     const request = await getDocs(q)
-    const posts = request.docs.map((doc) => doc.data()) as IPost[]
+    const posts = await Promise.all(
+      request.docs.map(async (docs) => {
+        const doc = docs.data() as Omit<IPost, 'collectionId'>
+        return { ...doc, collectionId: docs.id }
+      }),
+    )
 
     return posts[0]
   }

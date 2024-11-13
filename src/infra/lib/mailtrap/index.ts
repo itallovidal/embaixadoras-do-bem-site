@@ -79,7 +79,6 @@ export class MailtrapSender {
 
     try {
       await this.transport.sendMail(mailData)
-      console.log('email enviado!')
     } catch (err) {
       console.log(err)
     }
