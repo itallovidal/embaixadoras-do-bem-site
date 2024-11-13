@@ -13,10 +13,10 @@ import {
   DialogTrigger,
 } from '@/presentation/components/shadcn-ui/dialog'
 import { useRouter } from 'next/router'
-import nookies from 'nookies'
 import { useState } from 'react'
 import { formatPostDescription } from '@/presentation/utils/format-post-description'
 import { SubHeading } from '@/presentation/components/global-components/text/subheading'
+import { deleteBlogPost } from '@/infra/adapters/delete-blog-post'
 
 export function AdminPostCard({ post }: { post: IPost }): JSX.Element {
   const { toast } = useToast()
@@ -26,24 +26,11 @@ export function AdminPostCard({ post }: { post: IPost }): JSX.Element {
 
   async function handleDelete() {
     setIsDeleteLoading(true)
-    const cookies = nookies.get()
 
     try {
-      const response = await api.delete(
-        `/admin/projects/delete/${post.collectionId}/${post.id}`,
-        {
-          headers: {
-            'Content-Type': `multipart/form-data`,
-            Authorization: 'Bearer ' + cookies['@EDB:user-token'],
-          },
-        },
-      )
-
-      if (response.status !== 200) {
-        throw Error(`Failed to delete ${post.collectionId}`)
-      }
+      await deleteBlogPost(post.collectionId)
       await queryClient.invalidateQueries({
-        queryKey: ['last-projects'],
+        queryKey: ['last-posts'],
       })
       toast({
         className: 'bg-green-600 text-white',
@@ -52,6 +39,7 @@ export function AdminPostCard({ post }: { post: IPost }): JSX.Element {
       })
     } catch (e) {
       if (e instanceof Error) {
+        console.log(e)
         toast({
           variant: 'destructive',
           title: e.message,

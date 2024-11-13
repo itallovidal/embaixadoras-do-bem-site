@@ -17,6 +17,7 @@ import {
 import { useRouter } from 'next/router'
 import nookies from 'nookies'
 import { useState } from 'react'
+import { deleteProject } from '@/infra/adapters/delete-project'
 
 interface IProps {
   project: {
@@ -37,22 +38,9 @@ export function AdminProjectCard({
 
   async function handleDelete() {
     setIsDeleteLoading(true)
-    const cookies = nookies.get()
 
     try {
-      const response = await api.delete(
-        `/admin/projects/delete/${collectionId}/${id}`,
-        {
-          headers: {
-            'Content-Type': `multipart/form-data`,
-            Authorization: 'Bearer ' + cookies['@EDB:user-token'],
-          },
-        },
-      )
-
-      if (response.status !== 200) {
-        throw Error(`Failed to delete ${collectionId}`)
-      }
+      await deleteProject({ id, collectionId })
       await queryClient.invalidateQueries({
         queryKey: ['last-projects'],
       })

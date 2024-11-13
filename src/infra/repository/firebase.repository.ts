@@ -287,4 +287,9 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     const projectRef = doc(this.db, 'blog', collectionId)
     await updateDoc(projectRef, { ...post, updatedAt: new Date() })
   }
+
+  async deleteBlogPostById(collectionId: string) {
+    const postRef = doc(this.db, 'blog', collectionId)
+    await deleteDoc(postRef)
+  }
 }
