@@ -1,4 +1,3 @@
-import { IGetProjectResponse } from '@/domain/api-responses/projects/get-project-response'
 import { api } from '@/infra/lib/axios/axios'
 import nookies from 'nookies'
 

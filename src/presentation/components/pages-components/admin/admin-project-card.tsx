@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import { Button } from '../../global-components/button'
 import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
-import { api } from '@/infra/lib/axios/axios'
 import { queryClient } from '@/infra/lib/use-query/query-client'
 import { useToast } from '@/presentation/hooks/use-toast'
 import {
@@ -15,7 +14,6 @@ import {
   DialogTrigger,
 } from '@/presentation/components/shadcn-ui/dialog'
 import { useRouter } from 'next/router'
-import nookies from 'nookies'
 import { useState } from 'react'
 import { deleteProject } from '@/infra/adapters/delete-project'
 

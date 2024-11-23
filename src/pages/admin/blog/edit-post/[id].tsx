@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Input } from '@/presentation/components/global-components/input/input'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 import React from 'react'
