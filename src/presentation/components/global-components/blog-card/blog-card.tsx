@@ -37,8 +37,10 @@ export function BlogCard({ post }: { post: IPost }) {
           {formatPostDescription(post.text)}
         </CardDescription>
       </CardContent>
-      <CardFooter>
-        <Button href={`/blog/${post.id}`}>Mais informações</Button>
+      <CardFooter className={'w-full'}>
+        <Button href={`/blog/${post.id}`} className={'w-full lg:w-auto'}>
+          Mais informações
+        </Button>
       </CardFooter>
     </Card>
   )

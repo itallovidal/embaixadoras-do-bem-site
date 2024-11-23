@@ -34,14 +34,11 @@ export function Footer() {
             <Button href={'/'} variant={'ghost'} className={'p-0'}>
               Home
             </Button>
-            <Button href={'/'} variant={'ghost'} className={'p-0'}>
+            <Button href={'/projects'} variant={'ghost'} className={'p-0'}>
               Projetos
             </Button>
-            <Button href={'/'} variant={'ghost'} className={'p-0'}>
-              Seja um Voluntário
-            </Button>
-            <Button href={'/'} variant={'ghost'} className={'p-0'}>
-              Faça uma doação
+            <Button href={'/blog'} variant={'ghost'} className={'p-0'}>
+              Blog
             </Button>
           </div>
         </div>

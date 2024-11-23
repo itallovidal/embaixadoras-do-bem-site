@@ -3,6 +3,7 @@ import Logo from '../../../../../public/embaixadoras-do-bem-logo.svg'
 import { Button } from '../button'
 import { Separator } from '@/presentation/components/shadcn-ui/separator'
 import Image from 'next/image'
+import { scroll } from '@/presentation/utils/scroll-page'
 
 export function DesktopNavbar() {
   return (
@@ -33,19 +34,24 @@ export function DesktopNavbar() {
             <Button variant={'lightGhost'} href={'/projects'}>
               Projetos
             </Button>
-            {/* <Button variant={'lightGhost'} href={'/blog'}> */}
-            {/*  Blog */}
-            {/* </Button> */}
-            {/* <Separator orientation={'vertical'} className={'h-6'} /> */}
-
-            {/* <Separator orientation={'vertical'} className={'h-6'} /> */}
-            {/* <Button variant={'lightGhost'} href={'/donation'}> */}
-            {/*  Faça uma doação */}
-            {/* </Button> */}
-            {/* <Separator orientation={'vertical'} className={'h-6'} /> */}
-            {/* <Button variant={'lightGhost'} href={'/volunteer'}> */}
-            {/*  Seja Voluntário */}
-            {/* </Button> */}
+            <Separator orientation={'vertical'} className={'h-6'} />
+            <Button variant={'lightGhost'} href={'/blog'}>
+              Blog
+            </Button>
+            <Separator orientation={'vertical'} className={'h-6'} />
+            <Button
+              variant={'lightGhost'}
+              onClick={() => scroll('#donate-section')}
+            >
+              Faça uma doação
+            </Button>
+            <Separator orientation={'vertical'} className={'h-6'} />
+            <Button
+              variant={'lightGhost'}
+              onClick={() => scroll('#volunteer-section')}
+            >
+              Seja voluntário
+            </Button>
           </nav>
         </div>
       </div>

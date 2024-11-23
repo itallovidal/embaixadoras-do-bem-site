@@ -43,7 +43,7 @@ function Id() {
             >
               <Heading>{project.title}</Heading>
 
-              <div className={'flex mb-12 justify-end sm:my-5'}>
+              <div className={'flex mb-12 self-end sm:my-5'}>
                 <Button
                   onClick={() => router.back()}
                   Icon={ArrowLeft}

@@ -14,7 +14,7 @@ export default function Index() {
   })
 
   return (
-    <article>
+    <div>
       <Header
         short={true}
         img={Banner}
@@ -23,7 +23,7 @@ export default function Index() {
       />
 
       <section className={'max-w-safeMobile lg:max-w-safeDesktop m-auto my-12'}>
-        <div className={'my-5 flex  justify-end'}>
+        <div className={'my-5 flex justify-end'}>
           <Button Icon={ArrowLeft} variant={'ghost'} href={'/'}>
             Voltar
           </Button>
@@ -37,6 +37,6 @@ export default function Index() {
           {posts && posts.map((post) => <BlogCard post={post} />)}
         </div>
       </section>
-    </article>
+    </div>
   )
 }

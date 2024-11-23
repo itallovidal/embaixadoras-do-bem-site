@@ -106,7 +106,7 @@ export function AdminPostCard({ post }: { post: IPost }): JSX.Element {
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Tem Certeza que deseja excluir?</DialogTitle>
+          <DialogTitle>Tem certeza que deseja excluir?</DialogTitle>
           <DialogDescription>
             A exclusão é permanente, pense bem antes de realizá-la.
           </DialogDescription>

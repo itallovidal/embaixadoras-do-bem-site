@@ -22,7 +22,7 @@ function Id() {
       <section className={'max-w-safeMobile xl:max-w-safeDesktop m-auto'}>
         {post && (
           <div className={'blog-content'}>
-            <div className={'flex mb-12 justify-end sm:my-5'}>
+            <div className={'flex mb-12  self-end sm:my-5'}>
               <Button
                 onClick={() => router.back()}
                 Icon={ArrowLeft}
