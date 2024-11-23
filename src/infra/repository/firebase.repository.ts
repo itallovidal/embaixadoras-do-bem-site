@@ -31,7 +31,6 @@ import { IGetProjectResponse } from '@/domain/api-responses/projects/get-project
 import { TLoginSchema } from '@/validation/login.schema'
 import { TProjectSchema } from '@/validation/project.schema'
 import { TBlogPostSchema } from '@/validation/blogPost.schema'
-import { IEditPostProps } from '@/infra/adapters/edit-blog-post'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private readonly db: Firestore

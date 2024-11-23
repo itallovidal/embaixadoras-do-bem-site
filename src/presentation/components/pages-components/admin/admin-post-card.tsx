@@ -1,5 +1,4 @@
 import { Button } from '../../global-components/button'
-import { api } from '@/infra/lib/axios/axios'
 import { queryClient } from '@/infra/lib/use-query/query-client'
 import { useToast } from '@/presentation/hooks/use-toast'
 import {

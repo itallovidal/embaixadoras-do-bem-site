@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { MailtrapSender } from '@/infra/lib/mailtrap'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { volunteerSchema } from '@/validation/volunteer.schema'
