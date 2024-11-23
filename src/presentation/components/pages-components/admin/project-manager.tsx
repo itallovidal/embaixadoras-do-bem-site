@@ -10,7 +10,7 @@ import { AdminProjectCardSkeleton } from '@/presentation/components/skeletons/ad
 export function ProjectManager() {
   const { data: projects, isLoading } = useQuery({
     queryKey: ['last-projects'],
-    queryFn: () => getProjects(4),
+    queryFn: () => getProjects(5),
   })
 
   return (
@@ -30,17 +30,20 @@ export function ProjectManager() {
           Array.from({ length: 3 }).map(() => <AdminProjectCardSkeleton />)}
 
         {projects &&
-          projects.map((project) => (
-            <AdminProjectCard
-              key={project.id}
-              project={{
-                id: project.id,
-                title: project.title,
-                image: project.images[0],
-                collectionId: project.collectionId,
-              }}
-            />
-          ))}
+          projects.map(
+            (project, i) =>
+              i < 4 && (
+                <AdminProjectCard
+                  key={project.id}
+                  project={{
+                    id: project.id,
+                    title: project.title,
+                    image: project.images[0],
+                    collectionId: project.collectionId,
+                  }}
+                />
+              ),
+          )}
       </section>
       {projects && projects.length > 4 && (
         <Button

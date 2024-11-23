@@ -19,9 +19,6 @@ export default async function handler(
   const userStringfied = req.headers.user
   if (!userStringfied) return res.status(401).end()
 
-  const user = JSON.parse(String(userStringfied))
-  console.log(user)
-
   const form = formidable({})
 
   form.parse(req, async (err, fields, files) => {

@@ -1,6 +1,4 @@
-import Image from 'next/image'
 import { Button } from '../../global-components/button'
-import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
 import { queryClient } from '@/infra/lib/use-query/query-client'
 import { useToast } from '@/presentation/hooks/use-toast'
 import {
@@ -15,20 +13,11 @@ import {
 } from '@/presentation/components/shadcn-ui/dialog'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { deleteProject } from '@/infra/adapters/delete-project'
+import { formatPostDescription } from '@/presentation/utils/format-post-description'
+import { SubHeading } from '@/presentation/components/global-components/text/subheading'
+import { deleteBlogPost } from '@/infra/adapters/delete-blog-post'
 
-interface IProps {
-  project: {
-    image: string
-    title: string
-    id: string
-    collectionId: string
-  }
-}
-
-export function AdminProjectCard({
-  project: { image, id, title, collectionId },
-}: IProps) {
+export function AdminPostCard({ post }: { post: IPost }): JSX.Element {
   const { toast } = useToast()
   const route = useRouter()
   const [isDeleteLoading, setIsDeleteLoading] = useState(false)
@@ -38,9 +27,9 @@ export function AdminProjectCard({
     setIsDeleteLoading(true)
 
     try {
-      await deleteProject({ id, collectionId })
+      await deleteBlogPost(post.collectionId)
       await queryClient.invalidateQueries({
-        queryKey: ['last-projects'],
+        queryKey: ['last-posts'],
       })
       toast({
         className: 'bg-green-600 text-white',
@@ -49,6 +38,7 @@ export function AdminProjectCard({
       })
     } catch (e) {
       if (e instanceof Error) {
+        console.log(e)
         toast({
           variant: 'destructive',
           title: e.message,
@@ -62,7 +52,8 @@ export function AdminProjectCard({
 
   async function handleEdit() {
     setIsEditLoading(true)
-    await route.push(`/admin/projects/edit-project/${id}`)
+    console.log(post.collectionId)
+    await route.push(`/admin/blog/edit-post/${post.id}`)
     setIsEditLoading(false)
   }
 
@@ -73,24 +64,24 @@ export function AdminProjectCard({
           'animate-showing opacity-0 flex flex-col items-center justify-center flex-1  gap-4 bg-gray-100 p-4 sm:max-w-[265px]'
         }
       >
-        <picture className={'w-[200px] h-[200px] rounded overflow-hidden'}>
-          <Image
-            width={300}
-            height={300}
-            src={image}
-            alt={'foto do projeto.'}
-            className={'w-full h-full block object-cover'}
-          />
-        </picture>
-        <Paragraph className={'line-clamp-1 '}>{title}</Paragraph>
+        <SubHeading className={'text-subheading leading-12 line-clamp-2 '}>
+          {post.title}
+        </SubHeading>
+
+        <div
+          className={`leading-6 line-clamp-6 text-justify after:content-["..."]`}
+          style={{ wordSpacing: '-2px' }}
+        >
+          {formatPostDescription(post.text)}
+        </div>
 
         <div className={'my-4 space-y-4'}>
           <Button
-            href={`/projects/${id}`}
+            href={`/blog/${post.id}`}
             className={'w-full'}
             variant={'ghost'}
           >
-            Ver projeto
+            Ver postagem
           </Button>
           <Button
             className={'w-full'}
@@ -114,7 +105,7 @@ export function AdminProjectCard({
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Tem Certeza que deseja excluir?</DialogTitle>
+          <DialogTitle>Tem certeza que deseja excluir?</DialogTitle>
           <DialogDescription>
             A exclusão é permanente, pense bem antes de realizá-la.
           </DialogDescription>

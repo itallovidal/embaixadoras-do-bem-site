@@ -11,6 +11,7 @@ import { Separator } from '@/presentation/components/shadcn-ui/separator'
 import { Button } from '../button'
 import Logo from '@/root/public/embaixadoras-do-bem-logo.svg'
 import Image from 'next/image'
+import { scroll } from '@/presentation/utils/scroll-page'
 
 export function MobileNavbar() {
   const [open, setOpen] = React.useState(false)
@@ -39,7 +40,6 @@ export function MobileNavbar() {
             >
               Home
             </Button>
-            {/* <Button className={'w-full'}>Blog</Button> */}
             <Button
               className={'w-full'}
               href={'/projects'}
@@ -47,8 +47,31 @@ export function MobileNavbar() {
             >
               Projetos
             </Button>
-            {/* <Button className={'w-full'}>Doar</Button> */}
-            {/* <Button className={'w-full'}>Seja Voluntário</Button> */}
+            <Button
+              className={'w-full'}
+              href={'/blog'}
+              onClick={() => setOpen(false)}
+            >
+              Blog
+            </Button>
+            <Button
+              className={'w-full'}
+              onClick={() => {
+                setOpen(false)
+                scroll('#donate-section')
+              }}
+            >
+              Faça uma doação
+            </Button>
+            <Button
+              className={'w-full'}
+              onClick={() => {
+                setOpen(false)
+                scroll('#volunteer-section')
+              }}
+            >
+              Seja voluntário
+            </Button>
           </DrawerClose>
 
           <DrawerClose asChild>

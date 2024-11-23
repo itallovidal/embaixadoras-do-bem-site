@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { MailtrapSender } from '@/infra/lib/mailtrap'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { volunteerSchema } from '@/validation/volunteer.schema'
@@ -28,7 +30,6 @@ export default async function handler(
     await sender.sendEmail(volunteer)
     return res.status(200).end()
   } catch (e) {
-    console.log(e)
     return res.status(500).end()
   }
 }

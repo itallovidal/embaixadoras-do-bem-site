@@ -10,7 +10,7 @@ import { Button } from '@/presentation/components/global-components/button'
 import { convertSecondsToDate } from '@/presentation/utils/convert-seconds-to-date'
 import { ShowProjectStatus } from '@/presentation/components/pages-components/project/show-project-status'
 import { ProjectDetailsSkeleton } from '@/presentation/components/skeletons/project-details-skeleton'
-function Index() {
+function Id() {
   const router = useRouter()
   const { id } = router.query as { id: string }
   const { data: project, isLoading } = useQuery({
@@ -43,7 +43,7 @@ function Index() {
             >
               <Heading>{project.title}</Heading>
 
-              <div className={'flex mb-12 justify-end sm:my-5'}>
+              <div className={'flex mb-12 self-end sm:my-5'}>
                 <Button
                   onClick={() => router.back()}
                   Icon={ArrowLeft}
@@ -88,4 +88,4 @@ function Index() {
   )
 }
 
-export default Index
+export default Id

@@ -30,10 +30,11 @@ import fs from 'node:fs/promises'
 import { IGetProjectResponse } from '@/domain/api-responses/projects/get-project-response'
 import { TLoginSchema } from '@/validation/login.schema'
 import { TProjectSchema } from '@/validation/project.schema'
+import { TBlogPostSchema } from '@/validation/blogPost.schema'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
-  private db: Firestore
-  private storage: FirebaseStorage
+  private readonly db: Firestore
+  private readonly storage: FirebaseStorage
 
   private initializeFirebase() {
     const firebaseConfig = {
@@ -219,5 +220,75 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
         this.deleteFile(url + img.split('%')[2].split('?')[0].slice(2)),
       )
     }
+  }
+
+  async getBlogPostsTags() {
+    const tagsCollection = collection(this.db, 'blogPostsTags')
+    const docs = await getDocs(tagsCollection)
+
+    return docs.docs.map((doc) => doc.data())
+  }
+
+  async createBlogPost(post: TBlogPostSchema) {
+    const blogPostsCollection = collection(this.db, 'blog')
+    const id = uuidv4()
+
+    await addDoc(blogPostsCollection, {
+      id,
+      ...post,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })
+  }
+
+  async getBlogPosts(queryLimit?: number): Promise<IPost[]> {
+    const blogPostsCollection = collection(this.db, 'blog')
+    let blogData
+
+    if (queryLimit) {
+      const projectQuery = query(blogPostsCollection, limit(queryLimit))
+      blogData = await getDocs(projectQuery)
+    } else {
+      blogData = await getDocs(blogPostsCollection)
+    }
+
+    const blog = await Promise.all(
+      blogData.docs.map(async (docs) => {
+        const doc = docs.data() as Omit<IPost, 'collectionId'>
+        return { ...doc, collectionId: docs.id }
+      }),
+    )
+
+    return blog
+  }
+
+  async getBlogPostByID(id: string): Promise<IPost> {
+    const projectCollection = collection(this.db, 'blog')
+    const q = query(projectCollection, where('id', '==', id))
+    const request = await getDocs(q)
+    const posts = await Promise.all(
+      request.docs.map(async (docs) => {
+        const doc = docs.data() as Omit<IPost, 'collectionId'>
+        return { ...doc, collectionId: docs.id }
+      }),
+    )
+
+    return posts[0]
+  }
+
+  async editPost({
+    collectionId,
+    post,
+  }: {
+    collectionId: string
+    post: TBlogPostSchema
+  }) {
+    const projectRef = doc(this.db, 'blog', collectionId)
+    await updateDoc(projectRef, { ...post, updatedAt: new Date() })
+  }
+
+  async deleteBlogPostById(collectionId: string) {
+    const postRef = doc(this.db, 'blog', collectionId)
+    await deleteDoc(postRef)
   }
 }

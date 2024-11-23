@@ -129,3 +129,26 @@ article#donate-section+article{
   height: 100%;
   background-color: white;
 }
+
+.blog-content > h1{
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.blog-content > h2{
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.blog-content  p, .blog-content  ul, .blog-content  h2s {
+  margin-block: 1rem;
+}
+
+.blog-content  a{
+  color: var(--pink-dark);
+  text-decoration: underline;
+}
+
+.blog-content  ul{
+  list-style-type: initial;
+}

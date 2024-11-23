@@ -1,13 +1,20 @@
 import { Header } from '@/presentation/components/global-components/header/header'
 import Banner from '../../../public/projects/banner-projects-background.png'
-import { Button } from '../../presentation/components/global-components/button'
+import { Button } from '@/presentation/components/global-components/button'
 import React from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { BlogCard } from '@/presentation/components/global-components/blog-card/blog-card'
+import { useQuery } from '@tanstack/react-query'
+import { getBlogPosts } from '@/infra/adapters/get-blog-posts'
 
 export default function Index() {
+  const { data: posts } = useQuery({
+    queryKey: ['all-posts'],
+    queryFn: () => getBlogPosts(),
+  })
+
   return (
-    <article>
+    <div>
       <Header
         short={true}
         img={Banner}
@@ -16,8 +23,8 @@ export default function Index() {
       />
 
       <section className={'max-w-safeMobile lg:max-w-safeDesktop m-auto my-12'}>
-        <div className={'my-5 flex  justify-end'}>
-          <Button Icon={ArrowLeft} variant={'ghost'}>
+        <div className={'my-5 flex justify-end'}>
+          <Button Icon={ArrowLeft} variant={'ghost'} href={'/'}>
             Voltar
           </Button>
         </div>
@@ -27,11 +34,9 @@ export default function Index() {
             'flex flex-col md:flex-row gap-3 flex-wrap justify-start mb-5'
           }
         >
-          {Array.from({ length: 8 }).map(() => (
-            <BlogCard />
-          ))}
+          {posts && posts.map((post) => <BlogCard post={post} />)}
         </div>
       </section>
-    </article>
+    </div>
   )
 }

@@ -123,7 +123,7 @@ function EditProject({ project }: ICreateProjectProps) {
       toast({
         className: 'bg-green-600 text-white',
         title: 'Projeto salvo!',
-        description: 'Projeto criado com sucesso.',
+        description: 'Projeto salvo com sucesso.',
       })
 
       router.push('/admin/dashboard')

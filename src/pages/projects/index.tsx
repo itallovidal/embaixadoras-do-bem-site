@@ -15,7 +15,7 @@ export default function Index() {
   })
 
   return (
-    <article>
+    <div>
       <Header
         short={true}
         img={Banner}
@@ -43,6 +43,6 @@ export default function Index() {
             })}
         </div>
       </section>
-    </article>
+    </div>
   )
 }

@@ -6,6 +6,7 @@ import { Projects } from '@/presentation/components/pages-components/home/projec
 import { Carousel } from '@/presentation/components/global-components/carousel/carousel'
 import { VolunteerSection } from '@/presentation/components/pages-components/home/volunteer-section'
 import { DonateSection } from '@/presentation/components/pages-components/home/donate-section'
+import { BlogPosts } from '@/presentation/components/pages-components/home/blog-posts'
 
 export default function Index() {
   return (
@@ -23,12 +24,12 @@ export default function Index() {
         <About />
         <Projects />
         <CallToAction />
-        {/* <BlogPosts /> */}
       </div>
       <DonateSection />
       <VolunteerSection />
 
       <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto'}>
+        <BlogPosts />
         <Carousel />
       </div>
     </div>
