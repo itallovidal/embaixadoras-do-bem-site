@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Logo from '../../../../../public/embaixadoras-do-bem-logo.svg'
-import { Button } from '../button'
 
 export function Footer() {
   return (
@@ -11,7 +10,9 @@ export function Footer() {
         }
       >
         <div className={'flex flex-col gap-2 lg:flex-row'}>
-          <Image src={Logo} alt={'Logo embaixadoras do bem'} />
+          <div className={'max-w-[300px]'}>
+            <Image src={Logo} alt={'Logo embaixadoras do bem'} />
+          </div>
 
           <div className={`flex flex-col gap-5 max-w-[50ch]`}>
             <p>
@@ -23,23 +24,6 @@ export function Footer() {
               diversos propósitos, mas tendo um objetivo em comum: A prevenção e
               promoção à saúde.
             </p>
-          </div>
-        </div>
-
-        <div className={'flex flex-col gap-5'}>
-          <p>
-            <strong>Menu</strong>
-          </p>
-          <div className={'min-w-[20ch] flex flex-col'}>
-            <Button href={'/'} variant={'ghost'} className={'p-0'}>
-              Home
-            </Button>
-            <Button href={'/projects'} variant={'ghost'} className={'p-0'}>
-              Projetos
-            </Button>
-            <Button href={'/blog'} variant={'ghost'} className={'p-0'}>
-              Blog
-            </Button>
           </div>
         </div>
 
