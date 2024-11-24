@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { Input } from '@/presentation/components/global-components/input/input'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 import React from 'react'
@@ -11,15 +10,6 @@ import { GetServerSideProps } from 'next'
 import { Button } from '@/presentation/components/global-components/button'
 import { useRouter } from 'next/router'
 import { blogPostSchema, TBlogPostSchema } from '@/validation/blogPost.schema'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/presentation/components/shadcn-ui/card'
-import { SubHeading } from '@/presentation/components/global-components/text/subheading'
 import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
 import {
   Select,
@@ -33,6 +23,7 @@ import remarkGfm from 'remark-gfm'
 import { getBlogtDetails } from '@/infra/adapters/get-blog-post-details'
 import { getBlogTags } from '@/infra/adapters/get-blog-tags'
 import { editPost } from '@/infra/adapters/edit-blog-post'
+import { MarkdownGuide } from '@/presentation/components/pages-components/admin/markdown-guide/markdown-guide'
 
 interface IEditPostProps {
   post: IPost
@@ -100,42 +91,7 @@ function EditPost({ post, tags }: IEditPostProps) {
           </Button>
         </div>
       </div>
-      <Card className={'mb-12'}>
-        <CardHeader>
-          <CardTitle>Guia</CardTitle>
-          <CardDescription>
-            Guia de como organizar o contedo do seu artigo.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <SubHeading>Como inserir Titulos?</SubHeading>
-          <Paragraph>
-            Basta utilizar 'Jogo da Velha'. <br /> Exemplo: # Título 1 → Título
-            principal <br /> ## Título 2 → Subtítulo
-          </Paragraph>
-
-          <SubHeading>Como usar itálico?</SubHeading>
-          <Paragraph>
-            Para itálico, use um asterisco (*) antes e depois da palavra: <br />{' '}
-            Exemplo: *Texto em itálico*
-          </Paragraph>
-
-          <SubHeading>Como usar negrito?</SubHeading>
-          <Paragraph>
-            Para negrito, coloque o texto entre dois asteriscos (**): <br />
-            Exemplo: **Texto em negrito**
-          </Paragraph>
-
-          <SubHeading>Como usar lista?</SubHeading>
-          <Paragraph>
-            Para usar listas, basta colocar um travessão (-): <br />
-            Exemplo: - item 1
-          </Paragraph>
-        </CardContent>
-        <CardFooter>
-          <p>Veja o Resultado no campo de pré-visualização</p>
-        </CardFooter>
-      </Card>
+      <MarkdownGuide />
 
       <div className={'flex flex-col sm:flex-row gap-12'}>
         <form
