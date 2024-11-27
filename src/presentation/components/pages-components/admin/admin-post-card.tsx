@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { formatPostDescription } from '@/presentation/utils/format-post-description'
 import { SubHeading } from '@/presentation/components/global-components/text/subheading'
-import { deleteBlogPost } from '@/infra/adapters/delete-blog-post'
+import { deleteBlogPost } from '@/infra/adapters/blog/post/delete-blog-post'
 
 export function AdminPostCard({ post }: { post: IPost }): JSX.Element {
   const { toast } = useToast()

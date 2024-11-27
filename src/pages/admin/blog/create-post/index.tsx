@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { Input } from '@/presentation/components/global-components/input/input'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 import React from 'react'
@@ -17,13 +16,12 @@ import {
   SelectItem,
 } from '@/presentation/components/shadcn-ui/select'
 import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 import { GetServerSideProps } from 'next'
 import nookies from 'nookies'
-import { getBlogTags } from '@/infra/adapters/get-blog-tags'
-import { createBlogPost } from '@/infra/adapters/create-blog-post'
+import { getBlogTags } from '@/infra/adapters/blog/tag/get-blog-tags'
+import { createBlogPost } from '@/infra/adapters/blog/post/create-blog-post'
 import { useRouter } from 'next/router'
+import BlogPost from '@/presentation/components/global-components/blog-post/blog-post'
 import { MarkdownGuide } from '@/presentation/components/pages-components/admin/markdown-guide/markdown-guide'
 
 function Index({ tags }: { tags: IBlogPostsTag[] }) {
@@ -83,6 +81,7 @@ function Index({ tags }: { tags: IBlogPostsTag[] }) {
           </Button>
         </div>
       </div>
+
       <MarkdownGuide />
 
       <div className={'flex flex-col sm:flex-row gap-12'}>
@@ -164,12 +163,17 @@ function Index({ tags }: { tags: IBlogPostsTag[] }) {
         <div className={'blog-content flex-1'}>
           <Heading className={'text-pink-dark'}>Pré Visualização</Heading>
           {previewText.length === 0 && (
-            <Paragraph>
-              {' '}
-              Comece a escrever o artigo para mostrar aqui.
-            </Paragraph>
+            <Paragraph>Comece a escrever o artigo para mostrar aqui.</Paragraph>
           )}
-          <Markdown remarkPlugins={[remarkGfm]}>{watch('text')}</Markdown>
+
+          <div>
+            <BlogPost
+              tagId={watch('tagId')}
+              author={watch('author')}
+              text={watch('text')}
+              title={watch('title')}
+            />
+          </div>
         </div>
       </div>
 

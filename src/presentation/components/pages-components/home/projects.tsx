@@ -1,7 +1,7 @@
 import { ProjectCard } from '@/presentation/components/global-components/project-card/project-card'
 import { Button } from '../../global-components/button'
 import { Heading } from '@/presentation/components/global-components/text/heading'
-import { getProjects } from '@/infra/adapters/get-projects'
+import { getProjects } from '@/infra/adapters/project/get-projects'
 import { useQuery } from '@tanstack/react-query'
 import { ProjectCardSkeleton } from '@/presentation/components/skeletons/project-card-skeleton'
 import React from 'react'

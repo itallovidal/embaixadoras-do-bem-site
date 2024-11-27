@@ -1,12 +1,10 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { getBlogtDetails } from '@/infra/adapters/get-blog-post-details'
+import { getBlogtDetails } from '@/infra/adapters/blog/post/get-blog-post-details'
 import { useQuery } from '@tanstack/react-query'
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import { Heading } from '@/presentation/components/global-components/text/heading'
 import { Button } from '@/presentation/components/global-components/button'
 import { ArrowLeft } from 'lucide-react'
+import BlogPost from '@/presentation/components/global-components/blog-post/blog-post'
 
 function Id() {
   const router = useRouter()
@@ -31,9 +29,13 @@ function Id() {
                 Voltar
               </Button>
             </div>
-            <Heading>{post?.title}</Heading>
 
-            <Markdown remarkPlugins={[remarkGfm]}>{post.text}</Markdown>
+            <BlogPost
+              title={post.title}
+              text={post.text}
+              author={post.author}
+              tagId={post.tagId}
+            />
           </div>
         )}
       </section>

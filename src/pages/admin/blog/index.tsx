@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Button } from '@/presentation/components/global-components/button'
 import { getServerSideProps } from '@/gssp-admin-cookies'
 import { ProjectCardSkeleton } from '@/presentation/components/skeletons/project-card-skeleton'
-import { getBlogPosts } from '@/infra/adapters/get-blog-posts'
+import { getBlogPosts } from '@/infra/adapters/blog/post/get-blog-posts'
 import { BlogCard } from '@/presentation/components/global-components/blog-card/blog-card'
 
 function Index() {

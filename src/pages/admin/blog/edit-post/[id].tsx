@@ -18,11 +18,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/presentation/components/shadcn-ui/select'
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import { getBlogtDetails } from '@/infra/adapters/get-blog-post-details'
-import { getBlogTags } from '@/infra/adapters/get-blog-tags'
-import { editPost } from '@/infra/adapters/edit-blog-post'
+import { getBlogtDetails } from '@/infra/adapters/blog/post/get-blog-post-details'
+import { getBlogTags } from '@/infra/adapters/blog/tag/get-blog-tags'
+import { editPost } from '@/infra/adapters/blog/post/edit-blog-post'
+import BlogPost from '@/presentation/components/global-components/blog-post/blog-post'
 import { MarkdownGuide } from '@/presentation/components/pages-components/admin/markdown-guide/markdown-guide'
 
 interface IEditPostProps {
@@ -180,7 +179,14 @@ function EditPost({ post, tags }: IEditPostProps) {
               Comece a escrever o artigo para mostrar aqui.
             </Paragraph>
           )}
-          <Markdown remarkPlugins={[remarkGfm]}>{watch('text')}</Markdown>
+          <div>
+            <BlogPost
+              tagId={watch('tagId')}
+              author={watch('author')}
+              text={watch('text')}
+              title={watch('title')}
+            />
+          </div>
         </div>
       </div>
 

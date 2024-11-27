@@ -229,6 +229,21 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     return docs.docs.map((doc) => doc.data())
   }
 
+  async getBlogPostsTagById(id: string): Promise<IBlogPostsTag> {
+    const tagsCollection = collection(this.db, 'blogPostsTags')
+    const q = query(tagsCollection, where('id', '==', id))
+    const request = await getDocs(q)
+
+    const tags = await Promise.all(
+      request.docs.map(async (docs) => {
+        const doc = docs.data() as IBlogPostsTag
+        return { ...doc }
+      }),
+    )
+
+    return tags[0]
+  }
+
   async createBlogPost(post: TBlogPostSchema) {
     const blogPostsCollection = collection(this.db, 'blog')
     const id = uuidv4()

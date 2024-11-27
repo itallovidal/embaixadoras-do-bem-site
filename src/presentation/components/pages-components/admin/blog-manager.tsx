@@ -4,7 +4,7 @@ import { ArrowRight, Plus } from 'lucide-react'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 import { useQuery } from '@tanstack/react-query'
 import { AdminProjectCardSkeleton } from '@/presentation/components/skeletons/admin-project-card-skeleton'
-import { getBlogPosts } from '@/infra/adapters/get-blog-posts'
+import { getBlogPosts } from '@/infra/adapters/blog/post/get-blog-posts'
 import { AdminPostCard } from '@/presentation/components/pages-components/admin/admin-post-card'
 
 export function BlogManager() {

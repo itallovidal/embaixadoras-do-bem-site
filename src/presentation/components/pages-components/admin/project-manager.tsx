@@ -4,7 +4,7 @@ import { Button } from '../../global-components/button'
 import { ArrowRight, Plus } from 'lucide-react'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 import { useQuery } from '@tanstack/react-query'
-import { getProjects } from '@/infra/adapters/get-projects'
+import { getProjects } from '@/infra/adapters/project/get-projects'
 import { AdminProjectCardSkeleton } from '@/presentation/components/skeletons/admin-project-card-skeleton'
 
 export function ProjectManager() {

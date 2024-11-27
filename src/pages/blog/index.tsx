@@ -5,7 +5,7 @@ import React from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { BlogCard } from '@/presentation/components/global-components/blog-card/blog-card'
 import { useQuery } from '@tanstack/react-query'
-import { getBlogPosts } from '@/infra/adapters/get-blog-posts'
+import { getBlogPosts } from '@/infra/adapters/blog/post/get-blog-posts'
 
 export default function Index() {
   const { data: posts } = useQuery({

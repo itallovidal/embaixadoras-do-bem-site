@@ -5,7 +5,7 @@ import { ProjectCard } from '@/presentation/components/global-components/project
 import React from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
-import { getProjects } from '@/infra/adapters/get-projects'
+import { getProjects } from '@/infra/adapters/project/get-projects'
 import { ProjectCardSkeleton } from '@/presentation/components/skeletons/project-card-skeleton'
 
 export default function Index() {

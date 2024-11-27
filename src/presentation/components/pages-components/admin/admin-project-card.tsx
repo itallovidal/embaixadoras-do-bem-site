@@ -15,7 +15,7 @@ import {
 } from '@/presentation/components/shadcn-ui/dialog'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { deleteProject } from '@/infra/adapters/delete-project'
+import { deleteProject } from '@/infra/adapters/project/delete-project'
 
 interface IProps {
   project: {
