@@ -7,7 +7,7 @@ import { Loader2 } from 'lucide-react'
 import { loginSchema, TLoginSchema } from '@/validation/login.schema'
 import { useToast } from '@/presentation/hooks/use-toast'
 import { useRouter } from 'next/router'
-import { login } from '@/infra/adapters/login'
+import { login } from '@/infra/adapters/auth/login'
 import { useMutation } from '@tanstack/react-query'
 
 export default function Index() {

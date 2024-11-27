@@ -30,10 +30,10 @@ import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { GetServerSideProps } from 'next'
 import nookies from 'nookies'
-import { api } from '@/infra/lib/axios/axios'
-import { getBlogTags } from '@/infra/adapters/get-blog-tags'
-import { createBlogPost } from '@/infra/adapters/create-blog-post'
+import { getBlogTags } from '@/infra/adapters/blog/tag/get-blog-tags'
+import { createBlogPost } from '@/infra/adapters/blog/post/create-blog-post'
 import { useRouter } from 'next/router'
+import BlogPost from '@/presentation/components/global-components/blog-post/blog-post'
 
 function Index({ tags }: { tags: IBlogPostsTag[] }) {
   const router = useRouter()
@@ -208,12 +208,17 @@ function Index({ tags }: { tags: IBlogPostsTag[] }) {
         <div className={'blog-content flex-1'}>
           <Heading className={'text-pink-dark'}>Pré Visualização</Heading>
           {previewText.length === 0 && (
-            <Paragraph>
-              {' '}
-              Comece a escrever o artigo para mostrar aqui.
-            </Paragraph>
+            <Paragraph>Comece a escrever o artigo para mostrar aqui.</Paragraph>
           )}
-          <Markdown remarkPlugins={[remarkGfm]}>{watch('text')}</Markdown>
+
+          <div>
+            <BlogPost
+              tagId={watch('tagId')}
+              author={watch('author')}
+              text={watch('text')}
+              title={watch('title')}
+            />
+          </div>
         </div>
       </div>
 

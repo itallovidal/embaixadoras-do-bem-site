@@ -3,7 +3,7 @@ import { AdminProjectCard } from '@/presentation/components/pages-components/adm
 import { ArrowLeft } from 'lucide-react'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 import { useQuery } from '@tanstack/react-query'
-import { getProjects } from '@/infra/adapters/get-projects'
+import { getProjects } from '@/infra/adapters/project/get-projects'
 import { Button } from '@/presentation/components/global-components/button'
 import { getServerSideProps } from '@/gssp-admin-cookies'
 import { ProjectCardSkeleton } from '@/presentation/components/skeletons/project-card-skeleton'
