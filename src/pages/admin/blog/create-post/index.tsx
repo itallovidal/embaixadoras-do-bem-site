@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { Input } from '@/presentation/components/global-components/input/input'
 import { Heading } from '@/presentation/components/global-components/text/heading'
 import React from 'react'
@@ -26,8 +25,6 @@ import {
 } from '@/presentation/components/shadcn-ui/card'
 import { SubHeading } from '@/presentation/components/global-components/text/subheading'
 import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 import { GetServerSideProps } from 'next'
 import nookies from 'nookies'
 import { getBlogTags } from '@/infra/adapters/blog/tag/get-blog-tags'
