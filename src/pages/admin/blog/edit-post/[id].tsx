@@ -25,6 +25,7 @@ import { getBlogtDetails } from '@/infra/adapters/blog/post/get-blog-post-detail
 import { getBlogTags } from '@/infra/adapters/blog/tag/get-blog-tags'
 import { editPost } from '@/infra/adapters/blog/post/edit-blog-post'
 import BlogPost from '@/presentation/components/global-components/blog-post/blog-post'
+import {MarkdownGuide} from "@/presentation/components/pages-components/admin/markdown-guide/markdown-guide";
 
 interface IEditPostProps {
   post: IPost
