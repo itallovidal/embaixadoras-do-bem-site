@@ -16,20 +16,12 @@ import {
   SelectContent,
   SelectItem,
 } from '@/presentation/components/shadcn-ui/select'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/presentation/components/shadcn-ui/card'
-import { SubHeading } from '@/presentation/components/global-components/text/subheading'
 import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { GetServerSideProps } from 'next'
 import nookies from 'nookies'
+
 import { getBlogTags } from '@/infra/adapters/blog/tag/get-blog-tags'
 import { createBlogPost } from '@/infra/adapters/blog/post/create-blog-post'
 import { useRouter } from 'next/router'
@@ -92,42 +84,7 @@ function Index({ tags }: { tags: IBlogPostsTag[] }) {
           </Button>
         </div>
       </div>
-      <Card className={'mb-12'}>
-        <CardHeader>
-          <CardTitle>Guia</CardTitle>
-          <CardDescription>
-            Guia de como organizar o contedo do seu artigo.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <SubHeading>Como inserir Titulos?</SubHeading>
-          <Paragraph>
-            Basta utilizar 'Jogo da Velha'. <br /> Exemplo: # Título 1 → Título
-            principal <br /> ## Título 2 → Subtítulo
-          </Paragraph>
-
-          <SubHeading>Como usar itálico?</SubHeading>
-          <Paragraph>
-            Para itálico, use um asterisco (*) antes e depois da palavra: <br />{' '}
-            Exemplo: *Texto em itálico*
-          </Paragraph>
-
-          <SubHeading>Como usar negrito?</SubHeading>
-          <Paragraph>
-            Para negrito, coloque o texto entre dois asteriscos (**): <br />
-            Exemplo: **Texto em negrito**
-          </Paragraph>
-
-          <SubHeading>Como usar lista?</SubHeading>
-          <Paragraph>
-            Para usar listas, basta colocar um travessão (-): <br />
-            Exemplo: - item 1
-          </Paragraph>
-        </CardContent>
-        <CardFooter>
-          <p>Veja o Resultado no campo de pré-visualização</p>
-        </CardFooter>
-      </Card>
+      <MarkdownGuide />
 
       <div className={'flex flex-col sm:flex-row gap-12'}>
         <form
