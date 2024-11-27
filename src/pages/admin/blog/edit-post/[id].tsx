@@ -18,14 +18,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/presentation/components/shadcn-ui/select'
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-
 import { getBlogtDetails } from '@/infra/adapters/blog/post/get-blog-post-details'
 import { getBlogTags } from '@/infra/adapters/blog/tag/get-blog-tags'
 import { editPost } from '@/infra/adapters/blog/post/edit-blog-post'
 import BlogPost from '@/presentation/components/global-components/blog-post/blog-post'
-import {MarkdownGuide} from "@/presentation/components/pages-components/admin/markdown-guide/markdown-guide";
+import { MarkdownGuide } from '@/presentation/components/pages-components/admin/markdown-guide/markdown-guide'
 
 interface IEditPostProps {
   post: IPost

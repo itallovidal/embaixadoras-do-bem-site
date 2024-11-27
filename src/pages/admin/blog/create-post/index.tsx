@@ -18,12 +18,11 @@ import {
 import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
 import { GetServerSideProps } from 'next'
 import nookies from 'nookies'
-
 import { getBlogTags } from '@/infra/adapters/blog/tag/get-blog-tags'
 import { createBlogPost } from '@/infra/adapters/blog/post/create-blog-post'
 import { useRouter } from 'next/router'
 import BlogPost from '@/presentation/components/global-components/blog-post/blog-post'
-import {MarkdownGuide} from "@/presentation/components/pages-components/admin/markdown-guide/markdown-guide";
+import { MarkdownGuide } from '@/presentation/components/pages-components/admin/markdown-guide/markdown-guide'
 
 function Index({ tags }: { tags: IBlogPostsTag[] }) {
   const router = useRouter()
