@@ -12,9 +12,12 @@ import { Button } from '../button'
 import Logo from '@/root/public/embaixadoras-do-bem-logo.svg'
 import Image from 'next/image'
 import { scroll } from '@/presentation/utils/scroll-page'
+import {useRouter} from "next/router";
 
 export function MobileNavbar() {
   const [open, setOpen] = React.useState(false)
+  const router = useRouter()
+
   return (
     <Drawer direction={'left'} open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild className={'fixed top-4 right-4 z-30 sm:hidden'}>
@@ -58,7 +61,7 @@ export function MobileNavbar() {
               className={'w-full'}
               onClick={() => {
                 setOpen(false)
-                scroll('#donate-section')
+                router.push('/').then(() => scroll('donate-section'))
               }}
             >
               Faça uma doação
@@ -67,7 +70,7 @@ export function MobileNavbar() {
               className={'w-full'}
               onClick={() => {
                 setOpen(false)
-                scroll('#volunteer-section')
+                router.push('/').then(() => scroll('volunteer-section'))
               }}
             >
               Seja voluntário

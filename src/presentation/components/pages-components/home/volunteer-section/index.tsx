@@ -10,7 +10,7 @@ export function VolunteerSection() {
   return (
     <article
       id={'volunteer-section'}
-      className={'flex flex-col overflow-hidden gap-12  relative md:h-[875px]'}
+      className={'flex flex-col overflow-hidden gap-12  relative md:h-[875px] '}
     >
       <section
         className={

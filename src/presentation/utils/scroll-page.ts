@@ -1,4 +1,13 @@
 export function scroll(id: string) {
-  const section = document.querySelector(id)
-  if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  const section = document.getElementById(id)
+
+  if (!section) {
+    return
+  }
+  const sectionPosition = section.offsetTop
+
+  window.scrollTo({
+    top: sectionPosition,
+    behavior: 'smooth',
+  })
 }

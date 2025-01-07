@@ -4,8 +4,11 @@ import { Button } from '../button'
 import { Separator } from '@/presentation/components/shadcn-ui/separator'
 import Image from 'next/image'
 import { scroll } from '@/presentation/utils/scroll-page'
+import { useRouter } from 'next/router'
 
 export function DesktopNavbar() {
+  const router = useRouter()
+
   return (
     <div
       className={
@@ -41,14 +44,18 @@ export function DesktopNavbar() {
             <Separator orientation={'vertical'} className={'h-6'} />
             <Button
               variant={'lightGhost'}
-              onClick={() => scroll('#donate-section')}
+              onClick={() =>
+                router.push('/').then(() => scroll('donate-section'))
+              }
             >
               Faça uma doação
             </Button>
             <Separator orientation={'vertical'} className={'h-6'} />
             <Button
               variant={'lightGhost'}
-              onClick={() => scroll('#volunteer-section')}
+              onClick={() =>
+                router.push('/').then(() => scroll('volunteer-section'))
+              }
             >
               Seja voluntário
             </Button>
