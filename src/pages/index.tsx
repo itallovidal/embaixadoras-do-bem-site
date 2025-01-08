@@ -7,7 +7,7 @@ import { Carousel } from '@/presentation/components/global-components/carousel/c
 import { VolunteerSection } from '@/presentation/components/pages-components/home/volunteer-section'
 import { DonateSection } from '@/presentation/components/pages-components/home/donate-section'
 import { BlogPosts } from '@/presentation/components/pages-components/home/blog-posts'
-// import CoreValues from '@/presentation/components/pages-components/home/core-values'
+import CoreValues from '@/presentation/components/pages-components/home/core-values'
 
 export default function Index() {
   return (
@@ -23,14 +23,13 @@ export default function Index() {
 
       <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto'}>
         <About />
+        <CoreValues />
         <Projects />
         <CallToAction />
       </div>
       <DonateSection />
       <VolunteerSection />
-      {/* <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto'}> */}
-      {/*  <CoreValues /> */}
-      {/* </div> */}
+
       <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto'}>
         <BlogPosts />
         <Carousel />

@@ -1,22 +1,23 @@
 import React from 'react'
-import { Banknote, Gift, Heading, HeartHandshake } from 'lucide-react'
+import { Eye, HandHeart, Handshake } from 'lucide-react'
 import { Paragraph } from '@/presentation/components/global-components/text/paragraph'
+import { Heading } from '@/presentation/components/global-components/text/heading'
 
 export default function CoreValues() {
   return (
     <article className={'gap-12'}>
       <div>
         <Heading className={'text-center sm:text-justify'}>
-          Doe esperança,
+          Nossos Pilares
         </Heading>
         <Heading className={'text-center sm:text-justify'}>
-          transforme vidas
+          Propósito, Futuro e Compromisso
         </Heading>
       </div>
 
       <section className={'flex flex-col md:flex-row gap-10 mt-12 items-start'}>
         <div className={'flex flex-col gap-4 justify-center items-center'}>
-          <HeartHandshake
+          <Handshake
             className={'bg-pink-dark p-2 size-12 rounded-full'}
             color={'white'}
           />
@@ -30,7 +31,7 @@ export default function CoreValues() {
         </div>
 
         <div className={'flex flex-col gap-4 justify-center items-center'}>
-          <Banknote
+          <Eye
             className={'bg-blue-dark p-2 size-12 rounded-full'}
             color={'white'}
           />
@@ -45,20 +46,20 @@ export default function CoreValues() {
         </div>
 
         <div className={'flex flex-col gap-4 justify-center items-center'}>
-          <Gift
+          <HandHeart
             className={'bg-pink-dark p-2 size-12 rounded-full'}
             color={'white'}
           />
           <Paragraph style={{ marginBlock: 0 }} className={'font-bold'}>
             Valores
           </Paragraph>
-          <Paragraph className={'text-center mt-0'}>
-            a) Ética, transparência e responsabilidade em nossas ações e
-            relações; b) Independência para agir segundo os ideais da
-            organização; c) Respeito pela diversidade; d) Valorização das
-            parcerias e do trabalho em rede; e) Honestidade; g) Motivação; h)
-            Empatia.
-          </Paragraph>
+          <div>
+            <Paragraph className={'text-center mt-0'}>
+              Ética, transparência e responsabilidade; independência para agir
+              com nossos ideais; respeito à diversidade; valorização de
+              parcerias; honestidade, motivação e empatia.
+            </Paragraph>
+          </div>
         </div>
       </section>
     </article>
