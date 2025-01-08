@@ -12,7 +12,7 @@ import { Button } from '../button'
 import Logo from '@/root/public/embaixadoras-do-bem-logo.svg'
 import Image from 'next/image'
 import { scroll } from '@/presentation/utils/scroll-page'
-import {useRouter} from "next/router";
+import { useRouter } from 'next/router'
 
 export function MobileNavbar() {
   const [open, setOpen] = React.useState(false)
