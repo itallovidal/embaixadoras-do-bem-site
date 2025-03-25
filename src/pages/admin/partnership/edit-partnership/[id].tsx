@@ -1,12 +1,11 @@
 import { Input } from '@/presentation/components/global-components/input/input'
 import { Heading } from '@/presentation/components/global-components/text/heading'
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 import { generatePreviewImages } from '@/presentation/utils/generate-preview-images'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@/presentation/hooks/use-toast'
 import { ArrowLeft } from 'lucide-react'
-import { getServerSideProps } from '@/gssp-admin-cookies'
 import { SelectedImageCard } from '@/presentation/components/global-components/selected-image-card/selected-image-card'
 import { Button } from '../../../../presentation/components/global-components/button'
 import { useRouter } from 'next/router'
@@ -14,9 +13,17 @@ import {
   partnershipSchema,
   TPartnershipSchema,
 } from '@/validation/partnership.schema'
-import { createPartnership } from '@/infra/adapters/partnership/create-partnership'
+import { GetServerSideProps } from 'next'
+import nookies from 'nookies'
+import { api } from '@/infra/lib/axios/axios'
+import { IGetPartnershipResponse } from '@/domain/api-responses/partnership/get-partnership-response'
+import { editPartnership } from '@/infra/adapters/partnership/edit-partnership'
 
-function Index() {
+interface IEditPartnershipProps {
+  partnership: IGetPartnershipResponse
+}
+
+function Index({ partnership }: IEditPartnershipProps) {
   const router = useRouter()
   const { toast } = useToast()
   const {
@@ -27,8 +34,11 @@ function Index() {
     formState: { errors, isSubmitting },
   } = useForm<TPartnershipSchema>({
     defaultValues: {
-      name: '',
-      image: '',
+      name: partnership.name,
+      image: {
+        src: partnership.image[0],
+        id: partnership.image[0],
+      },
     },
     resolver: zodResolver(partnershipSchema),
   })
@@ -50,14 +60,21 @@ function Index() {
     }
   }
 
-  async function handleCreatePArtnership(data: TPartnershipSchema) {
+  async function handleEditPartnership(data: TPartnershipSchema) {
     try {
-      await createPartnership(data)
+      console.log(data)
+
+      await editPartnership({
+        name: data.name,
+        image: data.image.src,
+        collectionId: partnership.collectionId,
+        id: partnership.id,
+      })
 
       toast({
         className: 'bg-green-600 text-white',
         title: 'Parceria salva!',
-        description: 'Parceria criada com sucesso.',
+        description: 'Parceria atualizada com sucesso.',
       })
       await router.push('/admin/dashboard')
     } catch (e) {
@@ -80,7 +97,7 @@ function Index() {
           'flex flex-col-reverse items-start justify-between sm:flex-row sm:gap-5 sm:items-center'
         }
       >
-        <Heading className={'mb-4'}>Criação da parceria</Heading>
+        <Heading className={'mb-4'}>Edição da parceria</Heading>
 
         <div className={' flex justify-end sm:my-5'}>
           <Button href={'/admin/dashboard'} Icon={ArrowLeft} variant={'ghost'}>
@@ -115,14 +132,15 @@ function Index() {
             type={'file'}
             id={'uploadFile'}
             onChange={(event) => handlePreviewImage(event)}
+            multiple
             disabled={isSubmitting}
           />
 
-          {selectedImage !== '' && (
+          {selectedImage.src !== undefined && (
             <div className={'flex gap-4 flex-wrap p-4 bg-white rounded-md'}>
               <SelectedImageCard
-                key={selectedImage[0].id}
-                {...selectedImage[0]}
+                key={selectedImage.id}
+                {...selectedImage}
                 onDelete={onDelete}
               />
             </div>
@@ -132,10 +150,10 @@ function Index() {
 
       <Button
         isLoading={isSubmitting}
-        onClick={handleSubmit(handleCreatePArtnership)}
+        onClick={handleSubmit(handleEditPartnership)}
         className={'self-center my-12 w-full md:w-fit'}
       >
-        Criar parceria
+        Salvar parceria
       </Button>
     </div>
   )
@@ -143,4 +161,23 @@ function Index() {
 
 export default Index
 
-export { getServerSideProps }
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  params,
+}) => {
+  const { id } = params as { id: string }
+
+  const cookies = nookies.get(req.cookies)
+
+  const response = await api.get(`/admin/partnership/${id}`, {
+    headers: {
+      Authorization: 'Bearer ' + cookies['@EDB:user-token'],
+    },
+  })
+
+  const partnership = response.data
+
+  return {
+    props: { partnership },
+  }
+}

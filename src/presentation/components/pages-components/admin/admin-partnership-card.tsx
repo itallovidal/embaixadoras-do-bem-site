@@ -17,7 +17,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { IGetPartnershipResponse } from '@/domain/api-responses/partnership/get-partnership-response'
 import { deletePartnership } from '@/infra/adapters/partnership/delete-project'
-
+import EmptyImage from '@/root/public/empty-image.png'
 interface IProps {
   partnership: IGetPartnershipResponse
 }
@@ -73,7 +73,7 @@ export function AdminPartnershipCard({
           <Image
             width={300}
             height={300}
-            src={image}
+            src={image != null ? image : EmptyImage}
             alt={'foto da parceria.'}
             className={'w-full h-full block object-cover'}
           />
@@ -81,13 +81,6 @@ export function AdminPartnershipCard({
         <Paragraph className={'line-clamp-1 '}>{name}</Paragraph>
 
         <div className={'my-4 space-y-4'}>
-          <Button
-            href={`/partnership/${id}`}
-            className={'w-full'}
-            variant={'ghost'}
-          >
-            Ver parceiria
-          </Button>
           <Button
             className={'w-full'}
             variant={'default'}

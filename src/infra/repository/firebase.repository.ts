@@ -32,6 +32,7 @@ import { TLoginSchema } from '@/validation/login.schema'
 import { TProjectSchema } from '@/validation/project.schema'
 import { TBlogPostSchema } from '@/validation/blogPost.schema'
 import { IGetPartnershipResponse } from '@/domain/api-responses/partnership/get-partnership-response'
+import { TPartnershipSchema } from '@/validation/partnership.schema'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private readonly db: Firestore
@@ -346,12 +347,52 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
   }
 
   async deletePartnershipById(collectionId: string, id: string) {
-    const projectRef = doc(this.db, 'partnership', collectionId)
-    await deleteDoc(projectRef)
+    const partnershipRef = doc(this.db, 'partnership', collectionId)
+    await deleteDoc(partnershipRef)
 
     const imgPathRef = ref(this.storage, `partnership/${id}/`)
     const imgList = await listAll(imgPathRef)
 
     for await (const item of imgList.items) await this.deleteFile(item.fullPath)
+  }
+
+  async getPartnershipByID(id: string): Promise<IGetPartnershipResponse> {
+    const partnershipCollection = collection(this.db, 'partnership')
+    const q = query(partnershipCollection, where('id', '==', id))
+    const request = await getDocs(q)
+
+    const partnership = await Promise.all(
+      request.docs.map(async (docs) => {
+        const doc = docs.data() as Omit<IGetPartnershipResponse, 'image'>
+        const imgUrl = await this.getFiles(`partnership/${doc.id}`)
+        return { ...doc, image: imgUrl, collectionId: docs.id }
+      }),
+    )
+
+    return partnership[0]
+  }
+
+  async editPartnership({
+    collectionId,
+    id,
+    ...partnership
+  }: {
+    collectionId: string
+    id: string
+    partnership: TPartnershipSchema
+  }) {
+    const partnershipRef = doc(this.db, 'partnership', collectionId)
+    await updateDoc(partnershipRef, {
+      ...partnership.partnership,
+      updatedAt: new Date(),
+    })
+
+    const imgPathRef = ref(this.storage, `partnership/${id}/`)
+    const imgList = await listAll(imgPathRef)
+
+    for await (const item of imgList.items) await this.deleteFile(item.fullPath)
+
+    if (partnership.partnership.image !== undefined)
+      await this.storeFile('partnership', partnership.partnership.image, id)
   }
 }

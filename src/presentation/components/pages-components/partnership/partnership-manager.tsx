@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Button } from '../../global-components/button'
 import { ArrowRight, Plus } from 'lucide-react'
 import { Heading } from '@/presentation/components/global-components/text/heading'
@@ -7,7 +7,7 @@ import { AdminProjectCardSkeleton } from '@/presentation/components/skeletons/ad
 import { AdminPartnershipCard } from '@/presentation/components/pages-components/admin/admin-partnership-card'
 import { getPartnerships } from '@/infra/adapters/partnership/get-partnerships'
 
-export function BlogPartnership() {
+export function PartnershipManager() {
   const { data: partnerships, isLoading } = useQuery({
     queryKey: ['last-partnerships'],
     queryFn: () => getPartnerships(5),
@@ -42,7 +42,7 @@ export function BlogPartnership() {
       </section>
       {partnerships && partnerships.length > 4 && (
         <Button
-          href={'/admin/blog'}
+          href={'/admin/partnership'}
           variant={'outline'}
           className={'self-end'}
           Icon={ArrowRight}
