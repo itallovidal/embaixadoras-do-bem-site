@@ -31,6 +31,7 @@ import { IGetProjectResponse } from '@/domain/api-responses/projects/get-project
 import { TLoginSchema } from '@/validation/login.schema'
 import { TProjectSchema } from '@/validation/project.schema'
 import { TBlogPostSchema } from '@/validation/blogPost.schema'
+import { IGetPartnershipResponse } from '@/domain/api-responses/partnership/get-partnership-response'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private readonly db: Firestore
@@ -318,5 +319,29 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     })
 
     if (image !== undefined) await this.storeFile('partnership', image[0], id)
+  }
+
+  async getPartnership(
+    queryLimit?: number,
+  ): Promise<IGetPartnershipResponse[]> {
+    const partnershipCollection = collection(this.db, 'partnership')
+    let partnershipData
+
+    if (queryLimit) {
+      const partnershipQuery = query(partnershipCollection, limit(queryLimit))
+      partnershipData = await getDocs(partnershipQuery)
+    } else {
+      partnershipData = await getDocs(partnershipCollection)
+    }
+
+    const partnership = await Promise.all(
+      partnershipData.docs.map(async (docs) => {
+        const doc = docs.data() as Omit<IGetPartnershipResponse, 'image'>
+        const imgUrl = await this.getFiles(`partnership/${doc.id}`, 1)
+        return { ...doc, image: imgUrl[0], collectionId: docs.id }
+      }),
+    )
+
+    return partnership
   }
 }
