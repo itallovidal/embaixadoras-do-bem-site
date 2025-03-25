@@ -15,8 +15,8 @@ import {
 } from '@/presentation/components/shadcn-ui/dialog'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { deleteProject } from '@/infra/adapters/project/delete-project'
 import { IGetPartnershipResponse } from '@/domain/api-responses/partnership/get-partnership-response'
+import { deletePartnership } from '@/infra/adapters/partnership/delete-project'
 
 interface IProps {
   partnership: IGetPartnershipResponse
@@ -34,7 +34,7 @@ export function AdminPartnershipCard({
     setIsDeleteLoading(true)
 
     try {
-      await deleteProject({ id, collectionId })
+      await deletePartnership({ id, collectionId })
       await queryClient.invalidateQueries({
         queryKey: ['last-partnerships'],
       })
@@ -110,7 +110,7 @@ export function AdminPartnershipCard({
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Tem Certeza que deseja excluir?</DialogTitle>
+          <DialogTitle>Tem certeza que deseja excluir?</DialogTitle>
           <DialogDescription>
             A exclusão é permanente, pense bem antes de realizá-la.
           </DialogDescription>

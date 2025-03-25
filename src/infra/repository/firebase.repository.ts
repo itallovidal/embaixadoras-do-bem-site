@@ -344,4 +344,14 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
 
     return partnership
   }
+
+  async deletePartnershipById(collectionId: string, id: string) {
+    const projectRef = doc(this.db, 'partnership', collectionId)
+    await deleteDoc(projectRef)
+
+    const imgPathRef = ref(this.storage, `partnership/${id}/`)
+    const imgList = await listAll(imgPathRef)
+
+    for await (const item of imgList.items) await this.deleteFile(item.fullPath)
+  }
 }
