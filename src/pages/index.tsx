@@ -8,6 +8,7 @@ import { VolunteerSection } from '@/presentation/components/pages-components/hom
 import { DonateSection } from '@/presentation/components/pages-components/home/donate-section'
 import { BlogPosts } from '@/presentation/components/pages-components/home/blog-posts'
 import CoreValues from '@/presentation/components/pages-components/home/core-values'
+import { Partnerships } from '@/presentation/components/pages-components/home/partnerships'
 
 export default function Index() {
   return (
@@ -32,6 +33,7 @@ export default function Index() {
 
       <div className={'max-w-safeMobile xl:max-w-safeDesktop m-auto'}>
         <BlogPosts />
+        <Partnerships />
         <Carousel />
       </div>
     </div>
