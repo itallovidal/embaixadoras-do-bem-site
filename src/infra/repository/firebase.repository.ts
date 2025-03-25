@@ -62,7 +62,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     this.storage = storage
   }
 
-  private async storeFile(file: formidable.File, id: string) {
+  private async storeFile(path: string, file: formidable.File, id: string) {
     if (!file.mimetype) throw new Error('Arquivo sem mimetype')
 
     const fileType = file.mimetype.split('/')[1]
@@ -72,7 +72,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
       throw new Error('Tipo de arquivo não suportado')
     }
 
-    const URL = `projects/${id}/${crypto.randomUUID()}.${fileType}`
+    const URL = `${path}/${id}/${crypto.randomUUID()}.${fileType}`
     const storageRef = ref(this.storage, URL)
 
     const fileBuffer = await fs.readFile(file.filepath)
@@ -119,7 +119,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     })
 
     for await (const image of images) {
-      await this.storeFile(image, id)
+      await this.storeFile('projects', image, id)
     }
   }
 
@@ -211,7 +211,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
 
     if (imgsToAdd) {
       for await (const image of imgsToAdd) {
-        await this.storeFile(image, id)
+        await this.storeFile('projects', image, id)
       }
     }
 
@@ -305,5 +305,18 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
   async deleteBlogPostById(collectionId: string) {
     const postRef = doc(this.db, 'blog', collectionId)
     await deleteDoc(postRef)
+  }
+
+  async createPartnership(name: string, image: formidable.File[] | undefined) {
+    const partnershipCollection = collection(this.db, 'partnership')
+    const id = uuidv4()
+    await addDoc(partnershipCollection, {
+      id,
+      name,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })
+
+    if (image !== undefined) await this.storeFile('partnership', image[0], id)
   }
 }
