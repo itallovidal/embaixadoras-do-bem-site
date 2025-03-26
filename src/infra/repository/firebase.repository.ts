@@ -31,6 +31,9 @@ import { IGetProjectResponse } from '@/domain/api-responses/projects/get-project
 import { TLoginSchema } from '@/validation/login.schema'
 import { TProjectSchema } from '@/validation/project.schema'
 import { TBlogPostSchema } from '@/validation/blogPost.schema'
+import { ICreateCollaboratorDTOSchema } from '@/pages/api/_schemas/collaborator-DTO.schema'
+import { IGetCollaboratorResponse } from '@/domain/api-responses/get-collaborator-response'
+import { TCollaboratorSchema } from '@/validation/create-collaborator.schema'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private readonly db: Firestore
@@ -62,7 +65,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     this.storage = storage
   }
 
-  private async storeFile(file: formidable.File, id: string) {
+  private async storeFile(file: formidable.File, id: string, store: string) {
     if (!file.mimetype) throw new Error('Arquivo sem mimetype')
 
     const fileType = file.mimetype.split('/')[1]
@@ -72,7 +75,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
       throw new Error('Tipo de arquivo não suportado')
     }
 
-    const URL = `projects/${id}/${crypto.randomUUID()}.${fileType}`
+    const URL = `${store}/${id}/${crypto.randomUUID()}.${fileType}`
     const storageRef = ref(this.storage, URL)
 
     const fileBuffer = await fs.readFile(file.filepath)
@@ -119,8 +122,55 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     })
 
     for await (const image of images) {
-      await this.storeFile(image, id)
+      await this.storeFile(image, id, 'projects')
     }
+  }
+
+  async createCollaborator(collaborator: ICreateCollaboratorDTOSchema, images: formidable.File[]) {
+    const projectsCollection = collection(this.db, 'collaborators')
+    const id = uuidv4()
+    await addDoc(projectsCollection, {
+      id,
+      ...collaborator,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })
+
+    for await (const image of images) {
+      await this.storeFile(image, id, 'collaborators')
+    }
+  }
+
+  async getCollaborators(queryLimit?: number): Promise<IGetCollaboratorResponse[]> {
+    const projectsCollection = collection(this.db, 'collaborators')
+    let collabData
+
+    if (queryLimit) {
+      const projectQuery = query(projectsCollection, limit(queryLimit))
+      collabData = await getDocs(projectQuery)
+    } else {
+      collabData = await getDocs(projectsCollection)
+    }
+
+    const collaborators = await Promise.all(
+      collabData.docs.map(async (docs) => {
+        const doc = docs.data() as Omit<IGetCollaboratorResponse, 'images'>
+        const imgUrl = await this.getFiles(`collaborators/${doc.id}`, 1)
+        return { ...doc, images: imgUrl, collectionId: docs.id }
+      }),
+    )
+
+    return collaborators
+  }
+
+  async deleteCollaboratorById(collectionId: string, id: string) {
+    const collabRef = doc(this.db, 'collaborators', collectionId)
+    await deleteDoc(collabRef)
+
+    const imgPathRef = ref(this.storage, `collaborators/${id}/`)
+    const imgList = await listAll(imgPathRef)
+
+    for await (const item of imgList.items) await this.deleteFile(item.fullPath)
   }
 
   async getProjects(queryLimit?: number): Promise<IGetProjectResponse[]> {
@@ -159,6 +209,22 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     )
 
     return project[0]
+  }
+
+  async getCollabById(id: string): Promise<IGetCollaboratorResponse> {
+    const collabCollection = collection(this.db, 'collaborators')
+    const q = query(collabCollection, where('id', '==', id))
+    const request = await getDocs(q)
+
+    const collab = await Promise.all(
+      request.docs.map(async (docs) => {
+        const doc = docs.data() as Omit<IGetCollaboratorResponse, 'images'>
+        const imgUrl = await this.getFiles(`collaborators/${doc.id}`)
+        return { ...doc, images: imgUrl, collectionId: docs.id }
+      }),
+    )
+
+    return collab[0]
   }
 
   async deleteProjectById(collectionId: string, id: string) {
@@ -211,7 +277,37 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
 
     if (imgsToAdd) {
       for await (const image of imgsToAdd) {
-        await this.storeFile(image, id)
+        await this.storeFile(image, id, 'projects')
+      }
+    }
+
+    if (imgsToRemove) {
+      imgsToRemove.map((img) =>
+        this.deleteFile(url + img.split('%')[2].split('?')[0].slice(2)),
+      )
+    }
+  }
+
+  async editCollab({
+    collectionId,
+    id,
+    imgsToRemove,
+    imgsToAdd,
+    ...collab
+  }: {
+    collectionId: string
+    id: string
+    imgsToRemove: string[]
+    imgsToAdd: formidable.File[] | undefined
+    collab: Omit<TCollaboratorSchema, 'images'>
+  }) {
+    const collabRef = doc(this.db, 'collaborators', collectionId)
+    await updateDoc(collabRef, { ...collab.collab, updatedAt: new Date() })
+    const url = `collaborators/${id}/`
+
+    if (imgsToAdd) {
+      for await (const image of imgsToAdd) {
+        await this.storeFile(image, id, 'collaborators')
       }
     }
 
