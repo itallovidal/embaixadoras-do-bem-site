@@ -52,5 +52,8 @@ export const config = {
     '/api/admin/partnership/create/:path*',
     '/api/admin/partnership/delete/:path*',
     '/api/admin/partnership/edit/:path*',
+    '/api/admin/collaborators/create',
+    '/api/admin/collaborators/edit/:path/:path*',
+    '/api/admin/collaborators/delete/:path/:path*',
   ],
 }
