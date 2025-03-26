@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Trash } from 'lucide-react'
+import { useEffect } from 'react'
 
 interface SelectedImageCardProps {
   id: string

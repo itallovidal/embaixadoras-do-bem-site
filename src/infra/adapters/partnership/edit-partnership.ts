@@ -2,15 +2,22 @@ import { api } from '@/infra/lib/axios/axios'
 import nookies from 'nookies'
 import { TPartnershipSchema } from '@/validation/partnership.schema'
 
-type IEditProjectProps = TPartnershipSchema & {
+export type IEditProjectProps = TPartnershipSchema & {
   collectionId: string
   id: string
+  deleteImage: boolean
+  addImage: IImageToAdd | undefined
 }
 
 export async function editPartnership(data: IEditProjectProps) {
   const formData = new FormData()
   formData.append('name', data.name)
-  if (data.image !== '') formData.append('image', data.image[0].file)
+  formData.append('deleteImage', data.deleteImage.toString())
+
+  if (data.addImage !== undefined) {
+    const { file } = data.addImage
+    formData.append('addImage', file)
+  }
 
   const cookies = nookies.get()
 

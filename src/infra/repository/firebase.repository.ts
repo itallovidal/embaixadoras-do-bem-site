@@ -32,7 +32,6 @@ import { TLoginSchema } from '@/validation/login.schema'
 import { TProjectSchema } from '@/validation/project.schema'
 import { TBlogPostSchema } from '@/validation/blogPost.schema'
 import { IGetPartnershipResponse } from '@/domain/api-responses/partnership/get-partnership-response'
-import { TPartnershipSchema } from '@/validation/partnership.schema'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private readonly db: Firestore
@@ -375,24 +374,30 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
   async editPartnership({
     collectionId,
     id,
-    ...partnership
+    name,
+    addImage,
+    deleteImage,
   }: {
     collectionId: string
     id: string
-    partnership: TPartnershipSchema
+    name: string
+    addImage: formidable.File[] | undefined
+    deleteImage: string
   }) {
     const partnershipRef = doc(this.db, 'partnership', collectionId)
     await updateDoc(partnershipRef, {
-      ...partnership.partnership,
+      name,
       updatedAt: new Date(),
     })
 
-    const imgPathRef = ref(this.storage, `partnership/${id}/`)
-    const imgList = await listAll(imgPathRef)
+    if (deleteImage.toLowerCase() === 'true') {
+      const imgPathRef = ref(this.storage, `partnership/${id}/`)
+      const imgList = await listAll(imgPathRef)
+      for await (const item of imgList.items)
+        await this.deleteFile(item.fullPath)
+    }
 
-    for await (const item of imgList.items) await this.deleteFile(item.fullPath)
-
-    if (partnership.partnership.image !== undefined)
-      await this.storeFile('partnership', partnership.partnership.image, id)
+    if (addImage !== undefined)
+      await this.storeFile('partnership', addImage[0], id)
   }
 }

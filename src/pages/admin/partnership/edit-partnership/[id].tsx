@@ -1,6 +1,6 @@
 import { Input } from '@/presentation/components/global-components/input/input'
 import { Heading } from '@/presentation/components/global-components/text/heading'
-import React, { ChangeEvent, useEffect } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { generatePreviewImages } from '@/presentation/utils/generate-preview-images'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -25,6 +25,8 @@ interface IEditPartnershipProps {
 
 function Index({ partnership }: IEditPartnershipProps) {
   const router = useRouter()
+  const [deleteImage, setDeleteImage] = useState<boolean>(false)
+  const [addImage, setaddImage] = useState<IImageToAdd | undefined>(undefined)
   const { toast } = useToast()
   const {
     watch,
@@ -35,10 +37,14 @@ function Index({ partnership }: IEditPartnershipProps) {
   } = useForm<TPartnershipSchema>({
     defaultValues: {
       name: partnership.name,
-      image: {
-        src: partnership.image[0],
-        id: partnership.image[0],
-      },
+      image: partnership.image[0]
+        ? [
+            {
+              src: partnership.image[0],
+              id: partnership.image[0],
+            },
+          ]
+        : '',
     },
     resolver: zodResolver(partnershipSchema),
   })
@@ -46,10 +52,15 @@ function Index({ partnership }: IEditPartnershipProps) {
   function handlePreviewImage(event: ChangeEvent<HTMLInputElement>) {
     const file = generatePreviewImages(event.target.files)
     setValue('image', file)
+    setaddImage({
+      file: file[0]?.file,
+      id: file[0]?.id,
+    })
   }
 
   function onDelete() {
     setValue('image', '')
+    setDeleteImage(true)
 
     const uploadInput = document.getElementById(
       'uploadFile',
@@ -62,13 +73,13 @@ function Index({ partnership }: IEditPartnershipProps) {
 
   async function handleEditPartnership(data: TPartnershipSchema) {
     try {
-      console.log(data)
-
       await editPartnership({
         name: data.name,
-        image: data.image.src,
+        image: data.image,
         collectionId: partnership.collectionId,
         id: partnership.id,
+        deleteImage,
+        addImage,
       })
 
       toast({
@@ -132,15 +143,14 @@ function Index({ partnership }: IEditPartnershipProps) {
             type={'file'}
             id={'uploadFile'}
             onChange={(event) => handlePreviewImage(event)}
-            multiple
             disabled={isSubmitting}
           />
 
-          {selectedImage.src !== undefined && (
+          {selectedImage[0] !== undefined && (
             <div className={'flex gap-4 flex-wrap p-4 bg-white rounded-md'}>
               <SelectedImageCard
-                key={selectedImage.id}
-                {...selectedImage}
+                key={selectedImage[0].id}
+                {...selectedImage[0]}
                 onDelete={onDelete}
               />
             </div>

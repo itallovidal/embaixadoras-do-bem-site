@@ -1,10 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-// import { databaseRepository } from '@/pages/api/_domain/db'
 import { ErrorEntity } from '@/pages/api/_domain/error-entity'
 import formidable from 'formidable'
-import { projectDTOSchema } from '@/pages/api/_schemas/project-d-t-o.schema'
 import { databaseRepository } from '@/pages/api/_domain/db'
-import {partnershipSchema} from "@/validation/partnership.schema";
+import { partnershipEditSchemaDto } from '@/pages/api/_schemas/partnership-edit-schema-dto'
 
 export const config = {
   api: {
@@ -44,7 +42,8 @@ export default async function handler(
       }),
     )
 
-    const partnershipParsed = partnershipSchema.safeParse(fieldsObj)
+    const partnershipParsed = partnershipEditSchemaDto.safeParse(fieldsObj)
+
     if (!partnershipParsed.success) {
       const error = new ErrorEntity(
         'Informações erradas.',
@@ -56,14 +55,17 @@ export default async function handler(
       return res.status(error.status).json({ error: error.getError() })
     }
 
-    const partnership = partnershipParsed.data
+    const { name, deleteImage } = partnershipParsed.data
+    const { addImage } = files
 
     await databaseRepository.editPartnership({
       collectionId,
       id,
-      partnership,
+      name,
+      addImage,
+      deleteImage,
     })
 
-    return res.status(201).json({ message: 'Partnership Created' })
+    return res.status(201).json({ message: 'Partnership edited' })
   })
 }
