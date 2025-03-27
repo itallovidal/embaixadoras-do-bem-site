@@ -31,9 +31,11 @@ import { IGetProjectResponse } from '@/domain/api-responses/projects/get-project
 import { TLoginSchema } from '@/validation/login.schema'
 import { TProjectSchema } from '@/validation/project.schema'
 import { TBlogPostSchema } from '@/validation/blogPost.schema'
+import { IGetPartnershipResponse } from '@/domain/api-responses/partnership/get-partnership-response'
 import { ICreateCollaboratorDTOSchema } from '@/pages/api/_schemas/collaborator-DTO.schema'
 import { IGetCollaboratorResponse } from '@/domain/api-responses/get-collaborator-response'
 import { TCollaboratorSchema } from '@/validation/create-collaborator.schema'
+
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private readonly db: Firestore
@@ -65,7 +67,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     this.storage = storage
   }
 
-  private async storeFile(file: formidable.File, id: string, store: string) {
+  private async storeFile(path: string, file: formidable.File, id: string) {
     if (!file.mimetype) throw new Error('Arquivo sem mimetype')
 
     const fileType = file.mimetype.split('/')[1]
@@ -75,7 +77,8 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
       throw new Error('Tipo de arquivo não suportado')
     }
 
-    const URL = `${store}/${id}/${crypto.randomUUID()}.${fileType}`
+    const URL = `${path}/${id}/${crypto.randomUUID()}.${fileType}`
+
     const storageRef = ref(this.storage, URL)
 
     const fileBuffer = await fs.readFile(file.filepath)
@@ -122,7 +125,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     })
 
     for await (const image of images) {
-      await this.storeFile(image, id, 'projects')
+      await this.storeFile('projects', image, id)
     }
   }
 
@@ -137,7 +140,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     })
 
     for await (const image of images) {
-      await this.storeFile(image, id, 'collaborators')
+      await this.storeFile('collaborators', image, id)
     }
   }
 
@@ -277,7 +280,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
 
     if (imgsToAdd) {
       for await (const image of imgsToAdd) {
-        await this.storeFile(image, id, 'projects')
+        await this.storeFile('projects', image, id)
       }
     }
 
@@ -307,7 +310,7 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
 
     if (imgsToAdd) {
       for await (const image of imgsToAdd) {
-        await this.storeFile(image, id, 'collaborators')
+        await this.storeFile('collaborators', image, id)
       }
     }
 
@@ -401,5 +404,98 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
   async deleteBlogPostById(collectionId: string) {
     const postRef = doc(this.db, 'blog', collectionId)
     await deleteDoc(postRef)
+  }
+
+  async createPartnership(name: string, image: formidable.File[] | undefined) {
+    const partnershipCollection = collection(this.db, 'partnership')
+    const id = uuidv4()
+    await addDoc(partnershipCollection, {
+      id,
+      name,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })
+
+    if (image !== undefined) await this.storeFile('partnership', image[0], id)
+  }
+
+  async getPartnership(
+    queryLimit?: number,
+  ): Promise<IGetPartnershipResponse[]> {
+    const partnershipCollection = collection(this.db, 'partnership')
+    let partnershipData
+
+    if (queryLimit) {
+      const partnershipQuery = query(partnershipCollection, limit(queryLimit))
+      partnershipData = await getDocs(partnershipQuery)
+    } else {
+      partnershipData = await getDocs(partnershipCollection)
+    }
+
+    const partnership = await Promise.all(
+      partnershipData.docs.map(async (docs) => {
+        const doc = docs.data() as Omit<IGetPartnershipResponse, 'image'>
+        const imgUrl = await this.getFiles(`partnership/${doc.id}`, 1)
+        return { ...doc, image: imgUrl[0], collectionId: docs.id }
+      }),
+    )
+
+    return partnership
+  }
+
+  async deletePartnershipById(collectionId: string, id: string) {
+    const partnershipRef = doc(this.db, 'partnership', collectionId)
+    await deleteDoc(partnershipRef)
+
+    const imgPathRef = ref(this.storage, `partnership/${id}/`)
+    const imgList = await listAll(imgPathRef)
+
+    for await (const item of imgList.items) await this.deleteFile(item.fullPath)
+  }
+
+  async getPartnershipByID(id: string): Promise<IGetPartnershipResponse> {
+    const partnershipCollection = collection(this.db, 'partnership')
+    const q = query(partnershipCollection, where('id', '==', id))
+    const request = await getDocs(q)
+
+    const partnership = await Promise.all(
+      request.docs.map(async (docs) => {
+        const doc = docs.data() as Omit<IGetPartnershipResponse, 'image'>
+        const imgUrl = await this.getFiles(`partnership/${doc.id}`)
+        return { ...doc, image: imgUrl, collectionId: docs.id }
+      }),
+    )
+
+    return partnership[0]
+  }
+
+  async editPartnership({
+    collectionId,
+    id,
+    name,
+    addImage,
+    deleteImage,
+  }: {
+    collectionId: string
+    id: string
+    name: string
+    addImage: formidable.File[] | undefined
+    deleteImage: string
+  }) {
+    const partnershipRef = doc(this.db, 'partnership', collectionId)
+    await updateDoc(partnershipRef, {
+      name,
+      updatedAt: new Date(),
+    })
+
+    if (deleteImage.toLowerCase() === 'true') {
+      const imgPathRef = ref(this.storage, `partnership/${id}/`)
+      const imgList = await listAll(imgPathRef)
+      for await (const item of imgList.items)
+        await this.deleteFile(item.fullPath)
+    }
+
+    if (addImage !== undefined)
+      await this.storeFile('partnership', addImage[0], id)
   }
 }

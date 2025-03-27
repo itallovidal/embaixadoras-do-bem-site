@@ -9,6 +9,7 @@ import { DonateSection } from "@/presentation/components/pages-components/home/d
 import { BlogPosts } from "@/presentation/components/pages-components/home/blog-posts";
 import CoreValues from "@/presentation/components/pages-components/home/core-values";
 import { CollabSection } from "@/presentation/components/pages-components/home/collab-section";
+import { Partnerships } from '@/presentation/components/pages-components/home/partnerships'
 
 export default function Index() {
   return (
@@ -34,6 +35,7 @@ export default function Index() {
       <div className={"max-w-safeMobile xl:max-w-safeDesktop m-auto"}>
         <CollabSection />
         <BlogPosts />
+        <Partnerships />
         <Carousel />
       </div>
     </div>

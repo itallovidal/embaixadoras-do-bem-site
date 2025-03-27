@@ -76,7 +76,7 @@ function Id() {
                     src={image}
                     width={370}
                     height={600}
-                    alt={'Imagem do projeto'}
+                    alt={'Imagem da parceria'}
                   />
                 </picture>
               ))}

@@ -2,6 +2,7 @@ import { ProjectManager } from "@/presentation/components/pages-components/admin
 import { getServerSideProps } from "@/gssp-admin-cookies";
 import { BlogManager } from "@/presentation/components/pages-components/admin/blog-manager";
 import { CollaboratorManager } from "@/presentation/components/pages-components/admin/collaborator-manager";
+import { PartnershipManager } from '@/presentation/components/pages-components/partnership/partnership-manager'
 
 function Dashboard() {
   return (
@@ -10,6 +11,7 @@ function Dashboard() {
     >
       <ProjectManager />
       <BlogManager />
+      <PartnershipManager />
       <CollaboratorManager />
     </div>
   );
