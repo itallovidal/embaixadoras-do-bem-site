@@ -36,7 +36,6 @@ import { ICreateCollaboratorDTOSchema } from '@/pages/api/_schemas/collaborator-
 import { IGetCollaboratorResponse } from '@/domain/api-responses/get-collaborator-response'
 import { TCollaboratorSchema } from '@/validation/create-collaborator.schema'
 
-
 export class FirebaseRepository /* implements IDatabaseRepository */ {
   private readonly db: Firestore
   private readonly storage: FirebaseStorage
@@ -129,7 +128,10 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     }
   }
 
-  async createCollaborator(collaborator: ICreateCollaboratorDTOSchema, images: formidable.File[]) {
+  async createCollaborator(
+    collaborator: ICreateCollaboratorDTOSchema,
+    images: formidable.File[],
+  ) {
     const projectsCollection = collection(this.db, 'collaborators')
     const id = uuidv4()
     await addDoc(projectsCollection, {
@@ -144,7 +146,9 @@ export class FirebaseRepository /* implements IDatabaseRepository */ {
     }
   }
 
-  async getCollaborators(queryLimit?: number): Promise<IGetCollaboratorResponse[]> {
+  async getCollaborators(
+    queryLimit?: number,
+  ): Promise<IGetCollaboratorResponse[]> {
     const projectsCollection = collection(this.db, 'collaborators')
     let collabData
 

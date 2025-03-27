@@ -1,7 +1,6 @@
 import { Header } from '@/presentation/components/global-components/header/header'
 import Banner from '@/root/public/projects/banner-projects-background.png'
 import { Button } from '../../presentation/components/global-components/button'
-import { ProjectCard } from '@/presentation/components/global-components/project-card/project-card'
 import React from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
