@@ -5,18 +5,13 @@ import { queryClient } from '@/infra/lib/use-query/query-client'
 import { useToast } from '@/presentation/hooks/use-toast'
 import {
   Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from '@/presentation/components/shadcn-ui/dialog'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { TextHighlight } from '../../global-components/text/textHighlight'
 import { deleteCollaborator } from '@/infra/adapters/collaborators/delete-collaborator'
+import DeleteConfirmationDialog from '@/presentation/components/global-components/delete-confirmation-dialog/delete-confirmation-dialog'
 
 interface IProps {
   collaborator: {
@@ -112,24 +107,7 @@ export function AdminCollaboratorCard({
         </div>
       </div>
 
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Tem Certeza que deseja excluir?</DialogTitle>
-          <DialogDescription>
-            A exclusão é permanente, pense bem antes de realizá-la.
-          </DialogDescription>
-          <DialogFooter className={'flex flex-row justify-center p-4'}>
-            <DialogClose asChild>
-              <Button variant={'default'} onClick={() => handleDelete()}>
-                Excluir
-              </Button>
-            </DialogClose>
-            <DialogClose asChild>
-              <Button variant={'outline'}>Desistir</Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogHeader>
-      </DialogContent>
+      <DeleteConfirmationDialog handleDelete={handleDelete} />
     </Dialog>
   )
 }
