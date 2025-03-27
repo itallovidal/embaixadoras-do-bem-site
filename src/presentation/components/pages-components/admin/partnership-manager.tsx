@@ -22,9 +22,9 @@ export function PartnershipManager() {
           'flex flex-col gap-2  justify-between sm:flex-row sm:items-center'
         }
       >
-        <Heading>Gerencie suas parceirias</Heading>
+        <Heading>Gerencie suas parcerias</Heading>
         <Button href={'/admin/partnership/create-partnership'} Icon={Plus}>
-          Criar uma parceiria
+          Criar uma parceria
         </Button>
       </div>
       <section className={'flex flex-col lg:flex-row justify-start gap-4'}>
