@@ -33,7 +33,6 @@ import { TProjectSchema } from '@/validation/project.schema'
 import { TBlogPostSchema } from '@/validation/blogPost.schema'
 import { IGetPartnershipResponse } from '@/domain/api-responses/partnership/get-partnership-response'
 import { ICreateCollaboratorDTOSchema } from '@/pages/api/_schemas/collaborator-DTO.schema'
-import { IGetCollaboratorResponse } from '@/domain/api-responses/get-collaborator-response'
 import { TCollaboratorSchema } from '@/validation/create-collaborator.schema'
 
 export class FirebaseRepository /* implements IDatabaseRepository */ {

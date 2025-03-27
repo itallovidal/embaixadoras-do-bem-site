@@ -1,4 +1,3 @@
-import { IGetCollaboratorResponse } from '@/domain/api-responses/get-collaborator-response'
 import { api } from '@/infra/lib/axios/axios'
 
 export async function getCollaborators(
