@@ -5,12 +5,6 @@ import { queryClient } from '@/infra/lib/use-query/query-client'
 import { useToast } from '@/presentation/hooks/use-toast'
 import {
   Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from '@/presentation/components/shadcn-ui/dialog'
 import { useRouter } from 'next/router'
@@ -18,6 +12,8 @@ import { useState } from 'react'
 import { IGetPartnershipResponse } from '@/domain/api-responses/partnership/get-partnership-response'
 import { deletePartnership } from '@/infra/adapters/partnership/delete-project'
 import EmptyImage from '@/root/public/empty-image.png'
+import DeleteConfirmationDialog from '@/presentation/components/global-components/delete-confirmation-dialog/delete-confirmation-dialog'
+
 interface IProps {
   partnership: IGetPartnershipResponse
 }
@@ -101,24 +97,7 @@ export function AdminPartnershipCard({
         </div>
       </div>
 
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Tem certeza que deseja excluir?</DialogTitle>
-          <DialogDescription>
-            A exclusão é permanente, pense bem antes de realizá-la.
-          </DialogDescription>
-          <DialogFooter className={'flex flex-row gap-5 justify-center p-4'}>
-            <DialogClose asChild>
-              <Button variant={'default'} onClick={() => handleDelete()}>
-                Excluir
-              </Button>
-            </DialogClose>
-            <DialogClose asChild>
-              <Button variant={'outline'}>Desistir</Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogHeader>
-      </DialogContent>
+      <DeleteConfirmationDialog handleDelete={handleDelete} />
     </Dialog>
   )
 }

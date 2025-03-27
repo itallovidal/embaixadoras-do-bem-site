@@ -13,6 +13,8 @@ export function PartnershipManager() {
     queryFn: () => getPartnerships(5),
   })
 
+  console.log('a')
+
   return (
     <article className={'animate-showing opacity-0 flex flex-col gap-12'}>
       <div
@@ -20,14 +22,21 @@ export function PartnershipManager() {
           'flex flex-col gap-2  justify-between sm:flex-row sm:items-center'
         }
       >
-        <Heading>Gerencie suas parceirias</Heading>
+        <Heading>Gerencie suas parcerias</Heading>
         <Button href={'/admin/partnership/create-partnership'} Icon={Plus}>
-          Criar uma parceiria
+          Criar uma parceria
         </Button>
       </div>
       <section className={'flex flex-col lg:flex-row justify-start gap-4'}>
         {isLoading &&
           Array.from({ length: 3 }).map(() => <AdminProjectCardSkeleton />)}
+
+        {!partnerships ||
+          (partnerships.length === 0 && (
+            <div className={'text-gray-500 text-sm'}>
+              <p>Você ainda não possui parcerias cadastradas</p>
+            </div>
+          ))}
 
         {partnerships &&
           partnerships.map(
