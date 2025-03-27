@@ -11,6 +11,8 @@ export function Partnerships() {
     queryFn: () => getPartnerships(4),
   })
 
+  if (!partnerships || partnerships.length === 0) return <></>
+
   return (
     <article className={'flex flex-col  gap-12'}>
       <Heading>Parcerias que impulsionam resultados!</Heading>
