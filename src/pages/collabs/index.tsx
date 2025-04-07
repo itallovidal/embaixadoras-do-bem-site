@@ -26,8 +26,8 @@ export default function Index() {
       <Header
         short={true}
         img={Banner}
-        alt={'Nossos Colaboradores'}
-        title={'Nossos Colaboradores'}
+        alt={'Nossos Voluntários'}
+        title={'Nossos Voluntários'}
       />
 
       <section className={'max-w-safeMobile lg:max-w-safeDesktop m-auto my-12'}>

@@ -58,8 +58,8 @@ function Index() {
       await createCollaborator(data)
       toast({
         className: 'bg-green-600 text-white',
-        title: 'Colaborador Adicionadod!',
-        description: 'Projeto criado com sucesso.',
+        title: 'Voluntário Adicionadod!',
+        description: 'Voluntário criado com sucesso.',
       })
       await router.push('/admin/dashboard')
     } catch (e) {
@@ -82,7 +82,7 @@ function Index() {
           'flex flex-col-reverse items-start justify-between sm:flex-row sm:gap-5 sm:items-center'
         }
       >
-        <Heading className={'mb-4'}>Adição de Colaborador</Heading>
+        <Heading className={'mb-4'}>Adição de voluntário</Heading>
 
         <div className={' flex justify-end sm:my-5'}>
           <Button href={'/admin/dashboard'} Icon={ArrowLeft} variant={'ghost'}>
@@ -101,7 +101,7 @@ function Index() {
               control={control}
               render={({ field }) => (
                 <Input
-                  field={'Nome do colaborador'}
+                  field={'Nome'}
                   errorMessage={errors.name?.message}
                   {...field}
                   disabled={isSubmitting}
@@ -114,7 +114,7 @@ function Index() {
               control={control}
               render={({ field }) => (
                 <Input
-                  field={'Cargo do colaborador'}
+                  field={'Cargo'}
                   errorMessage={errors.responsability?.message}
                   {...field}
                   disabled={isSubmitting}
@@ -128,7 +128,7 @@ function Index() {
             <Input
               accept={'image/png, image/jpeg, image/jpg, image/webp'}
               className={'cursor-pointer w-fit'}
-              field={'Imagem do colaborador'}
+              field={'Imagem'}
               type={'file'}
               onChange={(event) => handlePreviewImages(event)}
               errorMessage={errors.images?.message}
@@ -156,7 +156,7 @@ function Index() {
         onClick={handleSubmit(handleCreateCollaborator)}
         className={'self-center my-12 w-full md:w-fit'}
       >
-        Adicionar Colaborador
+        Adicionar voluntário
       </Button>
     </div>
   )

@@ -20,9 +20,9 @@ export function CollaboratorManager() {
           'flex flex-col gap-2  justify-between sm:flex-row sm:items-center'
         }
       >
-        <Heading>Gerencie seus colaboradores</Heading>
+        <Heading>Gerencie seus voluntários</Heading>
         <Button href={'/admin/collaborators/create'} Icon={Plus}>
-          Adicionar um colaborador
+          Adicionar um voluntário
         </Button>
       </div>
       <section className={'flex flex-col lg:flex-row justify-start gap-4'}>
@@ -31,7 +31,7 @@ export function CollaboratorManager() {
 
         {collaborators && collaborators.length === 0 && (
           <p className={'text-gray-500 text-sm'}>
-            Você ainda não possui colaboradores cadastrados
+            Você ainda não possui voluntários cadastrados
           </p>
         )}
 
@@ -55,7 +55,7 @@ export function CollaboratorManager() {
           className={'self-end'}
           Icon={ArrowRight}
         >
-          Ver todos os colaboradores
+          Ver todos os voluntários
         </Button>
       )}
     </article>

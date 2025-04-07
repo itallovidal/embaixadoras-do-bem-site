@@ -21,7 +21,7 @@ export function CollabCard({ collab }: { collab: Props }) {
           width={100}
           height={100}
           src={collab.images[0]}
-          alt={`Foto do colaborador ${collab.name}`}
+          alt={`Foto do voluntário ${collab.name}`}
         />
       </picture>
       <div className="flex flex-col gap-2">

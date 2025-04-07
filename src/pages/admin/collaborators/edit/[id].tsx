@@ -140,7 +140,7 @@ function EditCollaborator({ collab }: { collab: IGetCollaboratorResponse }) {
           'flex flex-col-reverse items-start justify-between sm:flex-row sm:gap-5 sm:items-center'
         }
       >
-        <Heading className={'mb-4'}>Edição de Colaborador</Heading>
+        <Heading className={'mb-4'}>Edição de voluntário</Heading>
 
         <div className={' flex justify-end sm:my-5'}>
           <Button href={'/admin/dashboard'} Icon={ArrowLeft} variant={'ghost'}>
@@ -158,7 +158,7 @@ function EditCollaborator({ collab }: { collab: IGetCollaboratorResponse }) {
               control={control}
               render={({ field }) => (
                 <Input
-                  field={'Nome do colaborador'}
+                  field={'Nome'}
                   errorMessage={errors.name?.message}
                   {...field}
                   disabled={isSubmitting}
@@ -171,7 +171,7 @@ function EditCollaborator({ collab }: { collab: IGetCollaboratorResponse }) {
               control={control}
               render={({ field }) => (
                 <Input
-                  field={'Cargo do colaborador'}
+                  field={'Cargo'}
                   errorMessage={errors.responsability?.message}
                   {...field}
                   disabled={isSubmitting}
@@ -185,7 +185,7 @@ function EditCollaborator({ collab }: { collab: IGetCollaboratorResponse }) {
             <Input
               accept={'image/png, image/jpeg, image/jpg, image/webp'}
               className={'cursor-pointer w-fit'}
-              field={'Imagem do colaborador'}
+              field={'Imagem'}
               type={'file'}
               onChange={(event) => handlePreviewImages(event)}
               errorMessage={errors.images?.message}

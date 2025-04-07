@@ -41,8 +41,8 @@ export function AdminCollaboratorCard({
       })
       toast({
         className: 'bg-green-600 text-white',
-        title: 'Colaborador excluído!',
-        description: 'Colaborador excluído com sucesso.',
+        title: 'Voluntário excluído!',
+        description: 'Voluntário excluído com sucesso.',
       })
     } catch (e) {
       if (e instanceof Error) {

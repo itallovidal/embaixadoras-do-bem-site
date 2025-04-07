@@ -18,7 +18,7 @@ export function CollabSection() {
 
   return (
     <article className={'flex flex-col  gap-12'}>
-      <Heading className="my-0">Com orgulho, nossos colaboradores!</Heading>
+      <Heading className="my-0">Com orgulho, nossos voluntários!</Heading>
       <SubHeading>De 2023 a {currentyear}</SubHeading>
       <section
         className={'flex flex-row  lg:flex-row justify-between gap-3 flex-wrap'}

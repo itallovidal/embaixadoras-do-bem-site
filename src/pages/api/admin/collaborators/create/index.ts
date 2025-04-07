@@ -35,7 +35,7 @@ export default async function handler(
     if (!files.images) {
       const error = new ErrorEntity(
         'Nenhuma imagem enviada.',
-        'Para criação de um colaborador, deve-se ter pelo menos uma imagem.',
+        'Para criação de um voluntário, deve-se ter pelo menos uma imagem.',
         400,
       )
 
