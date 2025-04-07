@@ -1,7 +1,7 @@
 import { HTMLProps } from 'react'
 
 interface IProps extends HTMLProps<HTMLSpanElement> {
-  children: string
+  children: string | string[]
   variant?: 'blue' | 'pink'
 }
 

@@ -15,7 +15,7 @@ export function Projects() {
   return (
     <article className={'flex flex-col gap-12'}>
       <Heading className={'text-center sm:text-justify'}>
-        Conheça nossos projetos!
+        Conheça nossos Projetos e Ações!
       </Heading>
 
       <section

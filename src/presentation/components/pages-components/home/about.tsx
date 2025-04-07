@@ -8,6 +8,8 @@ import { Paragraph } from '@/presentation/components/global-components/text/para
 import { TextHighlight } from '@/presentation/components/global-components/text/textHighlight'
 
 export function About() {
+  const date = new Date().getFullYear() - 2001
+
   return (
     <article className={'flex flex-col gap-12'}>
       <section className={'flex flex-col lg:flex-row justify-between gap-12'}>
@@ -57,8 +59,10 @@ export function About() {
           </Paragraph>
           <Paragraph>
             Tânia Mary Gomez{' '}
-            <TextHighlight>venceu o câncer de mama há 23 anos </TextHighlight>,
-            como compromisso com Deus, criou o projeto Chaveiro da Vida -
+            <TextHighlight>
+              venceu o câncer de mama há {date.toString()} anos
+            </TextHighlight>
+            , como compromisso com Deus, criou o projeto Chaveiro da Vida -
             Prevenção ao Alcance das Mãos, instrumento didático para levar o
             alerta de prevenção ao câncer de Mama.
           </Paragraph>
