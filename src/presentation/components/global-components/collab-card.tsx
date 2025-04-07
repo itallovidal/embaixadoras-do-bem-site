@@ -10,23 +10,27 @@ interface Props {
 
 export function CollabCard({ collab }: { collab: Props }) {
   return (
-    <div className={'w-auto flex flex-col items-center'}>
+    <div
+      className={
+        'animate-showing w-full flex flex-col md:w-[calc(theme(width.1/3)-theme(gap.3))]'
+      }
+    >
       <picture
         className={
-          'border-solid border border-gray-400 overflow-hidden block rounded-full w-[80px] h-[80px]  mb-4'
+          'border-solid self-center border border-gray-400 overflow-hidden block rounded-full w-[200px] h-[200px]'
         }
       >
         <Image
           className={'w-full block object-cover'}
-          width={100}
-          height={100}
+          width={200}
+          height={200}
           src={collab.images[0]}
           alt={`Foto do voluntário ${collab.name}`}
         />
       </picture>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col">
         <Paragraph className="my-0 text-center">{collab.name}</Paragraph>
-        <TextHighlight className="bg-gray-100 p-2 px-4 rounded-md">
+        <TextHighlight className="bg-gray-100 p-2 px-4 rounded-md text-center">
           {collab.responsability}
         </TextHighlight>
       </div>

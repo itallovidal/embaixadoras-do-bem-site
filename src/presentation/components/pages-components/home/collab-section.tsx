@@ -9,7 +9,7 @@ import { SubHeading } from '../../global-components/text/subheading'
 export function CollabSection() {
   const { data: collabs, isLoading } = useQuery({
     queryKey: ['last-collaborators'],
-    queryFn: () => getCollaborators(5),
+    queryFn: () => getCollaborators(3),
   })
 
   const currentyear = new Date().getFullYear()
@@ -17,7 +17,7 @@ export function CollabSection() {
   if (collabs && collabs.length === 0) return null
 
   return (
-    <article className={'flex flex-col  gap-12'}>
+    <article className={'flex flex-col gap-12'}>
       <Heading className="my-0">Com orgulho, nossos voluntários!</Heading>
       <SubHeading>De 2023 a {currentyear}</SubHeading>
       <section
