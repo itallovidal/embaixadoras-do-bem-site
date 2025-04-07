@@ -27,11 +27,9 @@ export function CollabSection() {
         {collabs &&
           collabs.map((collab, i) => <CollabCard key={i} collab={collab} />)}
       </section>
-      {collabs && collabs.length > 5 && (
-        <Button href="collabs" className={'self-center'}>
-          Ver mais
-        </Button>
-      )}
+      <Button href="collabs" className={'self-center'}>
+        Ver voluntários
+      </Button>
     </article>
   )
 }
